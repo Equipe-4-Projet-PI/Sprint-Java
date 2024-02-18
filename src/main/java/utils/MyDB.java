@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyDB {
-    public final String URL = "jdbc:mysql://localhost:3306/artyvenci_database";
+    public final String URL = "jdbc:mysql://localhost:3306/testbase";
     public final String USERNAME = "root";
     public final String PWD = "";
 
