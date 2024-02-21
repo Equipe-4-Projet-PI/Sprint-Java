@@ -1,6 +1,5 @@
-package services;
+/*package services;
 
-import entities.Artist;
 import utils.MyDB;
 
 import java.sql.*;
@@ -131,3 +130,4 @@ public class ServiceArtist implements IService<Artist>{
         return artists;
     }
 }
+*/

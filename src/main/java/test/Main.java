@@ -1,55 +1,56 @@
 package test;
 
-import entities.Artist;
-import entities.SavedUser;
 import entities.User;
-import services.ServiceArtist;
-import services.ServiceSavedUser;
-import utils.MyDB;
+import services.ServiceUser;
 
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
         // Create a sample Artist object
-        Artist artist = new Artist("Yassine", "Yassine@gmail.com", "password", "Artist", "YASSINE", "MANAI", "10/10/2023");
-        Artist artistDelete = new Artist(8);
-        SavedUser savedUser = new SavedUser("Hamadi","Hamadi@gmail.com","123456","SavedUser","Hamadi","Hamouda","10/02/2023");
-        SavedUser savedUserDelete = new SavedUser(9);
-        Artist artistupdate = new Artist(10,"Yassinouyy", "Yassinaa@gmail.com", "password1234", "Artist", "YASSINEEEE", "MANAIrr", "10/10/2023");
-        SavedUser savedUserupdate = new SavedUser(11,"Hamadi123","Hamadi55@gmail.com","123456789","SavedUser","Hamadia","Hamoudass","10/02/2023");
+        //User user1 = new User("Yassine","Yassine@gmail.com","Password","Artist","Yassine","Manai","Tunis","10/10/2005");
+        //User user2 = new User("Ali","aLI@gmail.com","Password","Artist","ALI","Msahli","Tunis","18/03/2003");
+        //User user3 = new User("Hamdi","Hamdi@gmail.com","Password","Member","Hamdi","ben Hamdi","Tunis","18/03/2003");
+
+        //User updateTest = new User(13,"Ali","aLI@gmail.com","Password","Member","ALI","Msahli","Tunis","18/03/2003");
+        User DeleteTest = new User(13);
         // Create an instance of ServiceArtist
-        ServiceArtist serviceArtist = new ServiceArtist();
-        ServiceSavedUser serviceSavedUser = new ServiceSavedUser();
+        ServiceUser serviceUser = new ServiceUser();
 
         try {
             // ADD
-            /*serviceArtist.ADD(artist);
-            System.out.println("Artist added successfully.");
-            serviceSavedUser.ADD(savedUser);
-            System.out.println("SavedUser added successfully.");*/
-
+          /* serviceUser.ADD(user1);
+            System.out.println("User added successfully.");
+            serviceUser.ADD(user2);
+            System.out.println("User added successfully.");
+            serviceUser.ADD(user3);
+            System.out.println("User added successfully.");*/
 
             // DELETE
-           /* serviceArtist.DELETE(artistDelete);
-            System.out.println("Artist Deleted Succefully");
-            serviceSavedUser.DELETE(savedUserDelete);
-            System.out.println("SavedUser Deleted Succefully");*/
+          /* serviceUser.DELETE(DeleteTest);
+            System.out.println("User Deleted Succefully");*/
+
 
 
             //UPDATE
-            /*serviceArtist.UPDATE(artistupdate);
-            System.out.println("Artist Updated Succefully");
-            serviceSavedUser.UPDATE(savedUserupdate);
-            System.out.println("SavedUser Updated Succefully");*/
+            /*serviceUser.UPDATE(updateTest);
+            System.out.println("User Updated Succefully");*/
 
-            //DISPLAY
-            System.out.println(serviceArtist.DISPLAY());
-            System.out.println(serviceSavedUser.DISPLAY());
+          //DISPLAY
+
+            System.out.println(serviceUser.DISPLAY());
+            System.out.println(serviceUser.DISPLAYARTIST());
+
 
 
         } catch (SQLException e) {
-            System.out.println("Error deleting artist: " + e.getMessage());
+            System.out.println("Error : " + e.getMessage());
+        }
+
+        if (serviceUser.authenticateUser("Yassine", "passwordo")) {
+            System.out.println("Authentication successful!");
+        } else {
+            System.out.println("Authentication failed. Invalid username or password.");
         }
     }
 }
