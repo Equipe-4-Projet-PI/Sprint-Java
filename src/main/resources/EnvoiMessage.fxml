@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EnvoiMessageController">
+    <children>
+        <ImageView fitHeight="99.0" fitWidth="655.0" layoutX="-5.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/blanc.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="313.0" fitWidth="629.0" layoutX="-131.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/Capture.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="323.0" fitWidth="556.0" layoutX="94.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/Capture.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="60.0" fitWidth="118.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/logo.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-31.0" layoutY="-110.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fitHeight="37.0" fitWidth="58.0" layoutX="554.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/pers.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="36.0" fitWidth="42.0" layoutX="606.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/params.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="79.0" fitWidth="92.0" layoutX="-9.0" layoutY="-15.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/papillon.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="150.0" fitWidth="118.0" layoutX="106.0" layoutY="-90.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/papillon2.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="53.0" fitWidth="132.0" layoutX="292.0" layoutY="-26.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/papillon3.PNG" />
+            </image>
+        </ImageView>
+        <Text layoutX="118.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accueil" />
+        <Text layoutX="169.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Magasin" />
+        <Text layoutX="224.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enchére" />
+        <Text layoutX="275.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forum" />
+        <Text layoutX="316.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evènements" />
+        <Text fill="#0076a8" layoutX="387.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messagerie">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Text>
+        <Text layoutX="454.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A propos de nous" />
+        <Pane layoutX="245.0" layoutY="126.0" opacity="0.47" prefHeight="260.0" prefWidth="371.0" style="-fx-background-color: #0076a8;">
+            <children>
+                <TextField fx:id="msg" layoutX="20.0" layoutY="217.0" prefHeight="25.0" prefWidth="260.0" />
+                <Button fx:id="Envoi" layoutX="287.0" layoutY="217.0" mnemonicParsing="false" onAction="#ajouter" text="Envoyer" />
+                <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="37.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/pers1.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="37.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/pers1.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="37.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/pers1.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="33.0" fitWidth="32.0" layoutX="308.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/pers2.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="33.0" fitWidth="32.0" layoutX="308.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/pers2.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="33.0" fitWidth="32.0" layoutX="308.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/pers2.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="57.0" fitWidth="209.0" layoutX="75.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/receive.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="57.0" fitWidth="209.0" layoutX="75.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/receive.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="57.0" fitWidth="209.0" layoutX="75.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/receive.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="43.0" fitWidth="189.0" layoutX="164.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/send.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="43.0" fitWidth="189.0" layoutX="164.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/send.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="43.0" fitWidth="189.0" layoutX="169.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/send.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+        <ImageView fitHeight="150.0" fitWidth="118.0" layoutX="116.0" layoutY="-80.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/papillon2.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="150.0" fitWidth="118.0" layoutX="470.0" layoutY="-88.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/papillon2.PNG" />
+            </image>
+        </ImageView>
+        <Text layoutX="554.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bonjour, Utilisateur">
+            <font>
+                <Font size="7.0" />
+            </font>
+        </Text>
+        <Button layoutX="68.0" layoutY="94.0" mnemonicParsing="false" style="-fx-background-color: #B4DBDC;" text="Messages non lus" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Button>
+        <Button layoutX="218.0" layoutY="94.0" mnemonicParsing="false" style="-fx-background-color: #B4DBDC;" text="Créer un groupe" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Button>
+        <Button layoutX="482.0" layoutY="94.0" mnemonicParsing="false" style="-fx-background-color: #B4DBDC;" text="Signaler Un Message" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Button>
+        <ImageView fitHeight="36.0" fitWidth="42.0" layoutX="43.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/grp.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="198.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/grp2.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="458.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/signaler.png" />
+            </image>
+        </ImageView>
+        <Pane layoutX="37.0" layoutY="126.0" opacity="0.47" prefHeight="260.0" prefWidth="200.0" style="-fx-background-color: #0076a8;">
+            <children>
+                <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="5.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/pers1.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="33.0" fitWidth="32.0" layoutX="8.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/pers2.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="5.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/pers1.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="33.0" fitWidth="32.0" layoutX="8.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/pers2.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="33.0" fitWidth="32.0" layoutX="8.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/pers2.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="57.0" fitWidth="163.0" layoutX="43.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/dialog.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="57.0" fitWidth="163.0" layoutX="43.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/dialog.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="57.0" fitWidth="163.0" layoutX="43.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/dialog.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="57.0" fitWidth="163.0" layoutX="43.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/dialog.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="57.0" fitWidth="163.0" layoutX="35.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/dialog.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>
