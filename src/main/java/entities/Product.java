@@ -3,7 +3,7 @@ package entities;
 public class Product {
     int Id_Product , Id_User , ForSale ;
     double Price;
-    String Title , Description , CreationDate;
+    String Title , Description , CreationDate, ProductImage;
 
     /*default constructor*/
 
@@ -11,7 +11,7 @@ public class Product {
 
     /*constructor*/
 
-    public Product(int id_Product, int id_User, int forSale, double price, String title, String description, String creationDate) {
+    public Product(int id_Product, int id_User, int forSale, double price, String title, String description, String creationDate, String productImage) {
         Id_Product = id_Product;
         Id_User = id_User;
         ForSale = forSale;
@@ -19,27 +19,32 @@ public class Product {
         Title = title;
         Description = description;
         CreationDate = creationDate;
+        ProductImage = productImage;
     }
 
     /*constructor without primary & secondary key*/
 
-    public Product(int id_User,int forSale, double price, String title, String description, String creationDate) {
+    public Product(int id_User,int forSale, double price, String title, String description, String creationDate, String productImage) {
         Id_User = id_User;
         ForSale = forSale;
         Price = price;
         Title = title;
         Description = description;
         CreationDate = creationDate;
+        ProductImage = productImage;
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                "ForSale=" + ForSale +
+                "Id_Product=" + Id_Product +
+                ", Id_User=" + Id_User +
+                ", ForSale=" + ForSale +
                 ", Price=" + Price +
                 ", Title='" + Title + '\'' +
                 ", Description='" + Description + '\'' +
-                ", CreationDate=" + CreationDate +
+                ", CreationDate='" + CreationDate + '\'' +
+                ", ProductImage='" + ProductImage + '\'' +
                 '}';
     }
 
@@ -92,6 +97,12 @@ public class Product {
         Description = description;
     }
 
+    public String getProductImage() { return ProductImage;}
+
+    public void setProductImage(String productImage) {
+        ProductImage = productImage;
+    }
+
     public String getCreationDate() {
         return CreationDate;
     }
@@ -99,4 +110,5 @@ public class Product {
     public void setCreationDate(String creationDate) {
         CreationDate = creationDate;
     }
+
 }

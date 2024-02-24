@@ -14,22 +14,23 @@ public class ServiceProduct implements IService<Product>{
     }
     @Override
     public void ajouter(Product product) throws SQLException {
-        String req = "insert into product (Id_User,Title,Description,ForSale,Price,CreationDate)"+
-                "values ('"+product.getId_User()+"','"+product.getTitle()+"','"+product.getDescription()+"','"+product.getForSale()+"','"+product.getPrice()+"','"+product.getCreationDate()+"')";
+        String req = "insert into product (Id_User,Title,Description,ForSale,Price,CreationDate,ProductImage)"+
+                "values ('"+product.getId_User()+"','"+product.getTitle()+"','"+product.getDescription()+"','"+product.getForSale()+"','"+product.getPrice()+"','"+product.getCreationDate()+"','"+product.getProductImage()+"')";
         Statement ste = con.createStatement();
         ste.executeUpdate(req);
     }
 
     @Override
     public void modifier(Product product) throws SQLException {
-        String req = "update product set Title=? , Description=? , ForSale=? , Price=? , CreationDate=? where Id_Product=?";
+        String req = "update product set Title=? , Description=? , ForSale=? , Price=? , CreationDate=? , ProductImage=? where Id_Product=?";
         PreparedStatement pre = con.prepareStatement(req);
         pre.setString(1,product.getTitle());
         pre.setString(2,product.getDescription());
         pre.setInt(3,product.getForSale());
         pre.setDouble(4,product.getPrice());
         pre.setString(5,product.getCreationDate());
-        pre.setInt(6,product.getId_Product());
+        pre.setString(6, product.getProductImage());
+        pre.setInt(7,product.getId_Product());
         pre.executeUpdate();
     }
 
@@ -58,6 +59,7 @@ public class ServiceProduct implements IService<Product>{
             p.setForSale(res.getInt("ForSale"));
             p.setPrice(res.getDouble("Price"));
             p.setCreationDate(res.getString("CreationDate"));
+            p.setProductImage(res.getString("ProductImage"));
             pro.add(p);
         }
 

@@ -112,8 +112,7 @@ public class AddProductController {
         }
         else return 0;
     }
-
-    @FXML
+    /*@FXML
     void AddProduct(ActionEvent event) {
         try{
          userid = Integer.parseInt(pr_userid.getText());
@@ -338,5 +337,5 @@ public class AddProductController {
         pr_add_panel.setVisible(false);
         pr_command_panel.setVisible(false);
 
-    }
+    }*/
 }

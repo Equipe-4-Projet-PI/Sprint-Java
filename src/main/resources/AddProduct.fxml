@@ -185,7 +185,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="pr_add_panel" layoutX="72.0" layoutY="303.0" prefHeight="637.0" prefWidth="1186.0" visible="false">
+      <Pane fx:id="pr_add_panel" layoutX="72.0" layoutY="303.0" prefHeight="637.0" prefWidth="1186.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="637.0" opacity="0.83" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1186.0" />
             <Text fill="#2088dd" layoutX="249.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter votre piece d'art" wrappingWidth="687.13671875">

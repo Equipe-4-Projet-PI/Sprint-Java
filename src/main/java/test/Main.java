@@ -21,19 +21,19 @@ public class Main {
 
         ServiceProduct s = new ServiceProduct();
 
-        Product p1 = new Product(1,0,50.25,"Mona liza","by leonardo davenci",formattedDate);
-        Product p2 = new Product(2,1,25.35,"the statue of liberty","by donald trump",formattedDate);
-        Product p3 = new Product(1,1,20.00,"pizza","by napolion",formattedDate);
+        Product p1 = new Product(1,0,50.25,"Mona liza","by leonardo davenci",formattedDate,"fdsfsd");
+        Product p2 = new Product(2,1,25.35,"the statue of liberty","by donald trump",formattedDate,"sdfvsdv");
+        Product p3 = new Product(1,1,20.00,"pizza","by napolion",formattedDate,"defsqdf");
 
 
         /* add products */
-        /*try {
+        try {
             s.ajouter(p1);
             s.ajouter(p2);
             s.ajouter(p3);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }*/
+        }
         /* show products */
         /*try {
             System.out.println(s.afficher());
