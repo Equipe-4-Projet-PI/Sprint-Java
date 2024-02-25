@@ -1,17 +1,29 @@
 package controllers;
 
 import entities.Product;
+import entities.ProductOrder;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
+import services.ServiceOrder;
 
+import java.awt.event.ActionEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class CardsController {
+    LocalDate currentDate = LocalDate.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    String formattedDate = currentDate.format(formatter);
+    ServiceOrder o = new ServiceOrder();
+
     @FXML
     private Label Date;
 
@@ -33,18 +45,48 @@ public class CardsController {
     @FXML
     private HBox box;
 
+    @FXML
+    private Button OrderButton;
+
+    @FXML
+    private Label IdCard;
+    private String imagePath;
+
     public void setData(Product product){
-        //Image image=new Image(getClass().getResourceAsStream(product.getProductImage()));
+        this.imagePath = product.getProductImage();
         try {
-            ProductImage.setImage(new Image(new FileInputStream(product.getProductImage())));
+            ProductImage.setImage(new Image(new FileInputStream(this.imagePath)));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         Title.setText(product.getTitle());
         Desc.setText(product.getDescription());
-        Fsale.setText(String.valueOf(product.getForSale()));
-        Price.setText(String.valueOf(product.getPrice()));
+        if (product.getForSale()!=0) {
+            //Fsale.setText(String.valueOf(product.getForSale()));
+            Fsale.setText("This Item Is For Sale");
+            Price.setText(String.valueOf(product.getPrice()));
+        }else {
+            Fsale.setVisible(false);
+            Price.setVisible(false);
+            OrderButton.setVisible(false);
+        }
         Date.setText(product.getCreationDate());
+        IdCard.setText(String.valueOf(product.getId_Product()));
+    }
+
+
+    public void AddOrderBtn(javafx.event.ActionEvent actionEvent) {
+        int prod_id = Integer.parseInt(IdCard.getText());
+        double price = Double.parseDouble(Price.getText());
+        String title = Title.getText();
+        String date = formattedDate;
+        String image = this.imagePath;
+        System.out.println(image);
+            try {
+                o.ajouter(new ProductOrder(prod_id, title, date, price,image));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
     }
 }

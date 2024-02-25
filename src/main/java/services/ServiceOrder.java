@@ -15,8 +15,8 @@ public class ServiceOrder implements IServiceOrder<ProductOrder> {
     }
     @Override
     public void ajouter(ProductOrder productOrder) throws SQLException {
-        String req = "insert into orderproduct (Id_Product,Price,Title,OrderDate)"+
-                "values ('"+productOrder.getId_Product()+"','"+productOrder.getPrice()+"','"+productOrder.getTitle()+"','"+productOrder.getOrderDate()+"')";
+        String req = "insert into orderproduct (Id_Product,Price,Title,OrderDate,Prod_img)"+
+                "values ('"+productOrder.getId_Product()+"','"+productOrder.getPrice()+"','"+productOrder.getTitle()+"','"+productOrder.getOrderDate()+"','"+productOrder.getProd_img()+"')";
         Statement ste = con.createStatement();
         ste.executeUpdate(req);
     }
@@ -44,6 +44,7 @@ public class ServiceOrder implements IServiceOrder<ProductOrder> {
             p.setPrice(res.getDouble("Price"));
             p.setTitle(res.getString("Title"));
             p.setOrderDate(res.getString("OrderDate"));
+            p.setProd_img(res.getString("Prod_img"));
             pro.add(p);
         }
 

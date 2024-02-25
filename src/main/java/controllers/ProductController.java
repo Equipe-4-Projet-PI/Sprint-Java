@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.Product;
+import entities.ProductOrder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,6 +52,10 @@ public class ProductController implements Initializable{
     private ImageView product_image;
     @FXML
     private ScrollPane Affichage_panel;
+    @FXML
+    private HBox PanierCard;
+    @FXML
+    private ScrollPane afficher_panier;
 
     int forsalevalue(){
         if (pr_oui.isSelected()){
@@ -75,7 +80,6 @@ public class ProductController implements Initializable{
         }catch(NumberFormatException e){
             System.out.println("invalid integer input");
         }
-           // String imageURL = product_image.getImage().getUrl();
         String imagePath = "";
         Image image = product_image.getImage();
         if (image != null) {
@@ -103,6 +107,9 @@ public class ProductController implements Initializable{
     void CancelAddProduct(ActionEvent event) {
         add_panel.setVisible(false);
         Affichage_panel.setVisible(true);
+        afficher_panier.setVisible(false);
+
+        refreshData();
     }
     @FXML
     void ResetAddProduct(ActionEvent event) {
@@ -116,11 +123,13 @@ public class ProductController implements Initializable{
         pr_oui.setSelected(false);
         product_image.setImage(new Image("file:C:\\Users\\bigal\\Documents\\GitHub\\Sprint-Java\\src\\main\\resources\\img.png"));
     }
+
     @FXML
     void add_form_button(MouseEvent event) {
     add_panel.setVisible(true);
     Affichage_panel.setVisible(false);
-    product_image.setImage(new Image("file:C:\\Users\\bigal\\Documents\\GitHub\\Sprint-Java\\src\\main\\resources\\img.png"));
+        afficher_panier.setVisible(false);
+        product_image.setImage(new Image("file:C:\\Users\\bigal\\Documents\\GitHub\\Sprint-Java\\src\\main\\resources\\img.png"));
     }
 
     @FXML
@@ -155,7 +164,7 @@ public class ProductController implements Initializable{
                 if (i > 0 && i % 4 == 0) {
                     mainVBox.getChildren().add(currentHBox);
                     currentHBox = new HBox();
-                    currentHBox.setSpacing(30);
+                    currentHBox.setSpacing(50);
                 }
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/Card.fxml"));
@@ -171,6 +180,10 @@ public class ProductController implements Initializable{
         }
     }
 
+    public void refreshData() {
+        CardLayout.getChildren().clear();
+        initialize(null, null);
+    }
     private List<Product> recentlyAdded(){
         try {
             return s.afficher();
@@ -181,6 +194,77 @@ public class ProductController implements Initializable{
 
     @FXML
     void MagPage(MouseEvent event) {
+        add_panel.setVisible(false);
+        Affichage_panel.setVisible(true);
+        afficher_panier.setVisible(false);
+
+        refreshData();
+    }
+    @FXML
+    void all_art(MouseEvent event) {
+        add_panel.setVisible(false);
+        Affichage_panel.setVisible(true);
+        afficher_panier.setVisible(false);
+        refreshData();
+    }
+
+    @FXML
+    void my_art(MouseEvent event) {
+
+    }
+    private void removePanierCards() {
+        PanierCard.getChildren().clear();
+    }
+    @FXML
+    void panier_button(MouseEvent event) {
+        removePanierCards();
+        initialize();
+        add_panel.setVisible(false);
+        Affichage_panel.setVisible(false);
+        afficher_panier.setVisible(true);
+    }
+    private List<ProductOrder> ro(){
+        try {
+            return o.afficher();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private List<ProductOrder> ra;
+    public void initialize(){
+        ra =new ArrayList<>(ro());
+        System.out.println("the size of data "+ra.size());
+        try {
+            VBox mainVBox = new VBox();
+            PanierCard.getChildren().add(mainVBox);
+
+            HBox currentHBox = new HBox();
+            currentHBox.setSpacing(50);
+
+            for (int i = 0; i < ra.size(); i++) {
+                if (i > 0 && i % 3 == 0) {
+                    mainVBox.getChildren().add(currentHBox);
+                    currentHBox = new HBox();
+                    currentHBox.setSpacing(50);
+                }
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/PanierCard.fxml"));
+                HBox cardBox = fxmlLoader.load();
+                PanierCardController panierCardController = fxmlLoader.getController();
+                panierCardController.setData(ra.get(i));
+                currentHBox.getChildren().add(cardBox);
+            }
+
+            mainVBox.getChildren().add(currentHBox);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    //refrech fn for orders
+    public void refreshPanierCards() {
+        ra = new ArrayList<>(ro());
+        PanierCard.getChildren().clear();
+        initialize();
     }
 
 }

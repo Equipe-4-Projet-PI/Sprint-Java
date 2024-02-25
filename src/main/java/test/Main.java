@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
     public static void main(String[] args) {
-        LocalDate currentDate = LocalDate.now();
+        /*LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedDate = currentDate.format(formatter);
         MyDB conn1 = MyDB.getInstance();
@@ -23,17 +23,17 @@ public class Main {
 
         Product p1 = new Product(1,0,50.25,"Mona liza","by leonardo davenci",formattedDate,"fdsfsd");
         Product p2 = new Product(2,1,25.35,"the statue of liberty","by donald trump",formattedDate,"sdfvsdv");
-        Product p3 = new Product(1,1,20.00,"pizza","by napolion",formattedDate,"defsqdf");
+        Product p3 = new Product(1,1,20.00,"pizza","by napolion",formattedDate,"defsqdf");*/
 
 
         /* add products */
-        try {
+        /*try {
             s.ajouter(p1);
             s.ajouter(p2);
             s.ajouter(p3);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }
+        }*/
         /* show products */
         /*try {
             System.out.println(s.afficher());
@@ -58,7 +58,7 @@ public class Main {
             throw new RuntimeException(e);
         }*/
 
-        ServiceOrder o = new ServiceOrder();
+        /*ServiceOrder o = new ServiceOrder();
         ProductOrder o1=new ProductOrder(19,"Mona liza",formattedDate,50.25);
         ProductOrder o2=new ProductOrder(20,"the statue of liberty",formattedDate,25.35);
         ProductOrder o3=new ProductOrder(21,"pizza",formattedDate,20.00);
@@ -68,17 +68,17 @@ public class Main {
             o.ajouter(o3);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }
+        }*/
         /*try{
             o.supprimer(o2);
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }*/
-        try {
+        /*try {
             System.out.println(o.afficher());
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
     }
 }
