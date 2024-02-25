@@ -2,20 +2,16 @@ package entities;
 
 import Services.ServiceParticipant;
 
+import java.util.Date;
+
 public class Auction_participant {
-    int id_participant , id_auction , id_user;
+    int id_participant , id_auction ;
     float prix;
-    public Auction_participant(int id_participant, int id_auction, int id_user) {
+    Date date ;
+
+    public Auction_participant(int id_participant, int id_auction, float prix) {
         this.id_participant = id_participant;
         this.id_auction = id_auction;
-        this.id_user = id_user;
-
-    }
-
-    public Auction_participant(int id_participant, int id_auction, int id_user,float prix) {
-        this.id_participant = id_participant;
-        this.id_auction = id_auction;
-        this.id_user = id_user;
         this.prix = prix;
     }
 
@@ -39,13 +35,6 @@ public class Auction_participant {
         this.id_auction = id_auction;
     }
 
-    public int getId_user() {
-        return id_user;
-    }
-
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
-    }
 
     public float getPrix() {
         return prix;
@@ -62,12 +51,19 @@ public class Auction_participant {
         return serviceParticipant.getNom(id);
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "Auction_participant{" +
                 "id_participant=" + id_participant +
                 ", id_auction=" + id_auction +
-                ", id_user=" + id_user +
                 ", prix=" + prix +
                 '}';
     }

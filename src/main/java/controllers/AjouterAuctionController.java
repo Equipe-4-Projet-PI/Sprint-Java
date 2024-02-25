@@ -79,7 +79,8 @@ public class AjouterAuctionController implements Initializable {
 
             if (selectedProductName != null && productNames.contains(selectedProductName)) {
                 int productId = serviceAuction.getProductID(selectedProductName);
-                serviceAuction.ajouter(new Auction( tf_nomAuction.getText() ,dateCloture,dateLancement, Integer.parseInt(tf_prix_initial.getValue().toString()) ,  productId));
+                int id_artist = 1 ;
+                serviceAuction.ajouter(new Auction( tf_nomAuction.getText() ,dateCloture,dateLancement, Integer.parseInt(tf_prix_initial.getValue().toString()) ,  productId ));
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");

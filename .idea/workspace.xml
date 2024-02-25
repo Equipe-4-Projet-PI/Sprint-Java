@@ -5,19 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d221d32-f33c-456f-9e39-957fb388d4d4" name="Changes" comment="version 1">
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EnchereController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ListeEncheresController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ListEncheresController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ListeParticipantsController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ModifierController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ScrollPaneListeEncheresController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/entities/Personne.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/Encher.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/EncherDetail.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/ListeEncheres.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ListeParticipant.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/Modifier.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ScrollPaneListeEncheres.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/recher_icone.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/test.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Services/ServiceParticipant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Services/ServiceParticipant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AjouterAuctionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AjouterAuctionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Auction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Auction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Auction_participant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Auction_participant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/test/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test/MainFX.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +47,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -161,7 +170,12 @@
       <workItem from="1708427365491" duration="2067000" />
       <workItem from="1708443835580" duration="10834000" />
       <workItem from="1708544476453" duration="5334000" />
-      <workItem from="1708590910707" duration="19712000" />
+      <workItem from="1708590910707" duration="25575000" />
+      <workItem from="1708694685016" duration="12000" />
+      <workItem from="1708694709587" duration="19580000" />
+      <workItem from="1708759436782" duration="46000" />
+      <workItem from="1708814863700" duration="13531000" />
+      <workItem from="1708828631295" duration="210000" />
     </task>
     <task id="LOCAL-00001" summary="version 1">
       <option name="closed" value="true" />
@@ -197,6 +211,118 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="version 1" />
     <option name="LAST_COMMIT_MESSAGE" value="version 1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
+          <line>177</line>
+          <properties class="Services.ServiceAuction" method="getById">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
+          <line>155</line>
+          <properties class="Services.ServiceAuction" method="modifierPrixFinal">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
+          <line>59</line>
+          <properties class="Services.ServiceAuction" method="supprimer">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
+          <line>262</line>
+          <properties class="Services.ServiceAuction" method="loadImageFromDatabase">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
+          <line>141</line>
+          <properties class="controllers.EncherDetailController" method="loadImageFromDatabase">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
+          <line>79</line>
+          <properties class="controllers.EncherDetailController" method="handleParticipantsLabelClick">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
+          <line>148</line>
+          <properties class="controllers.EncherDetailController" method="countPartcipant">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceParticipant.java</url>
+          <line>30</line>
+          <properties class="Services.ServiceParticipant" method="modifier">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
+          <line>66</line>
+          <properties class="controllers.EncherDetailController" method="initData">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/ListEncheresController.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
+          <line>120</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
+          <line>178</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XPathView.XPathProjectComponent">
     <history />

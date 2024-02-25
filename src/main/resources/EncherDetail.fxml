@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EncherDetailController">
+   <children>
+      <Label layoutX="78.0" layoutY="118.0" text="Nom enchere" />
+      <Label layoutX="81.0" layoutY="147.0" text="date lancement" />
+      <Label layoutX="81.0" layoutY="181.0" text="Date cloture" />
+      <Label layoutX="78.0" layoutY="220.0" text="Prix initial" />
+      <Label layoutX="78.0" layoutY="258.0" text="Prix final" />
+      <Label fx:id="nomEnchere" layoutX="184.0" layoutY="117.0" prefHeight="18.0" prefWidth="72.0" text="Nom" textFill="#ea2020" />
+      <Label fx:id="dateLancement" layoutX="184.0" layoutY="147.0" text="Date lancement" textFill="#f73939" />
+      <Label fx:id="prixFinal" layoutX="184.0" layoutY="258.0" prefHeight="18.0" prefWidth="72.0" text="prix final" textFill="#ea2020" />
+      <Label fx:id="prixInitial" layoutX="184.0" layoutY="220.0" prefHeight="18.0" prefWidth="72.0" text="Prix initial" textFill="#ea2020" />
+      <Label fx:id="dateCloture" layoutX="184.0" layoutY="180.0" prefHeight="18.0" prefWidth="72.0" text="Date Cloture" textFill="#ea2020" />
+      <ImageView fx:id="imageProduit" fitHeight="172.0" fitWidth="238.0" layoutX="507.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="onMouse" layoutX="78.0" layoutY="292.0" onMouseClicked="#handleParticipantsLabelClick" prefHeight="18.0" prefWidth="84.0" text="Les participant" />
+      <Label fx:id="nbreParticipant" layoutX="184.0" layoutY="293.0" text="Nombre de participant" />
+      <Button layoutX="474.0" layoutY="356.0" mnemonicParsing="false" onAction="#participerClicked" text="Participer" />
+      <Spinner fx:id="spinner" layoutX="443.0" layoutY="405.0" visible="false" />
+      <Button fx:id="effectuerButton" layoutX="475.0" layoutY="452.0" mnemonicParsing="false" onAction="#effectuerArgent" text="Effectuer" visible="false" />
+
+   </children>
+</AnchorPane>

@@ -54,8 +54,8 @@ public class ServiceParticipant implements IService<Auction_participant> {
             Auction_participant a = new Auction_participant();
             a.setId_participant(res.getInt("id_Participant"));
             a.setId_auction(res.getInt("id_Auction"));
-            a.setId_user(res.getInt("id_User"));
             a.setPrix(res.getFloat("prix"));
+            a.setDate(res.getTimestamp("date"));
             list.add(a);
         }
         return list;
@@ -63,7 +63,7 @@ public class ServiceParticipant implements IService<Auction_participant> {
 
     public List<Auction_participant> list_by_auction(int id_auction ) throws SQLException{
         List<Auction_participant> list = new ArrayList<>();
-        String req = "select * from auction_participant where id_Auction = ?";
+        String req = "SELECT u.Username, ap.id_Participant, ap.id_Auction, ap.prix, ap.date FROM auction_participant ap JOIN User u ON u.id = ap.id_Participant WHERE ap.id_Auction = ?";
         PreparedStatement pre = con.prepareStatement(req);
         pre.setInt(1,id_auction);
         ResultSet res = pre.executeQuery();
@@ -71,13 +71,13 @@ public class ServiceParticipant implements IService<Auction_participant> {
             Auction_participant a = new Auction_participant();
             a.setId_participant(res.getInt("id_Participant"));
             a.setId_auction(res.getInt("id_Auction"));
-            a.setId_user(res.getInt("id_User"));
             a.setPrix(res.getFloat("prix"));
+            a.setDate(res.getTimestamp("date"));
             list.add(a);
         }
         return list;
     }
-
+    //get nom partcipant a partir de son ID
     public String getNom(int id) {
         String nom = null;
 
@@ -113,7 +113,6 @@ public class ServiceParticipant implements IService<Auction_participant> {
 
             ResultSet resultSet = pre.executeQuery();
             if (resultSet.next()) {
-                // Utilisez le type de données approprié pour récupérer un flux d'octets (InputStream)
                 imageStream = resultSet.getBinaryStream("image");
             }
         } catch (SQLException e) {
@@ -130,7 +129,6 @@ public class ServiceParticipant implements IService<Auction_participant> {
             String req = "SELECT prix FROM auction_participant WHERE participant_id = ? ORDER BY date DESC LIMIT 1";
             PreparedStatement pre = con.prepareStatement(req);
             pre.setInt(1, id);
-
             ResultSet resultSet = pre.executeQuery();
             if (resultSet.next()) {
                 prixAjoute = resultSet.getFloat("prix");
@@ -140,6 +138,45 @@ public class ServiceParticipant implements IService<Auction_participant> {
         }
 
         return prixAjoute;
+    }
+
+    public int countParticipant(int idAuction) throws SQLException {
+        int count = 0;
+
+        try {
+            String req = "SELECT COUNT(*) as participant_count FROM auction_participant WHERE id_auction=?";
+            PreparedStatement pre = con.prepareStatement(req);
+            pre.setInt(1, idAuction);
+            ResultSet resultSet = pre.executeQuery();
+
+            if (resultSet.next()) {
+                // Récupérer le nombre de participants
+                count = resultSet.getInt("participant_count");
+            }
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+    public Auction_participant getParticipantById(int id_Participant) throws SQLException {
+        String req = "select * from auction_participant where id_Participant=?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1, id_Participant);
+        ResultSet res = pre.executeQuery();
+        Auction_participant a = new Auction_participant();
+        while (res.next()) {
+            a.setId_participant(res.getInt("id_Participant"));
+            a.setId_auction(res.getInt("id_Auction"));
+            a.setPrix(res.getFloat("prix"));
+            a.setDate(res.getTimestamp("date"));
+            return a;
+        }
+        return  a;
     }
 
 }

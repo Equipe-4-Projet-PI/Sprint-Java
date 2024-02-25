@@ -2,10 +2,40 @@ package entities;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Auction {
     int id_artist;
+
+    private String cheminImageProduit;
+
+    int id , id_produit;
+    String nom;
+    LocalDate date_lancement , date_cloture ;
+    int prix_initial , prix_final ;
+
+    public Auction(  String nom, LocalDate date_cloture, LocalDate date_lancement,  int prix_initial, int prix_final , int id_produit) {
+        this.id_produit = id_produit;
+        this.nom = nom;
+        this.date_lancement = date_lancement;
+        this.date_cloture = date_cloture;
+        this.prix_initial = prix_initial;
+        this.prix_final = prix_final;
+    }
+
+    public Auction() {
+
+    }
+
+    public Auction(String nom, LocalDate date_cloture, LocalDate date_lancement, int prix_initial, int id_produit) {
+        this.nom= nom;
+        this.date_cloture=date_cloture;
+        this.date_lancement=date_lancement;
+        this.prix_initial= prix_initial;
+        this.id_produit=id_produit;
+
+    }
 
     public int getId_artist() {
         return id_artist;
@@ -15,55 +45,12 @@ public class Auction {
         this.id_artist = id_artist;
     }
 
-    private String cheminImageProduit;
     public String getCheminImageProduit() {
         return cheminImageProduit;
     }
 
     public void setCheminImageProduit(String cheminImageProduit) {
         this.cheminImageProduit = cheminImageProduit;
-    }
-
-    int id , id_produit;
-    String nom;
-    LocalDate date_lancement , date_cloture ;
-    int prix_initial , prix_final ;
-
-    public Auction( int id_produit, String nom, int prix_initial) {
-        this.id_produit = id_produit;
-        this.nom = nom;
-        this.prix_initial = prix_initial;
-    }
-
-    public Auction(  String nom, LocalDate date_cloture,  LocalDate date_lancement,int prix_initial,int id_produit) {
-        this.date_cloture = date_cloture;
-        this.date_lancement = date_lancement;
-        this.id_produit = id_produit;
-        this.nom = nom;
-        this.prix_initial = prix_initial;
-    }
-
-    public Auction(int id, int id_produit, LocalDate date_cloture, String nom, LocalDate date_lancement, int prix_initial, int prix_final) {
-        this.id = id;
-        this.id_produit = id_produit;
-        this.date_cloture = date_cloture;
-        this.nom = nom;
-        this.date_lancement = date_lancement;
-        this.prix_initial = prix_initial;
-        this.prix_final = prix_final;
-    }
-
-    public Auction(int id_produit, LocalDate date_cloture, String nom, LocalDate date_lancement, int prix_initial, int prix_final) {
-        this.id_produit = id_produit;
-        this.date_cloture = date_cloture;
-        this.nom = nom;
-        this.date_lancement = date_lancement;
-        this.prix_initial = prix_initial;
-        this.prix_final = prix_final;
-    }
-
-    public Auction() {
-
     }
 
     public LocalDate getDate_cloture() {
@@ -123,7 +110,7 @@ public class Auction {
         this.nom = nom;
     }
 
-    public String getFormattedDate1() {
+    /*public String getFormattedDate1() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(getDate_lancement());
     }
@@ -131,6 +118,15 @@ public class Auction {
     public String getFormattedDate2() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(getDate_cloture());
+    }*/
+    public String getFormattedDate1() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return getDate_lancement().format(formatter);
+    }
+
+    public String getFormattedDate2() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return getDate_cloture().format(formatter);
     }
 
     @Override

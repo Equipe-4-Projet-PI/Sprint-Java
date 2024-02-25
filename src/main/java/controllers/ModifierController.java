@@ -39,15 +39,10 @@ public class ModifierController implements Initializable {
         int encher_id = 10;
 
         try {
-            Auction existingAuction = serviceAuction.getAuctionByIdNoImage(encher_id);
-
-            tf_nomAuction.setText(existingAuction.getNom());
-            tf_prix_initial.getValueFactory().setValue(existingAuction.getPrix_initial());
-            tf_date.setValue(LocalDate.parse(existingAuction.getFormattedDate1()));
-            tf_dateC.setValue(LocalDate.parse(existingAuction.getFormattedDate2()));
-
             tf_produit.setText(serviceAuction.loadProductFromDatabase(encher_id));
             tf_produit.setDisable(true);
+            SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 1);
+            tf_prix_initial.setValueFactory(valueFactory);
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -58,10 +53,10 @@ public class ModifierController implements Initializable {
     }
     @FXML
     void ModifierAuction() {
-        int auctionId = 10;
+        int auctionId = 1;
 
         try {
-            Auction existingAuction = serviceAuction.getAuctionByIdNoImage(auctionId);
+            Auction existingAuction = serviceAuction.getAuctionById(auctionId);
 
             existingAuction.setNom(tf_nomAuction.getText());
             existingAuction.setPrix_initial(tf_prix_initial.getValue());

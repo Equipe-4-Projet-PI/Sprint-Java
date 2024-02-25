@@ -1,7 +1,7 @@
 package controllers;
 
 import Services.ServiceAuction;
-import entities.Personne;
+import entities.Auction;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,14 +14,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class Test implements Initializable {
+public class Test {
 
     @FXML
     private HBox encherLayout;
     ServiceAuction serviceAuction = new ServiceAuction();
-    private List<Personne> listePersonne;
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    private List<Auction> listePersonne;
+
+   /* public void initialize(URL location, ResourceBundle resources) {
         listePersonne = new ArrayList<>(afficherList());
         try {
             for(int i=0 ;i<listePersonne.size();i++){
@@ -43,6 +43,6 @@ public class Test implements Initializable {
         Personne personne = new Personne(200 , "kenzaTestProduit" , new Date() , new Date());
         list.add(personne);
         return list;
-    }
+    }*/
 
 }
