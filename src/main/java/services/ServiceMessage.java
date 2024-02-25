@@ -60,6 +60,7 @@ public class ServiceMessage implements IService<Message>{
     public void supprimer(Message message) throws SQLException {
         String Req = "DELETE FROM message WHERE IdMsg  = ?";
         try (PreparedStatement pre = conn.prepareStatement(Req)) {
+            
             pre.setInt(1, message.getIdMsg());
             System.out.println(message.getIdMsg());
             pre.executeUpdate();
@@ -69,6 +70,7 @@ public class ServiceMessage implements IService<Message>{
             System.out.println("Error deleting message: " + e.getMessage());
         }
     }
+
 
     @Override
     public List<Message> afficher() throws SQLException {

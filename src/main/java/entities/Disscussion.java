@@ -7,6 +7,10 @@ public class Disscussion {
     public Disscussion() {
     }
 
+    public Disscussion(int idDis) {
+        this.idDis = idDis;
+    }
+
     public Disscussion(int idSender, int idReceiver) {
         this.idSender = idSender;
         this.idReceiver = idReceiver;
