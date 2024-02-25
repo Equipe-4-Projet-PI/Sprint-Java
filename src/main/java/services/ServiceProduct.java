@@ -44,6 +44,28 @@ public class ServiceProduct implements IService<Product>{
     }
 
     @Override
+    public List<Product> maList(int id) throws SQLException {
+        List<Product> pro = new ArrayList<>();
+        String req ="select * from product where Id_User=?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1,id);
+        ResultSet res = pre.executeQuery();
+        while (res.next()){
+            Product p = new Product();
+            p.setId_Product(res.getInt(1));
+            p.setId_User(res.getInt(2));
+            p.setTitle(res.getString("Title"));
+            p.setDescription(res.getString("Description"));
+            p.setForSale(res.getInt("ForSale"));
+            p.setPrice(res.getDouble("Price"));
+            p.setCreationDate(res.getString("CreationDate"));
+            p.setProductImage(res.getString("ProductImage"));
+            pro.add(p);
+        }
+        return pro;
+    }
+
+    @Override
     public List<Product> afficher() throws SQLException {
         List<Product> pro = new ArrayList<>();
 

@@ -108,7 +108,7 @@ public class ProductController implements Initializable{
         add_panel.setVisible(false);
         Affichage_panel.setVisible(true);
         afficher_panier.setVisible(false);
-
+        afficher_ma_list.setVisible(false);
         refreshData();
     }
     @FXML
@@ -197,7 +197,7 @@ public class ProductController implements Initializable{
         add_panel.setVisible(false);
         Affichage_panel.setVisible(true);
         afficher_panier.setVisible(false);
-
+        afficher_ma_list.setVisible(false);
         refreshData();
     }
     @FXML
@@ -205,13 +205,11 @@ public class ProductController implements Initializable{
         add_panel.setVisible(false);
         Affichage_panel.setVisible(true);
         afficher_panier.setVisible(false);
+        afficher_ma_list.setVisible(false);
         refreshData();
     }
 
-    @FXML
-    void my_art(MouseEvent event) {
 
-    }
     private void removePanierCards() {
         PanierCard.getChildren().clear();
     }
@@ -222,6 +220,8 @@ public class ProductController implements Initializable{
         add_panel.setVisible(false);
         Affichage_panel.setVisible(false);
         afficher_panier.setVisible(true);
+        afficher_ma_list.setVisible(false);
+
     }
     private List<ProductOrder> ro(){
         try {
@@ -266,5 +266,61 @@ public class ProductController implements Initializable{
         PanierCard.getChildren().clear();
         initialize();
     }
+    @FXML
+    private ScrollPane afficher_ma_list;
 
+    @FXML
+    private HBox ma_list_box;
+    @FXML
+    void my_art(MouseEvent event) {
+        afficher_ma_list.setVisible(true);
+        add_panel.setVisible(false);
+        Affichage_panel.setVisible(false);
+        afficher_panier.setVisible(false);
+        removeMyPanierCards();
+        initialized();
+    }
+    ///partie ma liste ////////////////////////
+    int id=2;
+    private List<Product> fo(){
+        try {
+            return s.maList(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private List<Product> fa;
+    public void initialized(){
+        fa =new ArrayList<>(fo());
+        System.out.println("the size of data "+fa.size());
+        try {
+            VBox mainVBox = new VBox();
+            ma_list_box.getChildren().add(mainVBox);
+
+            HBox currentHBox = new HBox();
+            currentHBox.setSpacing(50);
+
+            for (int i = 0; i < fa.size(); i++) {
+                if (i > 0 && i % 3 == 0) {
+                    mainVBox.getChildren().add(currentHBox);
+                    currentHBox = new HBox();
+                    currentHBox.setSpacing(50);
+                }
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/MyCard.fxml"));
+                HBox cardBox = fxmlLoader.load();
+                MyCardController myCardController = fxmlLoader.getController();
+                myCardController.setData(fa.get(i));
+                currentHBox.getChildren().add(cardBox);
+            }
+
+            mainVBox.getChildren().add(currentHBox);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void removeMyPanierCards() {
+        ma_list_box.getChildren().clear();
+    }
+    //////////////////////ma liste end ////////////////////////////
 }

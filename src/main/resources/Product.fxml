@@ -229,5 +229,21 @@
             </VBox>
          </content>
       </ScrollPane>
+      <ScrollPane fx:id="afficher_ma_list" hbarPolicy="NEVER" layoutX="108.0" layoutY="280.0" visible="false">
+         <content>
+            <VBox prefHeight="518.0" prefWidth="1055.0">
+               <children>
+                  <HBox fx:id="ma_list_box" prefHeight="521.0" prefWidth="1055.0">
+                     <VBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

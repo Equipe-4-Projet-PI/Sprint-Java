@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CardsController">
+<HBox fx:id="box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="302.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CardsController">
    <children>
       <VBox prefHeight="352.0" prefWidth="250.0">
          <children>
@@ -32,27 +32,27 @@
             </HBox>
             <Label fx:id="Title" text="Title">
                <VBox.margin>
-                  <Insets left="20.0" top="10.0" />
+                  <Insets left="20.0" />
                </VBox.margin>
             </Label>
             <Label fx:id="Desc" text="Description">
                <VBox.margin>
-                  <Insets left="20.0" top="10.0" />
+                  <Insets left="20.0" />
                </VBox.margin>
             </Label>
             <Label fx:id="Fsale" text="For sale">
                <VBox.margin>
-                  <Insets left="20.0" top="10.0" />
+                  <Insets left="20.0" />
                </VBox.margin>
             </Label>
             <Label fx:id="Price" text="Price">
                <VBox.margin>
-                  <Insets left="20.0" top="10.0" />
+                  <Insets left="20.0" />
                </VBox.margin>
             </Label>
             <Label fx:id="Date" text="Creation Date">
                <VBox.margin>
-                  <Insets left="20.0" top="10.0" />
+                  <Insets left="20.0" />
                </VBox.margin>
             </Label>
             <Button fx:id="OrderButton" mnemonicParsing="false" onAction="#AddOrderBtn" text="Order">
