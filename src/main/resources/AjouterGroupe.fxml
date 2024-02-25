@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterGroupeController">
+   <children>
+      <ImageView fitHeight="90.0" fitWidth="661.0" layoutX="-51.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/blanc.PNG" />
+         </image>
+      </ImageView>
+      <Text layoutX="257.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forum" />
+      <Text layoutX="302.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evènements" />
+      <Text fill="#0076a8" layoutX="374.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Messagerie">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-11.0" layoutY="-90.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="79.0" fitWidth="92.0" layoutX="11.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/papillon.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="53.0" fitWidth="132.0" layoutX="312.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/papillon3.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="118.0" layoutX="136.0" layoutY="-60.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/papillon2.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="118.0" layoutX="495.0" layoutY="-77.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/papillon2.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="37.0" fitWidth="58.0" layoutX="525.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/pers.PNG" />
+         </image>
+      </ImageView>
+      <Text layoutX="445.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A propos de nous" />
+      <Text layoutX="205.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enchére" />
+      <Text layoutX="154.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Magasin" />
+      <ImageView fitHeight="60.0" fitWidth="118.0" layoutX="9.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/logo.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="36.0" fitWidth="42.0" layoutX="569.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/params.PNG" />
+         </image>
+      </ImageView>
+      <Text layoutX="109.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accueil" />
+      <ImageView fitHeight="318.0" fitWidth="612.0" layoutX="9.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Capture.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="318.0" fitWidth="612.0" layoutX="45.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Capture.PNG" />
+         </image>
+      </ImageView>
+      <Text fill="#0a6386" layoutX="30.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer un groupe" wrappingWidth="250.96044921875">
+         <font>
+            <Font name="Bernard MT Condensed" size="38.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="69.0" fitWidth="494.0" layoutX="48.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/blanc.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="69.0" fitWidth="494.0" layoutX="48.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/blanc.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="69.0" fitWidth="494.0" layoutX="34.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/blanc.PNG" />
+         </image>
+      </ImageView>
+      <RadioButton layoutX="84.0" layoutY="210.0" mnemonicParsing="false" text="user 1" textFill="#0076a8">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="84.0" layoutY="236.0" mnemonicParsing="false" text="user 2" textFill="#0076a8">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="84.0" layoutY="264.0" mnemonicParsing="false" text="user 3" textFill="#0076a8">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="84.0" layoutY="290.0" mnemonicParsing="false" text="user 4" textFill="#0076a8">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="84.0" layoutY="316.0" mnemonicParsing="false" text="user 5" textFill="#0076a8">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </RadioButton>
+      <Button fx:id="Creer" layoutX="456.0" layoutY="343.0" mnemonicParsing="false" style="-fx-background-color: #4d9ebc;" text="créer">
+         <font>
+            <Font name="Arial Bold Italic" size="16.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="295.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/grp2.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

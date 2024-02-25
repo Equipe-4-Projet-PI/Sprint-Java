@@ -2,14 +2,18 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class SignalerMessageController {
-
-    @FXML
-    private RadioButton Autre;
 
     @FXML
     private RadioButton Contenu_inapproprie;
@@ -30,13 +34,14 @@ public class SignalerMessageController {
     private RadioButton spam;
 
     @FXML
-    void Signaler(ActionEvent event) {
+    void Signaler(ActionEvent event) throws IOException {
         RadioButton selectedRadioButton = null;
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Avertissement");
+
         // Vérifie quel bouton radio est sélectionné
-        if (Autre.isSelected()) {
-            selectedRadioButton = Autre;
-        } else if (Contenu_inapproprie.isSelected()) {
+        if (Contenu_inapproprie.isSelected()) {
             selectedRadioButton = Contenu_inapproprie;
         } else if (Contenu_offensant.isSelected()) {
             selectedRadioButton = Contenu_offensant;
@@ -49,17 +54,17 @@ public class SignalerMessageController {
         }
 
         if (selectedRadioButton == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Avertissement");
+            // Aucun bouton radio sélectionné
             alert.setContentText("Veuillez sélectionner une raison pour signaler le message.");
-            alert.showAndWait();
         } else {
-            String reason = selectedRadioButton.getText();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Confirmation de signalement");
-            alert.setHeaderText(null);
-            alert.setContentText("Vous avez signalé le message pour la raison suivante : " + reason);
-            alert.showAndWait();
+            // Bouton radio sélectionné, affichage de l'alerte avec la raison
+            alert.setContentText("Une information sera envoyée à l'administrateur pour la raison suivante :\n"
+                    + selectedRadioButton.getText());
         }
+
+        alert.showAndWait();
+
     }
+
+
 }
