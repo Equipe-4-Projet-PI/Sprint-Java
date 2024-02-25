@@ -24,7 +24,7 @@ public class ForumTemplateController {
     private Label posts_num;
 
     @FXML
-    private Label title_id;
+    private Button title_id;
 
     @FXML
     private Button butt_mod;
@@ -55,7 +55,45 @@ public class ForumTemplateController {
 
     @FXML
     void Modifier(ActionEvent event) {
-
+        try{
+            Parent root= loadRootLayout();
+            del_butt.getScene().setRoot(root);
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
+    private Parent loadRootLayout() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierForum.fxml"));
+        ModifierForumController controller = new ModifierForumController();
+        loader.setController(controller);
+        Parent root = loader.load();
+        controller.setData(fdetest); // Add data to the controller
+        return root;
+    }
+
+    @FXML
+    void GoToForum(ActionEvent event) {
+        try{
+            Parent root = loadRootLayoutForForum();
+            del_butt.getScene().setRoot(root);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Parent loadRootLayoutForForum() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddPost.fxml"));
+        AddPostController controller = new AddPostController();
+        loader.setController(controller);
+        controller.setData(fdetest); // Add data to the controller
+        Parent root = loader.load();
+        return root;
+    }
+
 
 }

@@ -12,12 +12,12 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AddForum.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherForum.fxml"));
         Parent root= fxmlLoader.load();
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Ajouter Forum");
+        stage.setTitle("ArtyVenci");
         stage.show();
     }
     public static void main(String args)

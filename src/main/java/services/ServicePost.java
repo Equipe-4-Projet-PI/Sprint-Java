@@ -15,31 +15,53 @@ public class ServicePost implements IService<PostEntity>{
     }
     @Override
     public void ajouter(PostEntity postEntity) throws SQLException {
-        String req="Insert into post(id_Forum,id_User,textmessage,like_number,timeofcreation,dateofcreation) values(?,?,?,?,?,?)";
+        String req="Insert into post(id_Forum,id_User,title,textmessage,like_number,timeofcreation) values(?,?,?,?,?,?)";
         PreparedStatement pre = con.prepareStatement(req);
         pre.setInt(1,postEntity.getId_forum());
         pre.setInt(2,postEntity.getId_user());
-        pre.setString(3,postEntity.getText());
-        pre.setInt(4,postEntity.getLike_num());
-        pre.setTimestamp(5,postEntity.getTime());
-        java.sql.Date mySQLDate = new java.sql.Date(postEntity.getDate().getTime());
-        pre.setDate(6,mySQLDate);
+        pre.setString(3,postEntity.getTitle());
+        pre.setString(4,postEntity.getText());
+        pre.setInt(5,postEntity.getLike_num());
+        pre.setTimestamp(6,postEntity.getTime());
+
         pre.executeUpdate();
+        updateRepliesCount(postEntity.getId_forum(),1);
+    }
+    int getRepliesCount(long forumId) throws SQLException {
+        String sqlGetRepliesCount = "SELECT replies_number FROM forum WHERE id_forum = ?";
+        try (PreparedStatement statement = con.prepareStatement(sqlGetRepliesCount)) {
+            statement.setLong(1, forumId);
+            ResultSet rs = statement.executeQuery();
+            if (!rs.next()) {
+                return 0;
+            } else {
+                return rs.getInt("replies_number");
+            }
+        }
     }
 
+    void updateRepliesCount(long forumId,int i) throws SQLException {
+        int oldRepliesCount = getRepliesCount(forumId);
+        int newRepliesCount = oldRepliesCount + i;
+        String sqlUpdateRepliesCount = "UPDATE forum SET replies_number = ? WHERE id_forum = ?";
+        try (PreparedStatement statement = con.prepareStatement(sqlUpdateRepliesCount)) {
+            statement.setInt(1, newRepliesCount);
+            statement.setLong(2, forumId);
+            statement.executeUpdate();
+        }
+    }
     @Override
     public void modifier(PostEntity postEntity) throws SQLException {
-        String req = "Update post set id_forum=? , id_user=? ,textmessage=?,like_number=?,timeofcreation=?,dateofcreation=?  where id_post=?";
+        String req = "Update post set id_forum=? , id_user=? ,title=?,textmessage=?,like_number=?,timeofcreation=?  where id_post=?";
 
         PreparedStatement pre = con.prepareStatement(req);
 
         pre.setInt(1,postEntity.getId_forum());
         pre.setInt(2,postEntity.getId_user());
         pre.setString(3,postEntity.getText());
-        pre.setInt(4,postEntity.getLike_num());
-        pre.setTimestamp(5,postEntity.getTime());
-        java.sql.Date mySQLDate = new java.sql.Date(postEntity.getDate().getTime());
-        pre.setDate(6,mySQLDate);
+        pre.setString(4,postEntity.getText());
+        pre.setInt(5,postEntity.getLike_num());
+        pre.setTimestamp(6,postEntity.getTime());
 
         pre.setInt(7,postEntity.getId_post());
 
@@ -51,6 +73,7 @@ public class ServicePost implements IService<PostEntity>{
         String req ="DELETE FROM post where id_post="+postEntity.getId_post()+";";
         Statement ste = con.createStatement();
         ste.executeUpdate(req);
+        updateRepliesCount(postEntity.getId_forum(),-1);
     }
 
     @Override
@@ -70,10 +93,10 @@ public class ServicePost implements IService<PostEntity>{
             f.setId_post(res.getInt(1));
             f.setId_forum(res.getInt(2));
             f.setId_user(res.getInt(3));
-            f.setText(res.getString(4));
-            f.setLike_num(res.getInt(5));
-            f.setTime(res.getTimestamp(6));
-            f.setDate(res.getDate(7));
+            f.setTitle(res.getString(4));
+            f.setText(res.getString(5));
+            f.setLike_num(res.getInt(6));
+            f.setTime(res.getTimestamp(7));
 
             posts.add(f);
         }

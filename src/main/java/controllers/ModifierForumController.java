@@ -1,4 +1,5 @@
 package controllers;
+import entities.ForumEntity;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,15 +21,25 @@ public class ModifierForumController {
     @FXML
     private Button id_butt;
 
+    private ForumEntity newForum;
+    private ForumEntity oldForum;
+
+    public void setData(ForumEntity forum)
+    {
+        this.f_desc_mod.setText(forum.getDescription());
+        this.f_title_mod.setText(forum.getTitle());
+        this.oldForum = forum;
+    }
     ServiceForum SF = new ServiceForum();
-//    @FXML
-//    void SaveNewDate(ActionEvent event) {
-//        try {
-//            SF.modifier();
-//            Parent root= FXMLLoader.load(getClass().getResource("/AfficherForum.fxml"));
-//            id_butt.getScene().setRoot(root);
-//        } catch (SQLException | IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    @FXML
+    void SaveNewDate(ActionEvent event) {
+        try {
+            newForum = new ForumEntity(oldForum.getId_forum(), f_title_mod.getText(),f_desc_mod.getText(), oldForum.getReplies_num(),oldForum.getDate());
+            SF.modifier(newForum);
+            Parent root= FXMLLoader.load(getClass().getResource("/AfficherForum.fxml"));
+            id_butt.getScene().setRoot(root);
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

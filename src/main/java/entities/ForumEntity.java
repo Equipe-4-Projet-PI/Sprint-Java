@@ -14,6 +14,15 @@ public class ForumEntity {
     public ForumEntity(){
 
     };
+
+    public ForumEntity(int id_forum, String title, String description, int replies_num, Date date) {
+        this.id_forum = id_forum;
+        this.title = title;
+        this.description = description;
+        this.replies_num = replies_num;
+        this.date = date;
+    }
+
     public ForumEntity(int id_forum, String title, String description, int replies_num) {
         this.id_forum = id_forum;
         this.title = title;

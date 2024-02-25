@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 public class PostEntity  {
     private int id_post,id_forum,id_user;
     private String text;
+    private String title;
     private int like_num;
     private Timestamp time;
     private Date date;
@@ -14,6 +15,19 @@ public class PostEntity  {
     public PostEntity()
     {
 
+    }
+    public PostEntity(int id_post, int id_forum, int id_user,String title, String text, int like_num) {
+        this.id_post = id_post;
+        this.title = title;
+        this.id_forum = id_forum;
+        this.id_user = id_user;
+        this.text = text;
+        this.like_num = like_num;
+
+        Date now = new Date();
+        this.date = now;
+
+        this.time = new Timestamp(date.getTime());
     }
     public PostEntity(int id_post, int id_forum, int id_user, String text, int like_num) {
         this.id_post = id_post;
@@ -40,6 +54,14 @@ public class PostEntity  {
         this.time = new Timestamp(date.getTime());
     }
     // GETTERS AND SETTERS
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public int getId_post() {
         return id_post;

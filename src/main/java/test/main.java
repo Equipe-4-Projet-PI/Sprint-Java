@@ -56,9 +56,9 @@ public class main {
         /*================POST SERVICE====================*/
         ServicePost postService = new ServicePost();
         /*================POST Entities====================*/
-        PostEntity p1 = new PostEntity(1,1,"Yes i like it");
+        PostEntity p1 = new PostEntity(1,1,"it is interesting");
         PostEntity p2 = new PostEntity(2,1,"It really is");
-        PostEntity p3 = new PostEntity(3,2,1,"Indeed i do well ofc",5);
+        PostEntity p3 = new PostEntity(4,2,1,"Indeed i do well ofc",5);
 //        //----------------Add Test----------------------
 //        try {
 //            postService.ajouter(p1);
