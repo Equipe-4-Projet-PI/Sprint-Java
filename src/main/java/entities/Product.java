@@ -1,5 +1,7 @@
 package entities;
 
+
+
 public class Product {
     int Id_Product , Id_User , ForSale ;
     double Price;

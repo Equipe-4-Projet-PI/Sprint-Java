@@ -3,24 +3,29 @@ package controllers;
 import entities.Product;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import services.ServiceOrder;
 import services.ServiceProduct;
-
+import javafx.fxml.Initializable;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class ProductController {
+public class ProductController implements Initializable{
 
     int userid,userid_ed,pr_pid;
     double price,price_ed;
@@ -44,6 +49,8 @@ public class ProductController {
 
     @FXML
     private ImageView product_image;
+    @FXML
+    private ScrollPane Affichage_panel;
 
     int forsalevalue(){
         if (pr_oui.isSelected()){
@@ -68,10 +75,17 @@ public class ProductController {
         }catch(NumberFormatException e){
             System.out.println("invalid integer input");
         }
-            String imageURL = product_image.getImage().getUrl();
-
+           // String imageURL = product_image.getImage().getUrl();
+        String imagePath = "";
+        Image image = product_image.getImage();
+        if (image != null) {
+            String imageUrl = image.getUrl();
+            if (imageUrl.startsWith("file:/")) {
+                imagePath = imageUrl.substring("file:/".length());
+            }
+        }
         try {
-            s.ajouter(new Product(userid,forsalevalue(),price,pr_title.getText(),pr_desc.getText(),formattedDate,imageURL));
+            s.ajouter(new Product(userid,forsalevalue(),price,pr_title.getText(),pr_desc.getText(),formattedDate,imagePath));
             Alert alert=new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("succes");
             alert.setContentText("product added");
@@ -88,6 +102,7 @@ public class ProductController {
     @FXML
     void CancelAddProduct(ActionEvent event) {
         add_panel.setVisible(false);
+        Affichage_panel.setVisible(true);
     }
     @FXML
     void ResetAddProduct(ActionEvent event) {
@@ -104,6 +119,7 @@ public class ProductController {
     @FXML
     void add_form_button(MouseEvent event) {
     add_panel.setVisible(true);
+    Affichage_panel.setVisible(false);
     product_image.setImage(new Image("file:C:\\Users\\bigal\\Documents\\GitHub\\Sprint-Java\\src\\main\\resources\\img.png"));
     }
 
@@ -120,6 +136,51 @@ public class ProductController {
             product_image.setImage(image);
 
         }
+    }
+
+    private List<Product> recentlyAdded;
+    @FXML
+    private HBox CardLayout;
+    public void initialize(URL location, ResourceBundle resources){
+        recentlyAdded =new ArrayList<>(recentlyAdded());
+        System.out.println("the size of data "+recentlyAdded.size());
+        try {
+            VBox mainVBox = new VBox();
+            CardLayout.getChildren().add(mainVBox);
+
+            HBox currentHBox = new HBox();
+            currentHBox.setSpacing(50);
+
+            for (int i = 0; i < recentlyAdded.size(); i++) {
+                if (i > 0 && i % 4 == 0) {
+                    mainVBox.getChildren().add(currentHBox);
+                    currentHBox = new HBox();
+                    currentHBox.setSpacing(30);
+                }
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/Card.fxml"));
+                HBox cardBox = fxmlLoader.load();
+                CardsController cardsController = fxmlLoader.getController();
+                cardsController.setData(recentlyAdded.get(i));
+                currentHBox.getChildren().add(cardBox);
+            }
+
+            mainVBox.getChildren().add(currentHBox);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<Product> recentlyAdded(){
+        try {
+            return s.afficher();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void MagPage(MouseEvent event) {
     }
 
 }
