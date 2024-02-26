@@ -64,6 +64,18 @@ public class ServiceAuction implements IService<Auction>{
         pre.executeUpdate();
     }
 
+    public void supprimer_auction(int id_auction) throws SQLException{
+        String req = "delete from Auction where id_auction=?";
+        try{
+            PreparedStatement pre = con.prepareStatement(req);
+            pre.setInt(1, id_auction);
+            pre.executeUpdate();
+        }catch (SQLException e ){
+            e.getMessage();
+        }
+
+    }
+
     //hedhy traja3 liste mtaa l auctions lkol
     @Override
     public List<Auction> afficher() throws SQLException {
@@ -154,30 +166,42 @@ public class ServiceAuction implements IService<Auction>{
 
     //hedhy tbadel l prix_final
     public void modifierPrixFinal(Auction auction) throws SQLException {
-        String req = "SELECT prix FROM auction_participant WHERE id_auction = ? ORDER BY date DESC LIMIT 1";
-        try (PreparedStatement pre = con.prepareStatement(req)) {
-            pre.setInt(1, auction.getId());
+        ServiceParticipant serviceParticipant = new ServiceParticipant();
+    float dernierPrix = serviceParticipant.getDernierPrix(auction.getId());
+        String updateFinalPrice = "UPDATE Auction SET prix_final = ? WHERE id_Auction = ?";
 
-            try (ResultSet resultSet = pre.executeQuery()) {
-                if (resultSet.next()) {
-                    double dernierMontantEffectue = resultSet.getDouble("prix");
-
-                    String updateFinalPrice = "UPDATE Auction SET prix_final = ? WHERE id_auction = ?";
-
-                    try (PreparedStatement updatePrixFinal = con.prepareStatement(updateFinalPrice)) {
-                        updatePrixFinal.setDouble(1, dernierMontantEffectue);
-                        updatePrixFinal.setInt(2, auction.getId());
-                        updatePrixFinal.executeUpdate();
-                    }
-                }
-            }
+        try (PreparedStatement updatePrixFinal = con.prepareStatement(updateFinalPrice)) {
+            updatePrixFinal.setDouble(1,dernierPrix );
+            updatePrixFinal.setInt(2, auction.getId());
+            updatePrixFinal.executeUpdate();
+        }catch (SQLException e ){
+            e.getMessage();
         }
-
 }
+//juste pour le test
+    public float selectPrixFinal(int id_auction) throws SQLException {
+        String req = "SELECT prix_final FROM auction WHERE id_Auction=?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1, id_auction);
+        ResultSet resultSet = pre.executeQuery();
+
+        if (resultSet.next()) {
+            float prix_final = resultSet.getFloat("prix_final");
+            return prix_final;
+        } else {
+            // Handle the case when there is no result
+            throw new SQLException("No result found for auction with ID: " + id_auction);
+            // or return a default value
+            // return 0.0f;
+        }
+    }
+
+
+
     //hehdy traja3 auction b taswira
     public Auction getById(int id) throws SQLException {
-        String req = "SELECT a.id_auction,  p.image_produit, a.nom , a.date_cloturue , a.date_lancement ,a.prix_initial , a.prix_final ,a.id_produit, a.id_artist FROM auction a " +
-                "JOIN produit p ON a.id_produit = p.id_product " +
+        String req = "SELECT a.id_auction, p.image_produit, a.nom, a.date_cloture, a.date_lancement, a.prix_initial, a.prix_final, a.id_produit, a.id_artist FROM auction a " +
+                "JOIN product p ON a.id_produit = p.id_product " +
                 "WHERE a.id_auction=?";
         PreparedStatement pre = con.prepareStatement(req);
         pre.setInt(1, id);
@@ -188,17 +212,23 @@ public class ServiceAuction implements IService<Auction>{
         if (resultSet.next()) {
             auction.setId(resultSet.getInt("id_auction"));
             auction.setNom(resultSet.getString("nom"));
-            auction.setDate_lancement(resultSet.getObject("date_lancement", LocalDate.class));
+
+            // Check for NULL before converting to LocalDate
+            Date dateLancement = resultSet.getDate("date_lancement");
+            if (dateLancement != null) {
+                auction.setDate_lancement(dateLancement.toLocalDate());
+            }
+
             auction.setPrix_initial(resultSet.getInt("prix_initial"));
             auction.setPrix_final(resultSet.getInt("prix_final"));
             auction.setId_produit(resultSet.getInt("id_produit"));
             auction.setId_artist(resultSet.getInt("id_artist"));
             auction.setCheminImageProduit(resultSet.getString("image_produit"));
-
         }
 
         return auction;
     }
+
     //hedhy traja3lk chemin mtaa l image_produit
     public String getCheminImageProduit(int idProduit) throws SQLException {
         String req = "SELECT image_produit FROM product WHERE id_product=?";

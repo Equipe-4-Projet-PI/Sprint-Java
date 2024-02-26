@@ -19,57 +19,80 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ModifierController implements Initializable {
+public class ModifierController{
     ServiceAuction serviceAuction = new ServiceAuction();
+
+    @FXML
+    private Label nomProduit;
 
     @FXML
     private TextField tf_nomAuction;
     @FXML
-    private TextField tf_produit;
-    @FXML
-    private Spinner<Integer> tf_prix_initial ;
+    private TextField fxprix_inital;
     @FXML
     private DatePicker tf_date;
 
     @FXML
     private DatePicker tf_dateC;
+    @FXML
+    private TextField id_auction;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        int encher_id = 10;
-
-        try {
-            tf_produit.setText(serviceAuction.loadProductFromDatabase(encher_id));
-            tf_produit.setDisable(true);
-            SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 1);
-            tf_prix_initial.setValueFactory(valueFactory);
-
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
-    }
     @FXML
     void ModifierAuction() {
-        int auctionId = 1;
+        int id_enchere = Integer.parseInt(id_auction.getText());
+        String nom_auction = tf_nomAuction.getText();
+        String nom_produit = nomProduit.getText();
+        int prix_initial = Integer.parseInt(fxprix_inital.getText());
+        LocalDate date_lancement = tf_date.getValue();
+        LocalDate date_cloture = tf_dateC.getValue();
+
+        // Create a new User object with the edited values
+        Auction editAuction = new Auction();
+        editAuction.setId(id_enchere);
+        editAuction.setNom(nom_auction);
+        editAuction.setPrix_initial(prix_initial);
+        editAuction.setDate_lancement(date_lancement);
+        editAuction.setDate_cloture(date_cloture);
 
         try {
-            Auction existingAuction = serviceAuction.getAuctionById(auctionId);
+            // Update the user details using the ServiceUser
+            serviceAuction.modifier(editAuction);
 
-            existingAuction.setNom(tf_nomAuction.getText());
-            existingAuction.setPrix_initial(tf_prix_initial.getValue());
-            existingAuction.setDate_lancement(tf_date.getValue());
-            existingAuction.setDate_cloture(tf_dateC.getValue());
+            // Show a confirmation message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Edit User");
+            alert.setHeaderText(null);
+            alert.setContentText("Auction details updated successfully");
+            alert.showAndWait();
 
-            serviceAuction.modifier(existingAuction);
-        } catch (SQLException e) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeEncheres.fxml"));
+            Parent loginSuccessRoot = loader.load();
+            Scene scene = tf_nomAuction.getScene();
+            scene.setRoot(loginSuccessRoot);
+        } catch (SQLException | IOException e) {
+            // Handle SQL exception
+            e.printStackTrace();
+            // Show an error message
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setContentText(e.getMessage());
+            alert.setHeaderText(null);
+            alert.setContentText("Error updating user details: " + e.getMessage());
             alert.showAndWait();
         }
+
     }
 
+    public void initData(Auction auction) {
+        tf_nomAuction.setText(auction.getNom());
+        try {
+            nomProduit.setText(serviceAuction.loadProductFromDatabase(auction.getId()));
+            fxprix_inital.setText(String.valueOf(auction.getPrix_initial()));
+            tf_date.setValue(LocalDate.parse(String.valueOf(auction.getDate_lancement())));
+            tf_dateC.setValue(LocalDate.parse(String.valueOf(auction.getDate_cloture())));
+            id_auction.setText(String.valueOf(auction.getId()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

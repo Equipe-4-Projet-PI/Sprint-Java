@@ -109,34 +109,51 @@ public class EncherDetailController {
 
     @FXML
     void effectuerArgent(ActionEvent event) {
-        int id_user = 5;
-        Auction_participant auctionParticipant= new Auction_participant();
+        int id_user = 6;
+        Auction_participant auctionParticipant = new Auction_participant();
+
         try {
             auctionParticipant = serviceParticipant.getParticipantById(id_user);
             auctionParticipant.setPrix(Integer.parseInt(spinner.getValue().toString()));
-
-        } catch (SQLException e) {
-            e.getMessage();
-        }
-        try {
-            serviceParticipant.modifier(auctionParticipant);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            serviceAuction.modifierPrixFinal(serviceAuction.getAuctionById(auctionParticipant.getId_auction()));
         } catch (SQLException e) {
             e.getMessage();
         }
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setContentText("argent bien effectuée ! ");
-        alert.showAndWait();
+        if(isMontantValide(auctionParticipant)){
+            try {
+                serviceParticipant.modifier(auctionParticipant);
+                serviceAuction.modifierPrixFinal(serviceAuction.getById(auctionParticipant.getId_auction()));
 
+                // Get the current stage (window)
+                Stage stage = (Stage) nomEnchere.getScene().getWindow();
+
+                // Load and set the same FXML file to refresh the window
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
+                Parent root = loader.load();
+
+                // Retrieve the controller to initialize data if needed
+                EncherDetailController controller = loader.getController();
+                controller.initData(serviceAuction.getById(auctionParticipant.getId_auction()));
+
+                // Set the refreshed scene to the stage
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+            } catch (IOException | SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setContentText("argent bien effectuée ! ");
+            alert.showAndWait();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Le montant doit être supérieur au prix initial et au dernier montant proposé.");
+            alert.showAndWait();
+        }
     }
-
-
 
     //hedhy traja3 taswiret l produit mtaa auction
     private byte[] loadImageFromDatabase(int id_produit) {
@@ -163,4 +180,32 @@ public class EncherDetailController {
         spinner.setValueFactory(valueFactory);
         effectuerButton.setVisible(true);
     }
+
+    private boolean isMontantValide(Auction_participant participant) {
+        try {
+            Auction auction = serviceAuction.getById(participant.getId_auction());
+            int prixInitial = auction.getPrix_initial();
+            int dernierPrixParticipant = (int) serviceParticipant.getDernierPrix(participant.getId_auction());
+
+            return (participant.getPrix() > prixInitial) && (participant.getPrix() > dernierPrixParticipant);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void retouner(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEncheres.fxml"));
+            Parent loginSuccessRoot = loader.load();
+            Scene scene = prixFinal.getScene();
+            scene.setRoot(loginSuccessRoot);
+
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+
 }

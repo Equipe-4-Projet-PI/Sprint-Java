@@ -23,6 +23,19 @@ public class Auction {
         this.prix_initial = prix_initial;
         this.prix_final = prix_final;
     }
+    public Auction(  String nom, LocalDate date_cloture, LocalDate date_lancement,  int prix_initial) {
+        this.nom = nom;
+        this.date_lancement = date_lancement;
+        this.date_cloture = date_cloture;
+        this.prix_initial = prix_initial;
+  }
+
+    public Auction( int id ,  String nom,  int prix_initial, int id_produit) {
+        this.id=id;
+        this.id_produit = id_produit;
+        this.nom = nom;
+        this.prix_initial = prix_initial;
+    }
 
     public Auction() {
 

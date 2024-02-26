@@ -7,6 +7,7 @@ import utils.MyDB;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ServiceParticipant implements IService<Auction_participant> {
@@ -29,10 +30,11 @@ public class ServiceParticipant implements IService<Auction_participant> {
     //la methode participer
     @Override
     public void modifier(Auction_participant auctionParticipant) throws SQLException {
-        String req = "update auction_participant set prix=? where id_Participant=?";
+        String req = "update auction_participant set prix=? , date=? where id_Participant=?";
         PreparedStatement pre = con.prepareStatement(req);
         pre.setFloat(1,auctionParticipant.getPrix());
-        pre.setInt(2,auctionParticipant.getId_participant());
+        pre.setTimestamp(2,new Timestamp(System.currentTimeMillis()));
+        pre.setInt(3,auctionParticipant.getId_participant());
         pre.executeUpdate();
     }
 
@@ -177,6 +179,19 @@ public class ServiceParticipant implements IService<Auction_participant> {
             return a;
         }
         return  a;
+    }
+
+    public float getDernierPrix(int id_auction) throws SQLException {
+        String req = "SELECT prix FROM auction_participant WHERE id_auction = ? ORDER BY date DESC LIMIT 1";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1, id_auction);
+        ResultSet resultSet = pre.executeQuery();
+        if (resultSet.next()) {
+            float dernierPrixEffectue = resultSet.getFloat("prix");
+            return dernierPrixEffectue;
+        } else {
+            return 0;
+        }
     }
 
 }

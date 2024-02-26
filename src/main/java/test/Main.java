@@ -17,6 +17,10 @@ public class Main {
         Auction_participant participant2 = new Auction_participant(1,2,1000);
         Auction_participant participant3 = new Auction_participant(6,2,15454);
         Auction_participant participant4 = new Auction_participant(5,2 ,19855);
+        Auction auction66 = new Auction(22 , "kenza_enchere ", 5566 , 36);
+
+        System.out.println("c'est le nom : "+ sp.getNom(1));
+
 
 
 
@@ -26,6 +30,36 @@ public class Main {
             e.getMessage();
         }
 
+        try {
+            System.out.println("DERNIER PRIX FROM AUCTION_PARTICIPANT "  +sp.getDernierPrix(2));
+        } catch (SQLException e) {
+            e.getMessage();
+            }
+
+
+        Auction auction = new Auction();
+        try {
+            auction = s.getById(2);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try{
+            s.modifierPrixFinal(auction);
+        }catch(SQLException e ){
+            e.getMessage();
+        }
+        try{
+            System.out.println("PRIX_FINAL FROM AUCTION : "+s.selectPrixFinal(2));
+        }catch (SQLException e ){
+            e.getMessage();
+        }
+
+
+       /* try {
+            s.supprimer(auction1);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }*/
 
 
 /*

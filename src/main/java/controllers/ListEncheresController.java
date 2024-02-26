@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.awt.Label;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -72,30 +73,68 @@ public class ListEncheresController {
         Auction selectedItem = fxTableViw.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             try {
-                // Load the FXML file for the new window
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/EncherDetail.fxml"));
                 Parent root = loader.load();
-
-                // Create a new stage for the new window
-                Stage newStage = new Stage();
-                newStage.setTitle("Ajouter enchère");
-                newStage.setScene(new Scene(root));
-
-                // Get the controller of the new window
+                Scene scene =fxPrixFinal.getTableView().getScene();
+                scene.setRoot(root);
                 EncherDetailController encheredetails = loader.getController();
 
-                // Pass data to the controller of the new window
                 encheredetails.initData(selectedItem);
-
-                // Show the new window
-                newStage.show();
-
-                // Close the current window if needed
-                // ((Node)(event.getSource())).getScene().getWindow().hide();
 
             } catch (IOException e) {
                 e.getMessage();
+            }
+        }
+    }
+    @FXML
+
+    public void AjouterEncher(javafx.event.ActionEvent actionEvent)throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/AjouterAuction.fxml"));
+        Parent root = loader.load();
+        Scene scene =fxPrixFinal.getTableView().getScene();
+        scene.setRoot(root);
+    }
+
+    @FXML
+
+    public void supprimerButton(javafx.event.ActionEvent actionEvent) {
+        Auction selectedItem = fxTableViw.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            int id_auction = selectedItem.getId();
+            try {
+                serviceAuction.supprimer_auction(id_auction);
+
+                ObservableList<Auction> userList = fxTableViw.getItems();
+                userList.remove(selectedItem);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @FXML
+
+    public void modifier_enchere(javafx.event.ActionEvent actionEvent) {
+        Auction selectedItem = fxTableViw.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Modifier.fxml"));
+                Parent editUserRoot = loader.load();
+
+                ModifierController modifier = loader.getController();
+
+                modifier.initData(selectedItem);
+
+                Scene scene = fxPrixInitial.getTableView().getScene();
+
+                scene.setRoot(editUserRoot);
+
+                ObservableList<Auction> userList = fxTableViw.getItems();
+                userList.remove(selectedItem);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }

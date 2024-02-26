@@ -2,16 +2,22 @@
 
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ListeParticipantsController">
    <children>
-      <TableView fx:id="tv_Participant" layoutX="135.0" layoutY="131.0" prefHeight="200.0" prefWidth="330.0">
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/cap4.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tv_Participant" layoutX="121.0" layoutY="131.0" prefHeight="239.0" prefWidth="378.0">
         <columns>
-          <TableColumn fx:id="NomParticipant" prefWidth="116.0" text="Nom Participant" />
-          <TableColumn fx:id="prix" prefWidth="107.20001220703125" text="Prix" />
-            <TableColumn fx:id="temps" prefWidth="107.20001220703125" text="Temps" />
+          <TableColumn fx:id="NomParticipant" prefWidth="139.20001220703125" text="Nom Participant" />
+          <TableColumn fx:id="prix" prefWidth="106.4000244140625" text="Prix" />
+            <TableColumn fx:id="temps" prefWidth="132.800048828125" text="Temps" />
         </columns>
       </TableView>
    </children>

@@ -16,7 +16,7 @@ public class MainFX extends Application {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Ajouter enchère");
+            stage.setTitle("Liste enchères");
             stage.show();
         }catch (Exception e){
             System.out.println(e.getMessage());
