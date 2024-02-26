@@ -40,6 +40,7 @@ public class AddPostController {
     {
 
         this.forum = forumEntity;
+
     }
     private void SetDataAgain()
     {
@@ -75,7 +76,7 @@ public class AddPostController {
 
             // Load and display filtered data
             for (PostEntity f : filteredList) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/PostTemplate.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Artist/PostTemplate.fxml"));
                 HBox cardBox = fxmlLoader.load();
                 PostTemplateController cardController = fxmlLoader.getController();
                 cardController.setData(f);
@@ -90,10 +91,36 @@ public class AddPostController {
     @FXML
     void GotoforumPage(ActionEvent event) {
         try {
-            Parent root= FXMLLoader.load(getClass().getResource("/AfficherForum.fxml"));
+            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Artist/AfficherForumArtist.fxml"));
             forumPage_id.getScene().setRoot(root);
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
     }
+
+    ///ADD BUTTON LOGIC
+
+    @FXML
+    private Button Add_Post_Butt_Id;
+    @FXML
+    void AddForum(ActionEvent event) {
+        try{
+            Parent root = loadRootLayoutForForum();
+            Add_Post_Butt_Id.getScene().setRoot(root);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    private Parent loadRootLayoutForForum() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Artist/NewPostPage.fxml"));
+        NewPostPageController controller = new NewPostPageController();
+        loader.setController(controller);
+        Parent root = loader.load();
+        return root;
+    }
+
 }

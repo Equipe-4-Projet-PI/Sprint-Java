@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,12 +16,8 @@ import services.ServiceForum;
 
 
 import java.io.IOException;
-import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class AfficherForumController {
@@ -52,7 +45,7 @@ public class AfficherForumController {
 
                 // Load and display filtered data
                 for (ForumEntity f : filteredList) {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumTemplate.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Artist/ForumTemplate.fxml"));
                     HBox cardBox = fxmlLoader.load();
                     ForumTemplateController cardController = fxmlLoader.getController();
                     cardController.setData(f);
@@ -75,7 +68,7 @@ public class AfficherForumController {
             ObservableList<ForumEntity> observableList = FXCollections.observableList(SF.afficher());
             for (int i = 0; i < observableList.size(); i++) {
                 FXMLLoader fxmlLoader= new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ForumTemplate.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ForumPages/Artist/ForumTemplate.fxml"));
                 HBox cardBox = fxmlLoader.load();
                 ForumTemplateController cardController = fxmlLoader.getController();
                 cardController.setData(observableList.get(i));
@@ -94,7 +87,7 @@ public class AfficherForumController {
     @FXML
     void GotoforumPage(ActionEvent event) {
         try {
-            Parent root= FXMLLoader.load(getClass().getResource("/AfficherForum.fxml"));
+            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Artist/AfficherForumArtist.fxml"));
             forumPage_id.getScene().setRoot(root);
         }catch (IOException e){
             System.out.println(e.getMessage());

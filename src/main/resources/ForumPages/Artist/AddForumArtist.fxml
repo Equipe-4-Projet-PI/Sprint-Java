@@ -12,12 +12,12 @@
    <children>
       <ImageView fitHeight="814.0" fitWidth="1612.0" layoutX="-211.0" layoutY="-99.0">
          <image>
-            <Image url="@images/forum/AddForumBackground.png" />
+            <Image url="@../../images/forum/AddForumBackground.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="372.0" fitWidth="542.0" layoutX="430.0" layoutY="174.0">
          <image>
-            <Image url="@images/forum/BlueBack100.png" />
+            <Image url="@../../images/forum/BlueBack100.png" />
          </image>
       </ImageView>
       <TextField fx:id="f_title" layoutX="504.0" layoutY="292.0" promptText="Forum Title" />

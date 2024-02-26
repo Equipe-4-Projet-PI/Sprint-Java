@@ -36,7 +36,7 @@ public class ModifierForumController {
         try {
             newForum = new ForumEntity(oldForum.getId_forum(), f_title_mod.getText(),f_desc_mod.getText(), oldForum.getReplies_num(),oldForum.getDate());
             SF.modifier(newForum);
-            Parent root= FXMLLoader.load(getClass().getResource("/AfficherForum.fxml"));
+            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Artist/AfficherForumArtist.fxml"));
             id_butt.getScene().setRoot(root);
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);

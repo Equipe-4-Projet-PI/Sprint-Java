@@ -5,7 +5,6 @@ package controllers;
         import javafx.fxml.FXML;
         import javafx.fxml.FXMLLoader;
         import javafx.scene.Parent;
-        import javafx.scene.Scene;
         import javafx.scene.control.Alert;
         import javafx.scene.control.TextField;
         import services.ServiceForum;
@@ -25,7 +24,7 @@ public class AddForumController {
     @FXML
     void AfficherForum(ActionEvent event) {
         try {
-            Parent root= FXMLLoader.load(getClass().getResource("/AfficherForum.fxml"));
+            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Artist/AfficherForumArtist.fxml"));
             f_title.getScene().setRoot(root);
         }catch (IOException e){
             System.out.println(e.getMessage());

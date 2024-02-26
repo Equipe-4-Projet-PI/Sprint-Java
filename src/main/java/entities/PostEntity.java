@@ -16,7 +16,19 @@ public class PostEntity  {
     {
 
     }
-    public PostEntity(int id_post, int id_forum, int id_user,String title, String text, int like_num) {
+
+    public PostEntity(int id_post, int id_forum, int id_user, String text, String title, int like_num, Timestamp time, Date date) {
+        this.id_post = id_post;
+        this.id_forum = id_forum;
+        this.id_user = id_user;
+        this.text = text;
+        this.title = title;
+        this.like_num = like_num;
+        this.time = time;
+        this.date = date;
+    }
+
+    public PostEntity(int id_post, int id_forum, int id_user, String title, String text, int like_num) {
         this.id_post = id_post;
         this.title = title;
         this.id_forum = id_forum;
@@ -42,9 +54,10 @@ public class PostEntity  {
         this.time = new Timestamp(date.getTime());
     }
 
-    public PostEntity(int id_forum, int id_user, String text) {
+    public PostEntity(int id_forum, int id_user,String title, String text) {
         this.id_forum = id_forum;
         this.id_user = id_user;
+        this.title = title;
         this.text = text;
         this.like_num = 0;
         //date

@@ -1,18 +1,15 @@
 package test;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.FXML;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class MainFX extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AfficherForum.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Admin/GestionForumAdmin.fxml"));
         Parent root= fxmlLoader.load();
 
         Scene scene = new Scene(root);

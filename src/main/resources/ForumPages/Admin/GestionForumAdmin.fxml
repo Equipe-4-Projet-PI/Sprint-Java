@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionForumAdminController">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0">
+         <image>
+            <Image url="@../../images/forum/Back2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="519.0" fitWidth="985.0" layoutX="124.0" layoutY="78.0">
+         <image>
+            <Image url="@../../images/forum/BlueBack.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="table_id" layoutX="224.0" layoutY="186.0" prefHeight="348.0" prefWidth="748.0">
+        <columns>
+          <TableColumn fx:id="f_id" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="title_id" prefWidth="150.4000244140625" text="Title" />
+            <TableColumn fx:id="desc_id" minWidth="0.0" prefWidth="248.0" text="Description" />
+            <TableColumn fx:id="rep_id" minWidth="0.0" prefWidth="154.39996337890625" text="Replies Number" />
+            <TableColumn fx:id="date_id" prefWidth="119.20001220703125" text="Date" />
+        </columns>
+      </TableView>
+      <Label layoutX="418.0" layoutY="91.0" prefHeight="60.0" prefWidth="360.0" text="GESTION DES FORUMS" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <Button fx:id="addForumButt_id" layoutX="1011.0" layoutY="186.0" mnemonicParsing="false" onAction="#AddForum" prefHeight="61.0" prefWidth="58.0" style="-fx-background-color: #0076a8;" text="+" textFill="WHITE">
+         <font>
+            <Font name="Bodoni MT Bold" size="31.0" />
+         </font>
+      </Button>
+      <Button fx:id="deleteForumButt_id" layoutX="1011.0" layoutY="266.0" mnemonicParsing="false" onAction="#DeleteForum" prefHeight="62.0" prefWidth="62.0" style="-fx-background-color: #0076a8;" text="-" textFill="WHITE">
+         <font>
+            <Font name="Bodoni MT Bold" size="31.0" />
+         </font>
+      </Button>
+      <Button fx:id="editForumButt_id" layoutX="1011.0" layoutY="347.0" mnemonicParsing="false" onAction="#EditForum" prefHeight="62.0" prefWidth="62.0" style="-fx-background-color: #0076a8;" text="Edit" textFill="WHITE">
+         <font>
+            <Font name="Bodoni MT Bold" size="17.0" />
+         </font>
+      </Button>
+      <AnchorPane fx:id="ConfirmationPage_id" layoutX="480.0" layoutY="200.0" visible="false">
+         <children>
+            <ImageView fitHeight="320.0" fitWidth="320.0">
+               <image>
+                  <Image url="@../../images/forum/BlueBack.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="Yes_butt_id" layoutX="25.0" layoutY="229.0" mnemonicParsing="false" onAction="#ConfirmDeletion" prefHeight="60.0" prefWidth="116.0" text="Yes" />
+            <Button fx:id="No_butt_id" layoutX="186.0" layoutY="229.0" mnemonicParsing="false" onAction="#DonotDelete" prefHeight="60.0" prefWidth="116.0" text="No" />
+            <Label alignment="CENTER" layoutX="6.0" layoutY="78.0" prefHeight="95.0" prefWidth="308.0" text="Are You Sure?" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
