@@ -37,7 +37,7 @@ public class AfficherOneWorkshopView {
     }
 
     @FXML
-    void modifierEvent(ActionEvent event) {
+    void modifierWorkshop(ActionEvent event) {
         if(eventChangeListener!=null){
             eventChangeListener.onModifierClicked(w);
         }
@@ -45,7 +45,7 @@ public class AfficherOneWorkshopView {
     }
 
     @FXML
-    void supprimerEvent(ActionEvent event) {
+    void supprimerworkshop(ActionEvent event) {
         sw.supprimer(w);
         if(eventChangeListener!=null){
             eventChangeListener.onSupprimerClicked();

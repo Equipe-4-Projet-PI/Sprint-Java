@@ -55,12 +55,12 @@
             <Font name="Perpetua Bold" size="15.0" />
          </font></Label>
     <ImageView fx:id="img" fitHeight="142.0" fitWidth="193.0" layoutX="53.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="9.0" layoutY="419.0" mnemonicParsing="false" onAction="#modifierEvent" opacity="0.9" prefHeight="29.0" prefWidth="89.0" style="-fx-background-radius: 50; -fx-background-color: #0076A8;" text="Modifier" textFill="WHITE">
+      <Button layoutX="9.0" layoutY="419.0" mnemonicParsing="false" onAction="#modifierEventcarte" opacity="0.9" prefHeight="29.0" prefWidth="89.0" style="-fx-background-radius: 50; -fx-background-color: #0076A8;" text="Modifier" textFill="WHITE">
          <font>
             <Font name="Perpetua Bold" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="105.0" layoutY="419.0" mnemonicParsing="false" onAction="#supprimerEvent" opacity="0.9" style="-fx-background-radius: 50; -fx-background-color: #0076A8;" text="Supprimer" textFill="WHITE">
+      <Button layoutX="105.0" layoutY="419.0" mnemonicParsing="false" onAction="#supprimerEventcarte" opacity="0.9" style="-fx-background-radius: 50; -fx-background-color: #0076A8;" text="Supprimer" textFill="WHITE">
          <font>
             <Font name="Perpetua Bold" size="15.0" />
          </font>

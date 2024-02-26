@@ -52,8 +52,8 @@ public class AjouterWorkshopView implements EventChangeListener<Workshop> {
     }
     @FXML
     public void initialize(){
-        cbevenement.getItems().setAll(serviceEvent.getEventIdsAndNames());
-        cbevenement.setDisable(true);
+      /*  cbevenement.getItems().setAll(serviceEvent.getEventIdsAndNames());
+        cbevenement.setDisable(true);*/
 
         refresh();
     }
@@ -117,7 +117,7 @@ public class AjouterWorkshopView implements EventChangeListener<Workshop> {
 
             sw.modifier(w);
             refresh();
-            cbevenement.setDisable(true);
+          //  cbevenement.setDisable(true);
         }
     }
     @FXML

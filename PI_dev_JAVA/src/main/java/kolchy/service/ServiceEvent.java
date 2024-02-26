@@ -97,8 +97,5 @@ public class ServiceEvent implements IService<Event>{
         }
         return eventList;
     }
-    public List<String> getEventIdsAndNames2(){
-        return afficher().stream().map(e->e.getId_Event()+" - "+e.getE_Name())
-                .collect(Collectors.toList());
-    }
+
 }

@@ -38,6 +38,7 @@ public class AfficherOneEventView {
     ServiceWorkshop sw=new ServiceWorkshop();
     private EventChangeListener eventChangeListener;
 
+
     public void setEventChangeListener(EventChangeListener eventChangeListener) {
         this.eventChangeListener = eventChangeListener;
     }
@@ -53,17 +54,16 @@ public class AfficherOneEventView {
         img.setImage(image);
 
     }
+
     @FXML
-    void modifierEvent(ActionEvent event) {
-       /* ActionEvent evee = new ActionEvent();
-        gotoModify(evee);*/
+    void modifierEventcarte(ActionEvent event) {
         if(eventChangeListener!=null){
             eventChangeListener.onModifierClicked(e);
         }
     }
 
     @FXML
-    void supprimerEvent(ActionEvent event) {
+    void supprimerEventcarte(ActionEvent event) {
         se.supprimer(e);
 
         if(eventChangeListener!=null){

@@ -34,11 +34,11 @@
          <font>
             <Font name="Perpetua Bold" size="20.0" />
          </font></Label>
-    <Button layoutX="45.0" layoutY="373.0" mnemonicParsing="false" onAction="#supprimerEvent" style="-fx-background-radius: 50; -fx-background-color: #0076A8;" text="Supprimer" textFill="WHITE">
+    <Button layoutX="45.0" layoutY="373.0" mnemonicParsing="false" onAction="#supprimerworkshop" style="-fx-background-radius: 50; -fx-background-color: #0076A8;" text="Supprimer" textFill="WHITE">
          <font>
             <Font name="Perpetua Bold" size="15.0" />
          </font></Button>
-    <Button layoutX="161.0" layoutY="373.0" mnemonicParsing="false" onAction="#modifierEvent" prefHeight="29.0" prefWidth="89.0" style="-fx-background-color: #0076A8; -fx-background-radius: 50;" text="Modifier" textFill="WHITE">
+    <Button layoutX="161.0" layoutY="373.0" mnemonicParsing="false" onAction="#modifierWorkshop" prefHeight="29.0" prefWidth="89.0" style="-fx-background-color: #0076A8; -fx-background-radius: 50;" text="Modifier" textFill="WHITE">
          <font>
             <Font name="Perpetua Bold" size="15.0" />
          </font></Button>

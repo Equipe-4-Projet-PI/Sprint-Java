@@ -139,7 +139,7 @@ public class AfficherWorkshopView implements EventChangeListener<Workshop> {
     }
     @FXML
     void gotoEvent(ActionEvent event) {
-        Stage stage=(Stage) tftitre.getScene().getWindow();
+        Stage stage=(Stage) grid.getScene().getWindow();
         stage.close();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainFX.class.getResource("afficher-event-view.fxml"));
@@ -148,7 +148,7 @@ public class AfficherWorkshopView implements EventChangeListener<Workshop> {
             Parent root = fxmlLoader.load();
 
             Stage newStage=new Stage();
-            newStage.setTitle("Hello!");
+            newStage.setTitle("event");
             newStage.setScene(new Scene(root));
             newStage.show();
         } catch (IOException ex) {

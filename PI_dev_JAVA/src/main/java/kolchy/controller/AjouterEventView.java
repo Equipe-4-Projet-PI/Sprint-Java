@@ -1,9 +1,9 @@
 package kolchy.controller;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -39,12 +39,9 @@ public class AjouterEventView implements EventChangeListener<Event> {
     ServiceEvent serviceEvent=new ServiceEvent();
     int idModifier=0;
 
-
     @FXML
     public void initialize(){
         refresh();
-
-
     }
     public void refresh(){
         grid.getChildren().clear();
