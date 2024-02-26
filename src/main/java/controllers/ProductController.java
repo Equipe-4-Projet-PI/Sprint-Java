@@ -32,6 +32,19 @@ public class ProductController implements Initializable{
     double price,price_ed;
     @FXML
     private Pane add_panel;
+    @FXML
+    private TextArea pr_desc_ed;
+    @FXML
+    private RadioButton pr_oui_ed;
+    @FXML
+    private TextField pr_price_ed;
+
+    @FXML
+    private TextField pr_title_ed;
+    @FXML
+    private ImageView product_image_ed;
+    @FXML
+    private Pane Edit_panel;
 
     @FXML
     private TextArea pr_desc;
@@ -68,6 +81,7 @@ public class ProductController implements Initializable{
     String formattedDate = currentDate.format(formatter);
     ServiceProduct s = new ServiceProduct();
     ServiceOrder o = new ServiceOrder();
+    /////////////////////////add product form ////////////////////////////////////////
     @FXML
     void AddProduct(ActionEvent event) {
         try{
@@ -132,6 +146,7 @@ public class ProductController implements Initializable{
         product_image.setImage(new Image("file:C:\\Users\\bigal\\Documents\\GitHub\\Sprint-Java\\src\\main\\resources\\img.png"));
     }
 
+    /////////////////////////add image pop up dialog //////////////////////////////////////////////////
     @FXML
     void add_image_dialog(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -147,6 +162,7 @@ public class ProductController implements Initializable{
         }
     }
 
+    ////////////////////////load data from product ////////////////////////////////////
     private List<Product> recentlyAdded;
     @FXML
     private HBox CardLayout;
@@ -215,14 +231,14 @@ public class ProductController implements Initializable{
     }
     @FXML
     void panier_button(MouseEvent event) {
-        removePanierCards();
-        initialize();
+        refreshPanierCards();
         add_panel.setVisible(false);
         Affichage_panel.setVisible(false);
         afficher_panier.setVisible(true);
         afficher_ma_list.setVisible(false);
 
     }
+    ///////////////////////////load data from order ///////////////////////////////////////////
     private List<ProductOrder> ro(){
         try {
             return o.afficher();
@@ -277,8 +293,7 @@ public class ProductController implements Initializable{
         add_panel.setVisible(false);
         Affichage_panel.setVisible(false);
         afficher_panier.setVisible(false);
-        removeMyPanierCards();
-        initialized();
+        refreshMyCards();
     }
     ///partie ma liste ////////////////////////
     int id=2;
@@ -319,8 +334,21 @@ public class ProductController implements Initializable{
             throw new RuntimeException(e);
         }
     }
-    private void removeMyPanierCards() {
+
+    public void refreshMyCards() {
+        fa = new ArrayList<>(fo());
         ma_list_box.getChildren().clear();
+        initialized();
     }
     //////////////////////ma liste end ////////////////////////////
+///////////////////////////////edit post from my list /////////////////////////////
+    @FXML
+    void CancelEditProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void EditProduct(ActionEvent event) {
+
+    }
 }

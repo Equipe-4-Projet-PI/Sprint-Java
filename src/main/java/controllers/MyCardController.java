@@ -1,16 +1,23 @@
 package controllers;
 
 import entities.Product;
+import entities.ProductOrder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import services.ServiceProduct;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class MyCardController {
+    ServiceProduct s = new ServiceProduct();
 
     @FXML
     private Label my_date;
@@ -35,15 +42,6 @@ public class MyCardController {
 
     private String imagePath;
 
-    @FXML
-    void delete_item(ActionEvent event) {
-
-    }
-
-    @FXML
-    void edit_item(ActionEvent event) {
-
-    }
     public void setData(Product product){
         this.imagePath = product.getProductImage();
         try {
@@ -58,5 +56,24 @@ public class MyCardController {
         my_date.setText(product.getCreationDate());
         my_id.setText(String.valueOf(product.getId_Product()));
     }
+    @FXML
+    void delete_item(ActionEvent event) {
+        int idp = Integer.parseInt(my_id.getText());
+        String title = my_title.getText();
+        String desc = my_desc.getText();
+        String date = my_date.getText();
+        int fsale = Integer.parseInt(my_fsale.getText());
+        Double price = Double.valueOf(my_price.getText());
+        String image = this.imagePath;
+        try {
+            s.supprimer(new Product(idp,fsale,price,title,desc,date,image));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    @FXML
+    void edit_item(ActionEvent event) {
+
+    }
 }
