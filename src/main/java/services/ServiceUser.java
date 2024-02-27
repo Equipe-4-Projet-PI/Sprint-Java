@@ -22,7 +22,7 @@ public class ServiceUser implements IService<User> {
     @Override
     public void ADD(User user) throws SQLException {
 
-        String UserReq = "INSERT INTO User (Username, Email, Password,Role,FirstName,Lastname,Adress,Phone,Gender,DOB) VALUES (?, ?, ?, ? , ?, ? , ? , ? , ? ,?)";
+        String UserReq = "INSERT INTO User (Username, Email, Password,Role,FirstName,Lastname,Adress,Phone,Gender,DOB,ImageURL) VALUES (?, ?, ?, ? , ?, ? , ? , ? , ? ,?,?)";
         try (PreparedStatement UserStmt = con.prepareStatement(UserReq)) {
             UserStmt.setString(1, user.getUsername());
             UserStmt.setString(2, user.getEmail());
@@ -34,6 +34,7 @@ public class ServiceUser implements IService<User> {
             UserStmt.setInt(8, user.getPhone());
             UserStmt.setString(9, user.getGender());
             UserStmt.setString(10, user.getDOB());
+            UserStmt.setString(11, user.getImageURL());
 
             UserStmt.executeUpdate();
         }
@@ -42,7 +43,7 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void UPDATE(User user) throws SQLException {
-        String UserReq = "update User set Username=? , Email=? , Password=? , Role=? ,FirstName=? ,Lastname=? ,Adress=?  ,Phone=?  ,Gender=?,DOB=? where Id_User  =?";
+        String UserReq = "update User set Username=? , Email=? , Password=? , Role=? ,FirstName=? ,Lastname=? ,Adress=?  ,Phone=?  ,Gender=?,DOB=?,ImageURL=? where Id_User  =?";
         try(PreparedStatement artistStmt  = con.prepareStatement(UserReq)){
             artistStmt.setString(1, user.getUsername());
             artistStmt.setString(2, user.getEmail());
@@ -55,6 +56,7 @@ public class ServiceUser implements IService<User> {
             artistStmt.setString(9, user.getGender());
             artistStmt.setString(10, user.getDOB());
             artistStmt.setInt(11, user.getId_User());
+            artistStmt.setString(12, user.getImageURL());
             artistStmt.executeUpdate();
         }
         catch (SQLException e) {
@@ -82,7 +84,7 @@ public class ServiceUser implements IService<User> {
     @Override
     public List<User> DISPLAY() throws SQLException {
         List<User> users = new ArrayList<>();
-        String artistReq = "SELECT User.Id_User, User.Username, User.Email, User.Password, User.Role, User.FirstName, User.Lastname, User.Adress ,User.Phone ,User.Gender , User.DOB " +
+        String artistReq = "SELECT User.Id_User, User.Username, User.Email, User.Password, User.Role, User.FirstName, User.Lastname, User.Adress ,User.Phone ,User.Gender , User.DOB , User.ImageURL" +
                 "FROM User";
         try (PreparedStatement UserStmt = con.prepareStatement(artistReq)) {
             ResultSet res = UserStmt.executeQuery();
@@ -99,6 +101,7 @@ public class ServiceUser implements IService<User> {
                 user.setPhone(res.getInt(9));
                 user.setGender(res.getString(10));
                 user.setDOB(res.getString(11));
+                user.setImageURL(res.getString(12));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -255,11 +258,12 @@ public class ServiceUser implements IService<User> {
                     int Phone = resultSet.getInt("Phone");
                     String gender = resultSet.getString("Gender");
                     LocalDate dob = LocalDate.parse(resultSet.getString("DOB"));
+                    String imageUrl = resultSet.getString("ImageURL");
 
                     // You can retrieve other fields similarly
 
                     // Return the created User object
-                    return new User(userId,username,email,password,role,firstName,lastName,adress,gender,Phone,dob);
+                    return new User(userId,username,email,password,role,firstName,lastName,adress,gender,Phone,dob,imageUrl);
                 }
             }
         } catch (SQLException e) {
