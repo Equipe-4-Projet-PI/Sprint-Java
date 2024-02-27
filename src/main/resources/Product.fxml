@@ -125,7 +125,6 @@
                   <Font name="Marshena_DEMO" size="64.0" />
                </font>
             </Text>
-            <TextField fx:id="pr_userid" layoutX="528.0" layoutY="162.0" />
             <TextField fx:id="pr_title" layoutX="528.0" layoutY="202.0" />
             <TextArea fx:id="pr_desc" layoutX="503.0" layoutY="236.0" prefHeight="200.0" prefWidth="200.0" />
             <RadioButton fx:id="pr_oui" layoutX="580.0" layoutY="451.0" mnemonicParsing="false" text="Oui" textFill="#2088dd">
@@ -134,11 +133,6 @@
                </font>
             </RadioButton>
             <TextField fx:id="pr_price" layoutX="535.0" layoutY="480.0" />
-            <Text fill="#2088dd" layoutX="374.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmer votre Id">
-               <font>
-                  <Font name="Times New Roman" size="18.0" />
-               </font>
-            </Text>
             <Text fill="#2088dd" layoutX="374.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titre D'aeuvre">
                <font>
                   <Font name="Times New Roman" size="18.0" />

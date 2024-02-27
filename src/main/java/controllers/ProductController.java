@@ -84,15 +84,15 @@ public class ProductController implements Initializable{
     /////////////////////////add product form ////////////////////////////////////////
     @FXML
     void AddProduct(ActionEvent event) {
-        try{
-            userid = Integer.parseInt(pr_userid.getText());
-        }catch(NumberFormatException e){
-            System.out.println("invalid integer input");
-        }
+            userid = id;
+
         try{
             price = Double.parseDouble(pr_price.getText());
         }catch(NumberFormatException e){
-            System.out.println("invalid integer input");
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Price feild error");
+            alert.setContentText("invalid integer input");
+            alert.showAndWait();
         }
         String imagePath = "";
         Image image = product_image.getImage();
@@ -111,7 +111,7 @@ public class ProductController implements Initializable{
         } catch (SQLException e) {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("error");
-            alert.setContentText(e.getMessage());
+            alert.setContentText("Verifier les champs et contraint de saisir");
             alert.showAndWait();
         }
         clear();
@@ -130,7 +130,6 @@ public class ProductController implements Initializable{
         clear();
     }
     void clear(){
-        pr_userid.setText("");
         pr_title.setText("");
         pr_desc.setText("");
         pr_price.setText("");
@@ -287,14 +286,7 @@ public class ProductController implements Initializable{
 
     @FXML
     private HBox ma_list_box;
-    @FXML
-    void my_art(MouseEvent event) {
-        afficher_ma_list.setVisible(true);
-        add_panel.setVisible(false);
-        Affichage_panel.setVisible(false);
-        afficher_panier.setVisible(false);
-        refreshMyCards();
-    }
+
     ///partie ma liste ////////////////////////
     int id=2;
     private List<Product> fo(){
@@ -343,6 +335,14 @@ public class ProductController implements Initializable{
     //////////////////////ma liste end ////////////////////////////
 ///////////////////////////////edit post from my list /////////////////////////////
     @FXML
+    void my_art(MouseEvent event) {
+        afficher_ma_list.setVisible(true);
+        add_panel.setVisible(false);
+        Affichage_panel.setVisible(false);
+        afficher_panier.setVisible(false);
+        refreshMyCards();
+    }
+    @FXML
     void CancelEditProduct(ActionEvent event) {
 
     }
@@ -351,4 +351,5 @@ public class ProductController implements Initializable{
     void EditProduct(ActionEvent event) {
 
     }
+
 }

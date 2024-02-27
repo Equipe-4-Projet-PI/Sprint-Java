@@ -74,6 +74,14 @@ public class MyCardController {
 
     @FXML
     void edit_item(ActionEvent event) {
+        int idp = Integer.parseInt(my_id.getText());
+        String title = my_title.getText();
+        String desc = my_desc.getText();
+        String date = my_date.getText();
+        int fsale = Integer.parseInt(my_fsale.getText());
+        Double price = Double.valueOf(my_price.getText());
+        String image = this.imagePath;
+
 
     }
 }
