@@ -1,0 +1,19 @@
+.white-background{
+    -fx-background-color: #fff;
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+.round-layout{
+    -fx-border-radius: 50;
+    -fx-background-color: #070707;
+}
+.selected{
+    -fx-background-color: #F3F3F3;
+}
+
+.Hbox{
+    border-style: outset;
+}
+

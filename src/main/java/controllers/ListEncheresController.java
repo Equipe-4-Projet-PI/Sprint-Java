@@ -23,8 +23,6 @@ import java.sql.SQLException;
 public class ListEncheresController {
 
     @FXML
-    private Label enchere;
-    @FXML
     private TableColumn<Auction, Date> fxDateD;
 
     @FXML
@@ -68,7 +66,6 @@ public class ListEncheresController {
     }
 
     @FXML
-
     public void AfficherEncher(javafx.event.ActionEvent actionEvent) {
         Auction selectedItem = fxTableViw.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
@@ -88,7 +85,6 @@ public class ListEncheresController {
         }
     }
     @FXML
-
     public void AjouterEncher(javafx.event.ActionEvent actionEvent)throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/AjouterAuction.fxml"));
@@ -98,16 +94,14 @@ public class ListEncheresController {
     }
 
     @FXML
-
     public void supprimerButton(javafx.event.ActionEvent actionEvent) {
         Auction selectedItem = fxTableViw.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             int id_auction = selectedItem.getId();
             try {
                 serviceAuction.supprimer_auction(id_auction);
-
-                ObservableList<Auction> userList = fxTableViw.getItems();
-                userList.remove(selectedItem);
+                ObservableList<Auction> AuctionList = fxTableViw.getItems();
+                AuctionList.remove(selectedItem);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -115,7 +109,6 @@ public class ListEncheresController {
     }
 
     @FXML
-
     public void modifier_enchere(javafx.event.ActionEvent actionEvent) {
         Auction selectedItem = fxTableViw.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {

@@ -123,24 +123,7 @@ public class Auction {
         this.nom = nom;
     }
 
-    /*public String getFormattedDate1() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return dateFormat.format(getDate_lancement());
-    }
 
-    public String getFormattedDate2() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return dateFormat.format(getDate_cloture());
-    }*/
-    public String getFormattedDate1() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return getDate_lancement().format(formatter);
-    }
-
-    public String getFormattedDate2() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return getDate_cloture().format(formatter);
-    }
 
     @Override
     public String toString() {

@@ -106,7 +106,7 @@ public class AjouterAuctionController implements Initializable {
     @FXML
     public void retourner(javafx.scene.input.MouseEvent mouseEvent) throws IOException{
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEncheres.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeEncheres.fxml"));
                 Parent loginSuccessRoot = loader.load();
                 Scene scene = tf_nomAuction.getScene();
                 scene.setRoot(loginSuccessRoot);

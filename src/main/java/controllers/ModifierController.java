@@ -46,7 +46,6 @@ public class ModifierController{
         LocalDate date_lancement = tf_date.getValue();
         LocalDate date_cloture = tf_dateC.getValue();
 
-        // Create a new User object with the edited values
         Auction editAuction = new Auction();
         editAuction.setId(id_enchere);
         editAuction.setNom(nom_auction);
@@ -55,10 +54,8 @@ public class ModifierController{
         editAuction.setDate_cloture(date_cloture);
 
         try {
-            // Update the user details using the ServiceUser
             serviceAuction.modifier(editAuction);
 
-            // Show a confirmation message
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Edit User");
             alert.setHeaderText(null);
@@ -70,9 +67,7 @@ public class ModifierController{
             Scene scene = tf_nomAuction.getScene();
             scene.setRoot(loginSuccessRoot);
         } catch (SQLException | IOException e) {
-            // Handle SQL exception
             e.printStackTrace();
-            // Show an error message
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);

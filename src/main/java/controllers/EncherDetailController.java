@@ -7,6 +7,7 @@ import entities.Auction;
 import entities.Auction_participant;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,6 +17,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
@@ -26,14 +29,18 @@ import javax.xml.crypto.Data;
 import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class EncherDetailController {
+public class EncherDetailController{
 
     @FXML
     private Label nbreParticipant;
@@ -47,8 +54,6 @@ public class EncherDetailController {
     @FXML
     private Label nomEnchere;
 
-    @FXML
-    private Label prixFinal;
 
     @FXML
     private Label prixInitial;
@@ -61,55 +66,89 @@ public class EncherDetailController {
 
     @FXML
     private Button effectuerButton;
+    @FXML
+    private HBox hboxFX;
     ServiceAuction serviceAuction = new ServiceAuction();
     ServiceParticipant serviceParticipant = new ServiceParticipant();
 
+
+    List<Auction_participant> recentlyAdded;
+
+
+
     public void initData(Auction auction) {
+        try{
+            initialize(auction.getId());
+        }catch (NullPointerException j){
+            j.printStackTrace();
+        }
         nomEnchere.setText(auction.getNom());
         prixInitial.setText(String.valueOf(auction.getPrix_initial()));
-        prixFinal.setText(String.valueOf(auction.getPrix_final()));
         dateLancement.setText(String.valueOf(auction.getDate_lancement()));
         dateCloture.setText(String.valueOf(auction.getDate_cloture()));
         byte[] imageData = loadImageFromDatabase(auction.getId_produit());
         Image image = new Image(new ByteArrayInputStream(imageData));
         imageProduit.setImage(image);
         nbreParticipant.setText(String.valueOf(countPartcipant(auction.getId())));
+    }
+
+    public void initialize(int id_auction) {
+        recentlyAdded =new ArrayList<>(recentlyAdded1());
+        System.out.println("the size of data "+recentlyAdded.size());
+        try {
+            VBox mainVBox = new VBox();
+            hboxFX.getChildren().add(mainVBox);
+            HBox currentHBox = new HBox();
+            currentHBox.setSpacing(10);
+            for (int i = 0 ; i<recentlyAdded.size();i++){
+                if(i> 0 && i % 1 == 0){
+                    mainVBox.getChildren().add(currentHBox);
+                    currentHBox = new HBox();
+                }
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/Participant.fxml"));
+                HBox participantBox = fxmlLoader.load();
+                ParticipantController participantController = fxmlLoader.getController();
+                try{
+                    participantController.initData(recentlyAdded.get(i));
+                }catch (NullPointerException j){
+                    j.printStackTrace();
+                }
+                currentHBox.getChildren().add(participantBox);
+            }
+            mainVBox.getChildren().add(currentHBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 
     }
     @FXML
     void handleParticipantsLabelClick(MouseEvent event) {
         try {
-            // Load the FXML file for the new window
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/ListeParticipant.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the new window
             Stage newStage = new Stage();
             newStage.setTitle("Liste Participants");
             newStage.setScene(new Scene(root));
 
-            // Get the controller of the new window
             ListeParticipantsController listeParticipantsController = loader.getController();
 
-            // Pass data to the controller of the new window
             listeParticipantsController.initialize(2);
 
-            // Show the new window
             newStage.show();
 
-            // Close the current window if needed
-            // ((Node)(event.getSource())).getScene().getWindow().hide();
 
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-
     @FXML
     void effectuerArgent(ActionEvent event) {
-        int id_user = 6;
+        int id_user = 5;
         Auction_participant auctionParticipant = new Auction_participant();
 
         try {
@@ -124,18 +163,14 @@ public class EncherDetailController {
                 serviceParticipant.modifier(auctionParticipant);
                 serviceAuction.modifierPrixFinal(serviceAuction.getById(auctionParticipant.getId_auction()));
 
-                // Get the current stage (window)
                 Stage stage = (Stage) nomEnchere.getScene().getWindow();
 
-                // Load and set the same FXML file to refresh the window
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
                 Parent root = loader.load();
 
-                // Retrieve the controller to initialize data if needed
                 EncherDetailController controller = loader.getController();
                 controller.initData(serviceAuction.getById(auctionParticipant.getId_auction()));
 
-                // Set the refreshed scene to the stage
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
             } catch (IOException | SQLException e) {
@@ -196,9 +231,9 @@ public class EncherDetailController {
     @FXML
     void retouner(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEncheres.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Enchers.fxml"));
             Parent loginSuccessRoot = loader.load();
-            Scene scene = prixFinal.getScene();
+            Scene scene = prixInitial.getScene();
             scene.setRoot(loginSuccessRoot);
 
         }catch (IOException e){
@@ -207,5 +242,12 @@ public class EncherDetailController {
 
     }
 
+    private List<Auction_participant> recentlyAdded1(){
+        try {
+            return serviceParticipant.afficher();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

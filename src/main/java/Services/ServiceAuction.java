@@ -1,6 +1,7 @@
 package Services;
 
 import entities.Auction;
+import javafx.scene.control.Label;
 import utils.MyDB;
 
 import java.io.IOException;
@@ -34,13 +35,6 @@ public class ServiceAuction implements IService<Auction>{
     }
 
 
-    /*public void ajouter(Auction auction) throws SQLException {
-        String req = "insert into Auction (nom , date_lancement,prix_initial ,  id_produit )" +
-                "values ('"+auction.getNom()+"','"+auction.getDuration()+"','"+auction.getFormattedDate()+"','"+auction.getPrix_initial()+"','"+auction.getPrix_final()+"' ,"+auction.getId_produit()+")";
-        Statement ste = con.createStatement();
-        ste.executeUpdate(req);
-
-    }*/
     //hedhy tbadali auction lkol kif yheb l artiste yaaml modification aala auction mte3ou
     @Override
     public void modifier(Auction auction) throws SQLException {
@@ -140,28 +134,7 @@ public class ServiceAuction implements IService<Auction>{
             }
         }
     }
-    //hedhy traja3 list feha auction kol wehed jebnelou ken l id w l image_produit
-    public List<Auction> getEncheresWithProductImage() {
-        List<Auction> listAuctions = new ArrayList<>();
-        try {
-            String req = "SELECT auction.id_Auction, product.image_produit FROM auction JOIN product ON auction.id_produit = product.id_product";
-            PreparedStatement preparedStatement = con.prepareStatement(req);
-            ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                Auction auction = new Auction();
-                auction.setId(resultSet.getInt("id_Auction"));
-                String cheminImageProduit = resultSet.getString("image_produit");
-                auction.setCheminImageProduit(cheminImageProduit);
-
-                listAuctions.add(auction);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listAuctions;
-    }
 
 
     //hedhy tbadel l prix_final
@@ -178,7 +151,7 @@ public class ServiceAuction implements IService<Auction>{
             e.getMessage();
         }
 }
-//juste pour le test
+    //juste pour le test
     public float selectPrixFinal(int id_auction) throws SQLException {
         String req = "SELECT prix_final FROM auction WHERE id_Auction=?";
         PreparedStatement pre = con.prepareStatement(req);
@@ -227,66 +200,6 @@ public class ServiceAuction implements IService<Auction>{
         }
 
         return auction;
-    }
-
-    //hedhy traja3lk chemin mtaa l image_produit
-    public String getCheminImageProduit(int idProduit) throws SQLException {
-        String req = "SELECT image_produit FROM product WHERE id_product=?";
-        PreparedStatement pre = con.prepareStatement(req);
-        pre.setInt(1, idProduit);
-
-        ResultSet resultSet = pre.executeQuery();
-        String cheminImageProduit = null;
-
-        if (resultSet.next()) {
-            cheminImageProduit = resultSet.getString("image_produit");
-        }
-
-        return cheminImageProduit;
-    }
-    //hedhy traja3 auction ama menghyr taswira
-    public Auction getAuctionById(int id ) throws SQLException {
-        String req= "select * from Auction where id_auction=?";
-        PreparedStatement pre = con.prepareStatement(req);
-        pre.setInt(1,id);
-        ResultSet resultSet = pre.executeQuery();
-        Auction auction = new Auction();
-        while (resultSet.next()){
-            auction.setId(resultSet.getInt("id_auction"));
-            auction.setNom(resultSet.getString("nom"));
-            auction.setDate_lancement(resultSet.getObject("date_lancement", LocalDate.class));
-            auction.setPrix_initial(resultSet.getInt("prix_initial"));
-            auction.setPrix_final(resultSet.getInt("prix_final"));
-            auction.setId_produit(resultSet.getInt("id_produit"));
-            auction.setId_artist(resultSet.getInt("id_artist"));
-            auction.setCheminImageProduit(resultSet.getString("image_produit"));
-        }
-        return  auction;
-    }
-    //hedhy zeda traja3 auction kahaw
-    public Auction getAuctionByIdNoImage(int id) throws SQLException {
-        String req = "SELECT * FROM Auction WHERE id_auction=?";
-        try (PreparedStatement pre = con.prepareStatement(req)) {
-            pre.setInt(1, id);
-            try (ResultSet resultSet = pre.executeQuery()) {
-                if (resultSet.next()) {
-                    Auction auction = new Auction();
-                    auction.setId(resultSet.getInt("id_auction"));
-                    auction.setNom(resultSet.getString("nom"));
-                    auction.setDate_lancement(resultSet.getObject("date_lancement", LocalDate.class));
-                    auction.setPrix_initial(resultSet.getInt("prix_initial"));
-                    auction.setPrix_final(resultSet.getInt("prix_final"));
-                    auction.setId_produit(resultSet.getInt("id_produit"));
-                    auction.setId_artist(resultSet.getInt("id_artist"));
-                    return auction;
-                } else {
-                    // Gérer le cas où aucune enchère n'est trouvée (lancer une exception ou renvoyer null)
-                    throw new SQLException("Aucune enchère trouvée avec l'ID : " + id);
-                    // ou
-                    // return null;
-                }
-            }
-        }
     }
 
     //hedhy traja3 taswiret l produit mtaa auction

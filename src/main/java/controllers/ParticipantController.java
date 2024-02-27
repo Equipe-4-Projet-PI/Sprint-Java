@@ -1,0 +1,34 @@
+package controllers;
+
+import Services.ServiceParticipant;
+import entities.Auction_participant;
+import javafx.fxml.FXML;
+import javafx.scene.layout.HBox;
+import javafx.scene.control.Label;  // Add this import statement
+
+
+import java.awt.*;
+
+public class ParticipantController {
+
+    ServiceParticipant serviceParticipant = new ServiceParticipant();
+
+    @FXML
+    private HBox hbox;
+
+    @FXML
+    private Label date;
+
+    @FXML
+    private Label nom_participant;
+
+    @FXML
+    private Label prix_participant;
+
+
+    public void initData(Auction_participant participant) {
+        nom_participant.setText(serviceParticipant.getNom(participant.getId_participant()));
+        prix_participant.setText(String.valueOf(participant.getPrix()));
+        date.setText(String.valueOf(participant.getDate()));
+    }
+}
