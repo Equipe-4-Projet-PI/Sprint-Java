@@ -52,6 +52,7 @@ public class PostTemplateController {
         reloadPage();
     }
 
+
     void reloadPage()
     {
         Parent root= post_label_id.getScene().getRoot();

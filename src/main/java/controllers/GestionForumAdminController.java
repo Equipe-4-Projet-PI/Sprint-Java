@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import services.ServiceForum;
 import javafx.scene.layout.AnchorPane;
@@ -17,6 +18,9 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GestionForumAdminController {
 
@@ -80,9 +84,14 @@ public class GestionForumAdminController {
     private Button Yes_butt_id;
     @FXML
     private Button No_butt_id;
+
+
     @FXML
     void DeleteForum(ActionEvent event) {
-        ConfirmationPage_id.setVisible(true);
+        if(table_id.getSelectionModel().getSelectedItem() != null)
+        {
+            ConfirmationPage_id.setVisible(true);
+        }
     }
     @FXML
     void ConfirmDeletion(ActionEvent event)
@@ -106,14 +115,17 @@ public class GestionForumAdminController {
     private Button editForumButt_id;
     @FXML
     void EditForum(ActionEvent event) {
-        try {
-            ForumEntity f = table_id.getSelectionModel().getSelectedItem();
-            Parent root= loadRootLayout(f);
-            deleteForumButt_id.getScene().setRoot(root);
-        } catch (SQLException | IOException e) {
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if(table_id.getSelectionModel().getSelectedItem() != null)
+        {
+            try {
+                ForumEntity f = table_id.getSelectionModel().getSelectedItem();
+                Parent root= loadRootLayout(f);
+                deleteForumButt_id.getScene().setRoot(root);
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -126,4 +138,64 @@ public class GestionForumAdminController {
         return root;
     }
 
+    //SEARCHING LOGIC
+
+    @FXML
+    private TextField id_search;
+
+    @FXML
+    void searchForForm(ActionEvent event) {
+        try {
+            table_id.getItems().clear();
+            String searchText = id_search.getText();
+            ObservableList<ForumEntity> observableList = FXCollections.observableList(SF.afficher());
+
+            List<ForumEntity> filteredList = observableList.stream()
+                    .filter(e -> e.getTitle().toLowerCase().contains(searchText.toLowerCase()))
+                    .collect(Collectors.toList());
+
+            ObservableList<ForumEntity> newList = FXCollections.observableList(filteredList);
+
+            table_id.setItems(newList);
+
+            f_id.setCellValueFactory(new PropertyValueFactory<ForumEntity,Integer>("id_forum"));
+            title_id.setCellValueFactory(new PropertyValueFactory<ForumEntity,String>("title"));
+            desc_id.setCellValueFactory(new PropertyValueFactory<ForumEntity,String>("description"));
+            rep_id.setCellValueFactory(new PropertyValueFactory<ForumEntity,Integer>("replies_num"));
+            date_id.setCellValueFactory(new PropertyValueFactory<ForumEntity,Date>("date"));
+
+
+        }catch ( SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //VIEW POSTS LOGIC
+    @FXML
+    private Button postViewButt_id;
+
+    @FXML
+    void GoToPosts(ActionEvent event) {
+        if(table_id.getSelectionModel().getSelectedItem() != null)
+        {
+            try{
+                Parent root = loadTablePosts();
+                postViewButt_id.getScene().setRoot(root);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    private Parent loadTablePosts() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Admin/GestionPostsTableAdmin.fxml"));
+        GestionPostsTableAdminController controller = new GestionPostsTableAdminController();
+        loader.setController(controller);
+        controller.setData(table_id.getSelectionModel().getSelectedItem());
+        Parent root = loader.load();
+        return root;
+    }
 }
