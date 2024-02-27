@@ -6,12 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
 
-public class LoginSuccess {
+public class ProfileGallerieController {
 
     @FXML
     private Label nav_name;
@@ -33,29 +32,30 @@ public class LoginSuccess {
         ProfileController profileController = loader.getController();
         profileController.initData(userlogged);
 
-
     }
 
     @FXML
-    void Gallerie(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile_Gallerie.fxml"));
+    void Gallerie(ActionEvent event) {
+    }
+
+
+
+
+    @FXML
+    void Post_Blog(ActionEvent event)  throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginSuccess.fxml"));
         Parent loginSuccessRoot = loader.load();
         Scene scene = nav_name.getScene();
         scene.setRoot(loginSuccessRoot);
-        ProfileGallerieController profileGallerieController = loader.getController();
-        profileGallerieController.initData(userlogged);
-    }
-
-    @FXML
-    void Post_Blog(ActionEvent event) {
-
-
+        LoginSuccess loginSuccess = loader.getController();
+        loginSuccess.initData(userlogged);
     }
 
     public void initData(User user) {
-        nav_name.setText("Bienvenue,"+ " "+user.getFirstName());
-        post_name.setText(user.getFirstName() + " " + user.getLastName());
         statue_name.setText(user.getFirstName() + " " + user.getLastName());
+        nav_name.setText("Bienvenue,"+ " "+user.getFirstName());
+
         userlogged = new User();
         userlogged.setGender(user.getGender());
         userlogged.setDOB(user.getDOB());
@@ -68,7 +68,6 @@ public class LoginSuccess {
         userlogged.setLastName(user.getLastName());
         userlogged.setId_User(user.getId_User());
         userlogged.setRole(user.getRole());
-
 
 
     }

@@ -5,16 +5,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import services.ServiceUser;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class SignUpController {
 
@@ -26,7 +24,7 @@ public class SignUpController {
     @FXML
     private TextField id_Email;
     @FXML
-    private TextField id_Password;
+    private PasswordField id_Password;
     @FXML
     private ComboBox<String> id_Role;
     @FXML
@@ -42,29 +40,80 @@ public class SignUpController {
     @FXML
     private TextField id_Phone;
     @FXML
+    private PasswordField id_CPassword;
+    @FXML
 
     public void initialize() {
         initializeComboBoxContent();
     }
     public void SignUp(javafx.event.ActionEvent actionEvent) {
-        try {
-            serviceUser.ADD(new User(id_Username.getText(), id_Email.getText(), id_Password.getText(), id_Role.getValue(), id_Firstname.getText(), id_Lastname.getText(), id_Adress.getText(),id_Gender.getValue(),Integer.parseInt(id_Phone.getText()), id_Dob.getValue()));
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("SUCCESS");
-            alert.setContentText("USER ADD");
-            alert.showAndWait();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
-            Parent loginSuccessRoot = loader.load();
-            Scene scene = id_Password.getScene(); // Get the scene from any node in the current scene
-            scene.setRoot(loginSuccessRoot);
-        }
-        catch (SQLException | IOException e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERROR");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+        String username = id_Username.getText();
+        String email = id_Email.getText();
+        String password = id_Password.getText();
+        String role = id_Role.getValue();
+        String firstName = id_Firstname.getText();
+        String lastName = id_Lastname.getText();
+        String address = id_Adress.getText();
+        String gender = id_Gender.getValue();
+        String phoneText = id_Phone.getText();
+        LocalDate dob = id_Dob.getValue();
+        String Cpassword = id_CPassword.getText();
 
+        // Check if any required field is empty
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || role == null || firstName.isEmpty() ||
+                lastName.isEmpty() || address.isEmpty() || gender == null || phoneText.isEmpty() || dob == null) {
+            showAlert("Error", "Please fill in all the fields.");
+            return;
         }
+        else if (!password.equals(Cpassword)) {
+            showAlert("Error", "les 2 password son't faux");
+            return;
+        }
+
+        // Validate phone number
+        int phone ;
+        try {
+            phone = Integer.parseInt(phoneText);
+        } catch (NumberFormatException e) {
+            showAlert("Error", "Entrer un Numéro Télephone Valide");
+            return;
+        }
+        // Validate email format
+        if (!isValidEmail(email)) {
+            showAlert("Error", "Entrer un Adress Email Valide");
+            return;
+        }
+
+        // Now you can proceed with adding the user
+        try {
+            serviceUser.ADD(new User(username, email, password, role, firstName, lastName, address, gender, phone, dob));
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Bienvenue");
+            alert.setContentText("Bienvenue Dans ArtyVenci");
+            alert.showAndWait();
+            showAlert("Success", "User added successfully.");
+            // Redirect to login page
+            redirectToLogin();
+        } catch (SQLException | IOException e) {
+            showAlert("Error", e.getMessage());
+        }
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
+    }
+    private void redirectToLogin() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = id_Password.getScene(); // Get the scene from any node in the current scene
+        scene.setRoot(loginSuccessRoot);
     }
 
     private void initializeComboBoxContent() {

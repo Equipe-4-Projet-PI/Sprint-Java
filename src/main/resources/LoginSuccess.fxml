@@ -44,12 +44,12 @@
          <Font name="Comic Sans MS" size="12.0" />
       </font>
    </Button>
-   <Button layoutX="957.0" layoutY="227.0" mnemonicParsing="false" onAction="#Post_Blog" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #0076A8; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Posts/Blog" textFill="WHITE">
+   <Button layoutX="957.0" layoutY="227.0" mnemonicParsing="false" onAction="#Post_Blog" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: lightblue; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Posts/Blog" textFill="WHITE">
       <font>
          <Font name="Comic Sans MS" size="12.0" />
       </font>
    </Button>
-   <Label fx:id="nav_name" layoutX="993.0" layoutY="64.0" text="Bonjour,Yassine Manai">
+   <Label fx:id="nav_name" layoutX="1022.0" layoutY="64.0" text="Bonjour,Yassine ">
       <font>
          <Font name="Bell MT Italic" size="26.0" />
       </font>
