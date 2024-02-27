@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import services.MyListner;
 import services.ServiceProduct;
 
 import java.io.FileInputStream;
@@ -42,7 +43,11 @@ public class MyCardController {
 
     private String imagePath;
 
-    public void setData(Product product){
+    private MyListner myListner;
+
+
+    public void setData(Product product,MyListner myListner){
+        this.myListner=myListner;
         this.imagePath = product.getProductImage();
         try {
             my_image.setImage(new Image(new FileInputStream(this.imagePath)));
@@ -81,7 +86,7 @@ public class MyCardController {
         int fsale = Integer.parseInt(my_fsale.getText());
         Double price = Double.valueOf(my_price.getText());
         String image = this.imagePath;
-
+        myListner.onClick(idp,title,desc,date,fsale,price,image);
 
     }
 }

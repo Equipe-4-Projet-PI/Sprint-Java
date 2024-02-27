@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import services.MyListner;
 import services.ServiceOrder;
 import services.ServiceProduct;
 import javafx.fxml.Initializable;
@@ -43,6 +44,10 @@ public class ProductController implements Initializable{
     private TextField pr_title_ed;
     @FXML
     private ImageView product_image_ed;
+    @FXML
+    private TextField pr_date_ed;
+    @FXML
+    private TextField pr_id_ed;
     @FXML
     private Pane Edit_panel;
 
@@ -123,6 +128,7 @@ public class ProductController implements Initializable{
         Affichage_panel.setVisible(true);
         afficher_panier.setVisible(false);
         afficher_ma_list.setVisible(false);
+        Edit_panel.setVisible(false);
         refreshData();
     }
     @FXML
@@ -142,6 +148,8 @@ public class ProductController implements Initializable{
     add_panel.setVisible(true);
     Affichage_panel.setVisible(false);
         afficher_panier.setVisible(false);
+        Edit_panel.setVisible(false);
+        afficher_ma_list.setVisible(false);
         product_image.setImage(new Image("file:C:\\Users\\bigal\\Documents\\GitHub\\Sprint-Java\\src\\main\\resources\\img.png"));
     }
 
@@ -213,6 +221,8 @@ public class ProductController implements Initializable{
         Affichage_panel.setVisible(true);
         afficher_panier.setVisible(false);
         afficher_ma_list.setVisible(false);
+        Edit_panel.setVisible(false);
+
         refreshData();
     }
     @FXML
@@ -221,6 +231,8 @@ public class ProductController implements Initializable{
         Affichage_panel.setVisible(true);
         afficher_panier.setVisible(false);
         afficher_ma_list.setVisible(false);
+        Edit_panel.setVisible(false);
+
         refreshData();
     }
 
@@ -235,6 +247,8 @@ public class ProductController implements Initializable{
         Affichage_panel.setVisible(false);
         afficher_panier.setVisible(true);
         afficher_ma_list.setVisible(false);
+        Edit_panel.setVisible(false);
+
 
     }
     ///////////////////////////load data from order ///////////////////////////////////////////
@@ -313,11 +327,35 @@ public class ProductController implements Initializable{
                     currentHBox = new HBox();
                     currentHBox.setSpacing(50);
                 }
+                MyListner myListner= new MyListner() {
+                    @Override
+                    public void onClick(int value,String value1,String value2,String value3,int value4,Double value5,String value6) {
+                        Edit_panel.setVisible(true);
+                        afficher_ma_list.setVisible(false);
+                        add_panel.setVisible(false);
+                        Affichage_panel.setVisible(false);
+                        afficher_panier.setVisible(false);
+                        pr_id_ed.setText(String.valueOf(value));
+                        pr_title_ed.setText(value1);
+                        pr_desc_ed.setText(value2);
+                        pr_date_ed.setText(String.valueOf(value3));
+                        if (value4!=0){
+                            pr_oui_ed.setSelected(true);
+                        }else {
+                            pr_oui_ed.setSelected(false);
+                        }
+                        pr_price_ed.setText(String.valueOf(value5));
+
+                        String imagePath = value6;
+                        Image image = new Image(new File(imagePath).toURI().toString());
+                        product_image_ed.setImage(image);
+                    }
+                };
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/MyCard.fxml"));
                 HBox cardBox = fxmlLoader.load();
                 MyCardController myCardController = fxmlLoader.getController();
-                myCardController.setData(fa.get(i));
+                myCardController.setData(fa.get(i),myListner);
                 currentHBox.getChildren().add(cardBox);
             }
 
@@ -340,16 +378,71 @@ public class ProductController implements Initializable{
         add_panel.setVisible(false);
         Affichage_panel.setVisible(false);
         afficher_panier.setVisible(false);
+        Edit_panel.setVisible(false);
         refreshMyCards();
     }
     @FXML
     void CancelEditProduct(ActionEvent event) {
+        afficher_ma_list.setVisible(true);
+        add_panel.setVisible(false);
+        Affichage_panel.setVisible(false);
+        afficher_panier.setVisible(false);
+        Edit_panel.setVisible(false);
+        refreshMyCards();
+    }
 
+    int forsalevalue_ed(){
+        if (pr_oui_ed.isSelected()){
+            return 1;
+        }
+        else return 0;
     }
 
     @FXML
-    void EditProduct(ActionEvent event) {
+    void add_image_dialog_ed(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Image File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+        );
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            Image image = new Image(selectedFile.toURI().toString());
+            product_image_ed.setImage(image);
 
+        }
+    }
+    @FXML
+    void EditProduct(ActionEvent event) {
+        try{
+            price_ed = Double.parseDouble(pr_price_ed.getText());
+        }catch(NumberFormatException e){
+            System.out.println("invalid integer input");
+        }
+        int id = Integer.parseInt(pr_id_ed.getText());
+        String title = pr_title_ed.getText();
+        String desc = pr_desc_ed.getText();
+        String date = pr_date_ed.getText();
+        Double price = Double.valueOf(pr_price_ed.getText());
+        String imagePath = "";
+        Image image = product_image_ed.getImage();
+        if (image != null) {
+            String imageUrl = image.getUrl();
+            if (imageUrl.startsWith("file:/")) {
+                imagePath = imageUrl.substring("file:/".length());
+            }
+        }
+        try {
+            s.modifier(new Product(id,userid,forsalevalue_ed(),price,title,desc,date,imagePath));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        afficher_ma_list.setVisible(true);
+        add_panel.setVisible(false);
+        Affichage_panel.setVisible(false);
+        afficher_panier.setVisible(false);
+        Edit_panel.setVisible(false);
+        refreshMyCards();
     }
 
 }
