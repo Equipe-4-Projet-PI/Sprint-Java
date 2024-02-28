@@ -90,4 +90,23 @@ public class ServiceMessage implements IService<Message>{
         }
         return msg;
     }
+
+    public List<Message> afficheridDis(int idDis) throws SQLException {
+        List<Message> msg = new ArrayList<>();
+        String req = "SELECT idMsg, dateSent, idSender, idDis ,  content, reaction FROM message where idDis = ?";
+        PreparedStatement pre = conn.prepareStatement(req);
+        pre.setInt(1, idDis);
+        ResultSet res = pre.executeQuery();
+        while (res.next()) {
+            Message m = new Message();
+            m.setIdMsg(res.getInt("idMsg"));
+            m.setTime(res.getTimestamp("DateSent"));
+            m.setIdSender(res.getInt("idSender"));
+            m.setIdSender(res.getInt("idDis"));
+            m.setContent(res.getString("content"));
+            m.setReaction(res.getString("reaction"));
+            msg.add(m);
+        }
+        return msg;
+    }
 }

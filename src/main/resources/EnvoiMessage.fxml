@@ -9,21 +9,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EnvoiMessageController">
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
+<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EnvoiMessageController">
     <children>
-        <ImageView fitHeight="99.0" fitWidth="655.0" layoutX="-5.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="722.0" fitWidth="1278.0" layoutX="2.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Capture.PNG" />
+         </image>
+      </ImageView>
+        <ImageView fitHeight="86.0" fitWidth="1280.0" layoutX="-5.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/blanc.PNG" />
-            </image>
-        </ImageView>
-        <ImageView fitHeight="313.0" fitWidth="629.0" layoutX="-131.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@images/Capture.PNG" />
-            </image>
-        </ImageView>
-        <ImageView fitHeight="323.0" fitWidth="556.0" layoutX="94.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@images/Capture.PNG" />
             </image>
         </ImageView>
         <ImageView fitHeight="60.0" fitWidth="118.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
@@ -134,7 +133,7 @@
                 </ImageView>
             </children>
         </Pane>
-        <ImageView fitHeight="150.0" fitWidth="118.0" layoutX="116.0" layoutY="-80.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="150.0" fitWidth="118.0" layoutX="162.0" layoutY="-73.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/papillon2.PNG" />
             </image>
