@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import services.ServiceDisscussion;
 import services.ServiceMessage;
@@ -33,6 +34,8 @@ public class Envoi_MessageController  {
     int idSender = sender.getId_User();
 
     @FXML
+    private Text disc;
+    @FXML
     private ScrollPane discussion;
 
     @FXML
@@ -50,6 +53,7 @@ public class Envoi_MessageController  {
 
     @FXML
     private Button signal;
+
 
     @FXML
     void ajouter(ActionEvent event) throws IOException {
@@ -84,6 +88,10 @@ public class Envoi_MessageController  {
         stage.setScene(scene);
         stage.setTitle("Signaler Message");
         stage.show();
+    }
+
+    public void loadDiscussions(){
+        disc.setText("loadDiscussions");
     }
 
 

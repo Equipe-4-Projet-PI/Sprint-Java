@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Envoi_MessageController">
    <children>
@@ -20,9 +21,12 @@
       </ImageView>
       <HBox layoutX="73.0" layoutY="246.0" opacity="0.38" prefHeight="416.0" prefWidth="1161.0" style="-fx-background-color: #B4DBDC;">
          <children>
-            <ScrollPane prefHeight="416.0" prefWidth="365.0">
+            <ScrollPane fx:id="discussions" onDragDetected="#loadDiscussions" prefHeight="416.0" prefWidth="365.0">
                <content>
-                  <VBox fx:id="dis" prefHeight="89.0" prefWidth="365.0" />
+                  <VBox fx:id="dis" prefHeight="89.0" prefWidth="365.0">
+                     <children>
+                        <Text fx:id="disc" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                     </children></VBox>
                </content>
             </ScrollPane>
          </children>

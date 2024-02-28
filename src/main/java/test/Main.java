@@ -74,7 +74,6 @@ public class Main {
         //R
         try {
             System.out.println(sd.afficher());
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

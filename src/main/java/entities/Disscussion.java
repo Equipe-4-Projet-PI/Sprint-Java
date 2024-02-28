@@ -3,6 +3,7 @@ package entities;
 public class Disscussion {
 
     int idDis , idSender , idReceiver ;
+    String signal ;
 
     public Disscussion() {
     }
@@ -38,6 +39,14 @@ public class Disscussion {
 
     public void setIdReceiver(int idReceiver) {
         this.idReceiver = idReceiver;
+    }
+
+    public String getSignal() {
+        return signal;
+    }
+
+    public void setSignal(String signal) {
+        this.signal = signal;
     }
 
     @Override
