@@ -119,9 +119,10 @@ public class PanierCardController {
                     .build();
 
             Session session = Session.create(params);
-            // Redirect the user to the Stripe Checkout page
             URI checkoutUri = new URI(session.getUrl());
             java.awt.Desktop.getDesktop().browse(checkoutUri); // Opens the URL in the default browser
+            String paymentStatus = session.getPaymentStatus(); // Replace with the ID of the payment you want to retrieve data for
+            System.out.println(paymentStatus);
         } catch (StripeException e) {
             System.err.println("Error creating Checkout Session: " + e.getMessage());
             e.printStackTrace();
@@ -131,6 +132,11 @@ public class PanierCardController {
             ex.printStackTrace();
             // Handle the error, display a message to the user, etc.
         }
+
+
+    }
+    public static PaymentIntent retrievePaymentData(String paymentId) throws StripeException {
+        return PaymentIntent.retrieve(paymentId);
     }
 
 }
