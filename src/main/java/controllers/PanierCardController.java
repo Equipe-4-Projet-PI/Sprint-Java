@@ -1,7 +1,10 @@
 package controllers;
 
+import com.stripe.model.checkout.Session;
+import com.stripe.param.checkout.SessionCreateParams;
 import entities.Product;
 import entities.ProductOrder;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -13,6 +16,22 @@ import services.ServiceOrder;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.Request;
+import okhttp3.Response;
+import java.io.IOException;
+
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
+import com.stripe.param.PaymentIntentCreateParams;
+import java.net.URISyntaxException;
+import java.net.URI;
+import java.awt.Desktop;
+
 
 public class PanierCardController {
 
@@ -65,12 +84,53 @@ public class PanierCardController {
             throw new RuntimeException(e);
         }
     }
+
+
     @FXML
     void payer_order_btn(ActionEvent event) {
-        Alert alert=new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Stripe API Portal");
-        alert.setContentText("Stripe Payement Goes here");
-        alert.showAndWait();
+        Double montant = Double.valueOf(order_price.getText());
+        String title = order_title.getText();
+        Stripe.apiKey = "sk_test_51Oop0OBQCHJCIBnOp9sP9YNzRUVOleVW4d5FgsXox60XUClnwh8ZiMMamUtpz8LgHkIfYzQw8q40ocGEf1fVkj7G00Qk2ILK7A";
+
+        try {
+            SessionCreateParams params = SessionCreateParams.builder()
+                    .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
+                    .setMode(SessionCreateParams.Mode.PAYMENT)
+                    .setSuccessUrl("https://your-website.com/success")
+                    .setCancelUrl("https://your-website.com/cancel")
+                    .addLineItem(
+                            SessionCreateParams.LineItem.builder()
+                                    .setQuantity(1L)
+                                    .setPriceData(
+                                            SessionCreateParams.LineItem.PriceData.builder()
+                                                    .setCurrency("usd")
+                                                    .setUnitAmount((long) (montant * 100)) // Stripe expects the amount in cents
+                                                    .setProductData(
+                                                            SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                                                    .setName(title)
+                                                                    .addImage("https://i.imgur.com/vceNLz2.jpeg")
+                                                                    .setDescription("ArtyVenci Votre Gallery Virtuelle")
+                                                                    .build()
+                                                    )
+                                                    .build()
+                                    )
+                                    .build()
+                    )
+                    .build();
+
+            Session session = Session.create(params);
+            // Redirect the user to the Stripe Checkout page
+            URI checkoutUri = new URI(session.getUrl());
+            java.awt.Desktop.getDesktop().browse(checkoutUri); // Opens the URL in the default browser
+        } catch (StripeException e) {
+            System.err.println("Error creating Checkout Session: " + e.getMessage());
+            e.printStackTrace();
+            // Handle the error, display a message to the user, etc.
+        } catch (Exception ex) {
+            System.err.println("Error redirecting to Stripe Checkout: " + ex.getMessage());
+            ex.printStackTrace();
+            // Handle the error, display a message to the user, etc.
+        }
     }
 
 }
