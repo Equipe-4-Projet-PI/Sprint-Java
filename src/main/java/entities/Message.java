@@ -47,6 +47,11 @@ public class Message {
         this.time = new Timestamp(date.getTime()) ;
     }
 
+    public Message(int idMsg, String content) {
+        this.idMsg = idMsg;
+        this.content = content;
+    }
+
     public Message(int idMsg) {
         this.idMsg = idMsg;
     }
