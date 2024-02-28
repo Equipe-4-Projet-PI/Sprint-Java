@@ -74,6 +74,7 @@ String Username;
                         ", Adress='" + Adress + '\'' +
                         ", Phone='" + Phone + '\'' +
                         ", Gender='" + Gender + '\'' +
+                        ", Password='" + Password + '\'' +
                         ", DOB='" + DOB + '\'' +
                         '}';
     }

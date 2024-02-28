@@ -7,15 +7,41 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import services.ServiceUser;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import static java.awt.Color.black;
+
 public class DetailsProfileController {
 
-     @FXML
+   
+    public ImageView profile_pic;
+    public Button modiermdp;
+    public Button Anuller_mdp;
+    public Label label6;
+    public Label label5;
+    public Label label4;
+    public Label label3;
+    public Label label2;
+    public PasswordField id_newmdp;
+    public Label label1;
+    public ImageView mdp_change;
+    public Rectangle back;
+    @FXML
     private TextField id_Nom;
 
     @FXML
@@ -28,7 +54,7 @@ public class DetailsProfileController {
     private DatePicker id_date;
 
     @FXML
-    private TextField id_email;
+    private Label id_email;
 
     @FXML
     private PasswordField id_mdp;
@@ -48,11 +74,33 @@ public class DetailsProfileController {
     @FXML
     private Label statue_name;
     private User userlogged;
+    private String Current_Password;
+
 
 
     private String id_Utlisateur;
     private String Role;
     private String Gender ;
+
+
+
+    public void initialize(){
+        label1.setVisible(false);
+        label2.setVisible(false);
+        label3.setVisible(false);
+        label4.setVisible(false);
+        label5.setVisible(false);
+        label6.setVisible(false);
+        Anuller_mdp.setVisible(false);
+        modiermdp.setVisible(false);
+        mdp_change.setVisible(false);
+        back.setVisible(false);
+        id_newmdp.setVisible(false);
+        id_mdp.setVisible(false);
+        id_confirm.setVisible(false);
+
+
+    }
 
     @FXML
     void Annuler_Edit(ActionEvent event) throws IOException {
@@ -67,7 +115,7 @@ public class DetailsProfileController {
         alert.setHeaderText(null);
         alert.show();
     }
-
+    User editedUser = new User();
     @FXML
     void Confirme_Edit(ActionEvent event) {
         // Get the edited values from the text fields
@@ -75,28 +123,62 @@ public class DetailsProfileController {
         String firstName = id_Nom.getText();
         String lastName = id_prenom.getText();
         String address = id_adress.getText();
-        int phone = Integer.parseInt(id_tele.getText());
+
         LocalDate dob = id_date.getValue();
         String email = id_email.getText();
         String username = id_Utlisateur;
-        String password = id_mdp.getText();
+
         String role = Role;
         String gender = Gender;
+        String ImageURL = "";
+        Image image = profile_pic.getImage();
+        if (image != null) {
+            String imageUrl = image.getUrl();
+            ImageURL = imageUrl;
+//            if (imageUrl.startsWith("file:/")) {
+//                ImageURL = imageUrl.substring("file:/".length());
+//            }
+        }
 
         // Create a new User object with the edited values
-        User editedUser = new User(); // Initialize a new User object
+        // Initialize a new User object
         editedUser.setId_User(userId); // Assuming userId is accessible in this method
         editedUser.setUsername(username);
         editedUser.setEmail(email);
-        editedUser.setPassword(password);
+        if (editedUser.getPassword()== null){
+            editedUser.setPassword(Current_Password);
+        }
         editedUser.setRole(role);
         editedUser.setFirstName(firstName);
         editedUser.setLastName(lastName);
         editedUser.setAdress(address);
+
+
+        String text = id_tele.getText();
+        int phone;
+        try {
+            phone = Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            showAlert("Error", "Enter a valid phone number");
+            return;
+        }
+        if (text.length() != 6) {
+            showAlert("Error", "Enter a 6-digit phone number");
+            return;
+        }
+
+
+
+
+
         editedUser.setPhone(phone);
         editedUser.setDOB(dob.toString());
         editedUser.setGender(gender);
+        editedUser.setImageURL(ImageURL);
         System.out.println(editedUser);
+
+
+
 
         // Initialize ServiceUser
         ServiceUser serviceUser = new ServiceUser();
@@ -128,8 +210,15 @@ public class DetailsProfileController {
             alert.setContentText("Error updating user details: " + e.getMessage());
             alert.showAndWait();
         }
-    }
 
+
+    }
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
     @FXML
     void Details(ActionEvent event) {
 
@@ -162,11 +251,22 @@ public class DetailsProfileController {
         id_tele.setText(String.valueOf(user.getPhone()));
         id_date.setValue(LocalDate.parse(user.getDOB())); // Assuming getDOB() returns a String in "yyyy-MM-dd" format
         id_email.setText(user.getEmail());
-        id_mdp.setText(user.getPassword());
+        Current_Password = user.getPassword();
         id_user.setText(String.valueOf(user.getId_User()));
          id_Utlisateur = user.getUsername();
          Role = user.getRole();
         Gender= user.getGender();
+
+        String filePath = user.getImageURL().toString();
+
+
+        filePath = filePath.replace("/", "\\");
+
+        Image image = new Image(filePath);
+        Circle clip = new Circle(profile_pic.getFitWidth() / 2, profile_pic.getFitHeight() / 2, Math.min(profile_pic.getFitWidth(), profile_pic.getFitHeight()) / 2);
+        profile_pic.setClip(clip);
+        profile_pic.setImage(image);
+
 
 
         userlogged = new User();
@@ -181,5 +281,117 @@ public class DetailsProfileController {
         userlogged.setLastName(user.getLastName());
         userlogged.setId_User(user.getId_User());
         userlogged.setRole(user.getRole());
+        userlogged.setImageURL(user.getImageURL());
+    }
+
+    public void AddImage(MouseEvent mouseEvent) {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Image File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+        );
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            Image image = new Image(selectedFile.toURI().toString());
+
+            Circle clip = new Circle(profile_pic.getFitWidth() / 2, profile_pic.getFitHeight() / 2, Math.min(profile_pic.getFitWidth(), profile_pic.getFitHeight()) / 2);
+            profile_pic.setClip(clip);
+            profile_pic.setImage(image);
+
+        }
+    }
+
+    public void ModifierMdp(ActionEvent actionEvent) {
+
+        String userpassword = id_mdp.getText();
+        String usernewpassword = id_newmdp.getText();
+        String Confirmuserpass = id_confirm.getText();
+
+        if (!usernewpassword.equals(Confirmuserpass)){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("confirmé Votre mot de passe" );
+            alert.showAndWait();
+        }
+        else if (!userpassword.equals(Current_Password) ) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Votre mot de passe actual est Faux" );
+            alert.showAndWait();
+        }
+        else {
+            editedUser.setPassword(usernewpassword);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Mot de passe Changé" );
+            alert.showAndWait();
+            label1.setVisible(false);
+            label2.setVisible(false);
+            label3.setVisible(false);
+            label4.setVisible(false);
+            label5.setVisible(false);
+            label6.setVisible(false);
+            Anuller_mdp.setVisible(false);
+            modiermdp.setVisible(false);
+            mdp_change.setVisible(false);
+            back.setVisible(false);
+            id_newmdp.setVisible(false);
+            id_mdp.setVisible(false);
+            id_confirm.setVisible(false);
+            id_mdp.clear();
+            id_newmdp.clear();
+            id_confirm.clear();
+
+        }
+        System.out.println(usernewpassword);
+
+
+
+
+    }
+
+    public void Anuller_mdp(ActionEvent actionEvent) {
+        label1.setVisible(false);
+        label2.setVisible(false);
+        label3.setVisible(false);
+        label4.setVisible(false);
+        label5.setVisible(false);
+        label6.setVisible(false);
+        Anuller_mdp.setVisible(false);
+        modiermdp.setVisible(false);
+        mdp_change.setVisible(false);
+        back.setVisible(false);
+        id_newmdp.setVisible(false);
+        id_mdp.setVisible(false);
+        id_confirm.setVisible(false);
+        id_mdp.clear();
+        id_newmdp.clear();
+        id_confirm.clear();
+        editedUser.setPassword(Current_Password);
+
+
+
+    }
+
+    public void Change_mdp(ActionEvent actionEvent) {
+        label1.setVisible(true);
+        label2.setVisible(true);
+        label3.setVisible(true);
+        label4.setVisible(true);
+        label5.setVisible(true);
+        label6.setVisible(true);
+        Anuller_mdp.setVisible(true);
+        modiermdp.setVisible(true);
+        mdp_change.setVisible(true);
+        back.setVisible(true);
+        id_newmdp.setVisible(true);
+        id_mdp.setVisible(true);
+        id_confirm.setVisible(true);
+
     }
 }

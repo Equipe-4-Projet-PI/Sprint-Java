@@ -55,8 +55,8 @@ public class ServiceUser implements IService<User> {
             artistStmt.setInt(8, user.getPhone());
             artistStmt.setString(9, user.getGender());
             artistStmt.setString(10, user.getDOB());
-            artistStmt.setInt(11, user.getId_User());
-            artistStmt.setString(12, user.getImageURL());
+            artistStmt.setInt(12, user.getId_User());
+            artistStmt.setString(11, user.getImageURL());
             artistStmt.executeUpdate();
         }
         catch (SQLException e) {
@@ -84,7 +84,7 @@ public class ServiceUser implements IService<User> {
     @Override
     public List<User> DISPLAY() throws SQLException {
         List<User> users = new ArrayList<>();
-        String artistReq = "SELECT User.Id_User, User.Username, User.Email, User.Password, User.Role, User.FirstName, User.Lastname, User.Adress ,User.Phone ,User.Gender , User.DOB , User.ImageURL" +
+        String artistReq = "SELECT User.Id_User, User.Username, User.Email, User.Password, User.Role, User.FirstName, User.Lastname, User.Adress ,User.Phone ,User.Gender , User.DOB , User.ImageURL " +
                 "FROM User";
         try (PreparedStatement UserStmt = con.prepareStatement(artistReq)) {
             ResultSet res = UserStmt.executeQuery();
@@ -102,6 +102,7 @@ public class ServiceUser implements IService<User> {
                 user.setGender(res.getString(10));
                 user.setDOB(res.getString(11));
                 user.setImageURL(res.getString(12));
+
                 users.add(user);
             }
         } catch (SQLException e) {

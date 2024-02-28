@@ -7,11 +7,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.io.File;
+import java.net.MalformedURLException;
 
 public class ProfileController {
+    public ImageView profile_Pic;
     @FXML
     private Label id_Nom;
 
@@ -94,7 +100,7 @@ public class ProfileController {
     }
 
 
-    public void initData(User user) {
+    public void initData(User user) throws MalformedURLException {
         id_Nom.setText(user.getFirstName());
         statue_name.setText(user.getFirstName() + " " + user.getLastName());
         nav_name.setText("Bienvenue,"+ " "+user.getFirstName());
@@ -103,6 +109,18 @@ public class ProfileController {
         id_email.setText(user.getEmail());
         id_tel.setText(String.valueOf(user.getPhone()));
         id_date.setText(String.valueOf(LocalDate.parse(user.getDOB())));
+
+        String filePath = user.getImageURL().toString();
+
+
+        filePath = filePath.replace("/", "\\");
+
+
+        Image image = new Image(filePath);
+        Circle clip = new Circle(profile_Pic.getFitWidth() / 2, profile_Pic.getFitHeight() / 2, Math.min(profile_Pic.getFitWidth(), profile_Pic.getFitHeight()) / 2);
+        profile_Pic.setClip(clip);
+        profile_Pic.setImage(image);
+
 
         userlogged = new User();
         userlogged.setGender(user.getGender());
@@ -116,6 +134,7 @@ public class ProfileController {
         userlogged.setLastName(user.getLastName());
         userlogged.setId_User(user.getId_User());
         userlogged.setRole(user.getRole());
+        userlogged.setImageURL(user.getImageURL());
 
     }
 }

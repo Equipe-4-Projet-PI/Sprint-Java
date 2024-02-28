@@ -114,7 +114,7 @@
          <Image url="@images/icons8-date-50.png" />
       </image>
    </ImageView>
-   <ImageView fitHeight="156.0" fitWidth="166.0" layoutX="780.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="profile_Pic" fitHeight="185.0" fitWidth="198.0" layoutX="760.0" layoutY="408.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@images/Avatar.png" />
       </image>

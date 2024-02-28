@@ -182,9 +182,10 @@ public class SignUpController  {
         Image image = id_Profile_Pic.getImage();
         if (image != null) {
             String imageUrl = image.getUrl();
-            if (imageUrl.startsWith("file:/")) {
-                ImageURL = imageUrl.substring("file:/".length());
-            }
+            ImageURL = imageUrl;
+//            if (imageUrl.startsWith("file:/")) {
+//                ImageURL = imageUrl.substring("file:/".length());
+//            }
         }
 
 
@@ -376,9 +377,6 @@ public class SignUpController  {
             Circle clip = new Circle(id_Profile_Pic.getFitWidth() / 2, id_Profile_Pic.getFitHeight() / 2, Math.min(id_Profile_Pic.getFitWidth(), id_Profile_Pic.getFitHeight()) / 2);
             id_Profile_Pic.setClip(clip);
             id_Profile_Pic.setImage(image);
-
-
-
 
         }
     }

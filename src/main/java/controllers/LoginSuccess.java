@@ -68,6 +68,7 @@ public class LoginSuccess {
         userlogged.setLastName(user.getLastName());
         userlogged.setId_User(user.getId_User());
         userlogged.setRole(user.getRole());
+        userlogged.setImageURL(user.getImageURL());
 
 
 
