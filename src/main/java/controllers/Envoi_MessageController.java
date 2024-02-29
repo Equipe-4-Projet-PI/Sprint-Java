@@ -3,6 +3,8 @@ package controllers;
 import entities.Disscussion;
 import entities.Message;
 import entities.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,8 +92,27 @@ public class Envoi_MessageController  {
         stage.show();
     }
 
-    public void loadDiscussions(){
-        disc.setText("loadDiscussions");
+//    public void loadDiscussions(){
+//        disc.setText("loadDiscussions");
+//    }
+
+
+    @FXML
+    void initialize()
+    {
+        try{
+            ObservableList<Disscussion> observableList = FXCollections.observableList(serviceDisscussion.afficher());
+            for (int i = 0; i < observableList.size(); i++) {
+                FXMLLoader fxmlLoader= new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/discussion.fxml"));
+                HBox cardBox = fxmlLoader.load();
+                DiscussionController discController = fxmlLoader.getController();
+                discController.setData(observableList.get(i));
+                dis.getChildren().add(cardBox);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

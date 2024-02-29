@@ -17,6 +17,7 @@ public class Disscussion {
         this.idReceiver = idReceiver;
     }
 
+
     public int getIdDis() {
         return idDis;
     }

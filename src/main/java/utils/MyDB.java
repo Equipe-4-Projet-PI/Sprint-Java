@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 public class MyDB {
 
-    public final String URL = "jdbc:mysql://localhost:3306/artyvencii";
+    public final String URL = "jdbc:mysql://localhost:3306/azma";
     public final String USERNAME = "root";
     public final String PWD = "";
     //2 creer une variable de m type que la classe

@@ -1,6 +1,7 @@
 package services;
 
 import entities.Message;
+import entities.User;
 import utils.MyDB;
 
 import java.sql.Connection;
@@ -109,4 +110,26 @@ public class ServiceMessage implements IService<Message>{
         }
         return msg;
     }
+
+    public Message getContentById (int id){
+        Message m = null  ;
+        String req = "SELECT * FROM message WHERE idmsg=?";
+
+        try {
+            PreparedStatement pre = conn.prepareStatement(req);
+            pre.setInt(1, id);
+
+            ResultSet res = pre.executeQuery();
+            if (res.next()) {
+                m = new Message();
+                m.setIdMsg(res.getInt("idmsg"));
+                m.setContent(res.getString("content"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return m ;
+    }
+
 }

@@ -97,7 +97,7 @@
             <TableView fx:id="tableSignal" layoutX="153.0" layoutY="176.0" onDragDetected="#initialize" prefHeight="516.0" prefWidth="962.0" style="-fx-background-color: #B4DBDC;">
               <columns>
                 <TableColumn fx:id="discussion" prefWidth="199.0" text="IdDisscussion" />
-                <TableColumn fx:id="sender" prefWidth="219.0" text="Utilisateur signalé" />
+                <TableColumn fx:id="sender" prefWidth="219.0" text="Utilisateur " />
                   <TableColumn fx:id="receiver" minWidth="0.0" prefWidth="235.0" text="Utilisateur signalé" />
                   <TableColumn fx:id="signal" prefWidth="371.0" text="Raison de signalement" />
               </columns>

@@ -61,22 +61,24 @@ public class Main {
 
 
       */
-        Disscussion disscussion1 = new Disscussion(1);
-        Disscussion disscussion2 = new Disscussion(2);
+        /*Disscussion disscussion1 = new Disscussion(1);
+        Disscussion disscussion2 = new Disscussion(2);*/
+        Disscussion d1 = new Disscussion(1,2);
+        Disscussion d2 = new Disscussion(2,1);
 
         //C
-        /*try {
-            sd.ajouter(disscussion1);
-            sd.ajouter(disscussion2);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }*/
+//        try {
+//            sd.ajouter(d1);
+//            sd.ajouter(d2);
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
         //R
-        try {
-            System.out.println(sd.afficher());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            System.out.println(sd.afficher());
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
 
         //U
         /*try {
