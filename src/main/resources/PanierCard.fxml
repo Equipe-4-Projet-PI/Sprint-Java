@@ -50,12 +50,17 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#cancel_order_btn" text="Annuler">
                      <HBox.margin>
-                        <Insets left="40.0" />
+                        <Insets left="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#payer_order_btn" text="Payer">
+                  <Button mnemonicParsing="false" onAction="#payer_order_btn" text="Stripe Pay">
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#PayFlouci" text="Flouci Pay">
+                     <HBox.margin>
+                        <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
                </children>

@@ -7,14 +7,20 @@ import entities.ProductOrder;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import org.json.JSONException;
 import services.ServiceOrder;
+import javafx.scene.web.WebView;
+
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.sql.SQLException;
 
 import okhttp3.OkHttpClient;
@@ -23,6 +29,9 @@ import okhttp3.RequestBody;
 import okhttp3.Request;
 import okhttp3.Response;
 import java.io.IOException;
+
+import org.json.JSONObject;
+
 
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
@@ -120,9 +129,9 @@ public class PanierCardController {
 
             Session session = Session.create(params);
             URI checkoutUri = new URI(session.getUrl());
+            //loadCheckoutPage(checkoutUri.toString());
+
             java.awt.Desktop.getDesktop().browse(checkoutUri); // Opens the URL in the default browser
-            String paymentStatus = session.getPaymentStatus(); // Replace with the ID of the payment you want to retrieve data for
-            System.out.println(paymentStatus);
         } catch (StripeException e) {
             System.err.println("Error creating Checkout Session: " + e.getMessage());
             e.printStackTrace();
@@ -139,4 +148,68 @@ public class PanierCardController {
         return PaymentIntent.retrieve(paymentId);
     }
 
+    @FXML
+    void PayFlouci(ActionEvent event) {
+        Double montant = Double.valueOf(order_price.getText());
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("app_token", "aebe6188-4587-4ff0-9b1c-a26c7898ee73");
+        jsonBody.put("app_secret", "83c2f9f3-0fdc-4dec-9bf2-e642c1cce53d");
+        jsonBody.put("accept_card", true); // Use boolean value, not string
+        jsonBody.put("amount", (long) (montant * 1000));
+        jsonBody.put("success_link", "https://example.website.com/success");
+        jsonBody.put("fail_link", "https://example.website.com/fail");
+        jsonBody.put("session_timeout_secs", 1200);
+        jsonBody.put("developer_tracking_id", "df9dd458-65ed-4d8b-b354-302077358ef2");
+
+
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, jsonBody.toString());
+        Request request = new Request.Builder()
+                .url("https://developers.flouci.com/api/generate_payment")
+                .method("POST", body)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                System.out.println("Payment generated successfully");
+                String responseBody = response.body().string();
+                handleResponse(responseBody);
+
+            } else {
+                System.out.println("Error generating payment: " + response.code());
+                System.out.println(response.body().string());
+            }
+        } catch (IOException | JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void handleResponse(String responseBody) {
+        JSONObject jsonResponse = new JSONObject(responseBody);
+        JSONObject result = jsonResponse.getJSONObject("result");
+        String linkString = result.getString("link");
+        URI link = null;
+        try {
+            link = new URI(linkString);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Desktop.getDesktop().browse(link);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void loadCheckoutPage(String url) {
+        Stage stage = new Stage();
+        WebView webView = new WebView();
+        webView.getEngine().load(url);
+        Scene scene = new Scene(webView);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
+
+
