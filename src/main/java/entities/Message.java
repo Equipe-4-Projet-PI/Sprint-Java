@@ -27,6 +27,15 @@ public class Message {
                 '}';
     }
 
+    public Message(int idMsg, int idSender, int idDis, String content, String reaction, Timestamp time) {
+        this.idMsg = idMsg;
+        this.idSender = idSender;
+        this.idDis = idDis;
+        this.content = content;
+        this.reaction = reaction;
+        this.time = time;
+    }
+
     public Message(int idMsg, int idSender, int idDis, String content, String reaction, Date date, Timestamp time, Date now) {
         this.idMsg = idMsg;
         this.idSender = idSender;

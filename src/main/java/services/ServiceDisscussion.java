@@ -1,6 +1,7 @@
 package services;
 
 import entities.Disscussion;
+import entities.Message;
 import javafx.scene.control.TableColumn;
 import utils.MyDB;
 
@@ -83,26 +84,25 @@ public class ServiceDisscussion implements IService<Disscussion> {
 
     }
 
-//    public String nomReceiver (int idReceiver){
-//        try {
-//            String req = "SELECT user.Username FROM user " +
-//                    "JOIN disscussion ON user.Id_User = disscussion.IdReceiver " +
-//                    "WHERE disscussion.IdReceiver = ?";
-//
-//            PreparedStatement pre = conn.prepareStatement(req);
-//            pre.setInt(1, idReceiver);
-//            ResultSet res = pre.executeQuery();
-//
-//            if (res.next()) {
-//                String nomReceiver = res.getString(1);
-//                return nomReceiver;
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
+    public Disscussion getDiscussionById (int id) throws SQLException{
+        Disscussion d = new Disscussion() ;
+        String req = "SELECT * FROM discussion WHERE idDis=?";
+
+        PreparedStatement pre = conn.prepareStatement(req);
+        pre.setInt(1, id);
+
+        ResultSet res = pre.executeQuery();
+        if (res.next()) {
+            d = new Disscussion();
+
+            d.setIdDis(res.getInt("idDis"));
+            d.setIdSender(res.getInt("idSender"));
+            d.setIdReceiver(res.getInt("idReciever"));
+            d.setSignal(res.getString("Signal"));
+        }
+
+        return d ;
+    }
 
 
     

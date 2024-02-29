@@ -1,46 +1,68 @@
 package controllers;
 
+import entities.Disscussion;
 import entities.Message;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import services.ServiceDisscussion;
 import services.ServiceMessage;
+import services.ServiceUser;
+
 import java.sql.SQLException;
-import java.util.List;
 
 public class MessageController {
 
     @FXML
-    private ListView<String> messageListView;
-
-    private ServiceMessage serviceMessage;
-
-    public MessageController() {
-        serviceMessage = new ServiceMessage();
-    }
+    private Label messagee;
 
     @FXML
-    public void initialize() {
-        afficherMessages();
+    private Label time;
+
+    @FXML
+    private VBox vbox;
+
+    private Message curr_message = new Message();
+
+
+    ServiceDisscussion serviceDisscussion = new ServiceDisscussion() ;
+    ServiceUser serviceUser = new ServiceUser() ;
+    ServiceMessage serviceMessage = new ServiceMessage() ;
+
+    public MessageController() {
     }
 
-    private void afficherMessages() {
-        try {
-            List<Message> messages = serviceMessage.afficher();
-            ObservableList<String> messageStrings = FXCollections.observableArrayList();
-            for (Message message : messages) {
-                String messageString = "ID: " + message.getIdMsg() +
-                        ", Date: " + message.getTime() +
-                        ", Sender: " + message.getIdSender() +
-                        ", Discussion ID: " + message.getIdDis() +
-                        ", Content: " + message.getContent() +
-                        ", Reaction: " + message.getReaction();
-                messageStrings.add(messageString);
-            }
-            messageListView.setItems(messageStrings);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+//    public void setData(Message message) throws SQLException {
+//        this.curr_message = message;
+//        System.out.println(message);
+////        System.out.println(message);
+////        System.out.println(serviceMessage.getContentById(message.getIdDis()).getTime().toString());
+//
+//    }
+//
+//    @FXML
+//    public void initialize()
+//    {
+//        try {
+//            messagee.setText(serviceMessage.getContentById(curr_message.getIdDis()).getContent());
+//            time.setText(serviceMessage.getContentById(curr_message.getIdDis()).getTime().toString());
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    public void setData(Message message) throws SQLException {
+
+        String content = serviceMessage.getContentById(message.getIdMsg()).getContent();
+        String heure = serviceMessage.getContentById(message.getIdMsg()).getTime().toString() ;
+
+        System.out.println(content);
+        System.out.println(heure);
+
+        time.setText(heure);
+        messagee.setText(content);
     }
+
 }

@@ -20,7 +20,7 @@ public class ServiceMessage implements IService<Message>{
     }
     @Override
     public void ajouter(Message message) throws SQLException {
-        String req = "INSERT INTO message ( DateSent , idSender , idDis , content, reaction) VALUES (?, ? , ?, ?, ?)";
+        String req = "INSERT INTO message ( datasent , idSender , idDis , content, reaction) VALUES (?, ? , ?, ?, ?)";
         PreparedStatement pre = conn.prepareStatement(req);
         pre.setTimestamp(1, message.getTime());
         pre.setInt(2, message.getIdSender());
@@ -34,7 +34,7 @@ public class ServiceMessage implements IService<Message>{
 
     @Override
     public void modifier(Message message) throws SQLException {
-        String req = "UPDATE message SET  dateSent = ? , idSender=? , idDis =? , content=?, reaction=? WHERE idMsg= ?";
+        String req = "UPDATE message SET  dataSent = ? , idSender=? , idDis =? , content=?, reaction=? WHERE idMsg= ?";
         PreparedStatement pre = conn.prepareStatement(req);
         pre.setTimestamp(1, message.getTime());
         pre.setInt(2, message.getIdSender());
@@ -76,15 +76,15 @@ public class ServiceMessage implements IService<Message>{
     @Override
     public List<Message> afficher() throws SQLException {
         List<Message> msg = new ArrayList<>();
-        String req = "SELECT idMsg, dateSent, idSender, idDis ,  content, reaction FROM message";
+        String req = "SELECT idMsg, datasent , idSender, idDis ,  content, reaction FROM message";
         PreparedStatement pre = conn.prepareStatement(req);
         ResultSet res = pre.executeQuery();
         while (res.next()) {
             Message m = new Message();
             m.setIdMsg(res.getInt("idMsg"));
-            m.setTime(res.getTimestamp("DateSent"));
+            m.setTime(res.getTimestamp("datasent"));
             m.setIdSender(res.getInt("idSender"));
-            m.setIdSender(res.getInt("idDis"));
+            m.setIdDis(res.getInt("idDis"));
             m.setContent(res.getString("content"));
             m.setReaction(res.getString("reaction"));
             msg.add(m);
@@ -94,14 +94,14 @@ public class ServiceMessage implements IService<Message>{
 
     public List<Message> afficheridDis(int idDis) throws SQLException {
         List<Message> msg = new ArrayList<>();
-        String req = "SELECT idMsg, dateSent, idSender, idDis ,  content, reaction FROM message where idDis = ?";
+        String req = "SELECT idMsg, datasent, idSender, idDis ,  content, reaction FROM message where idDis = ?";
         PreparedStatement pre = conn.prepareStatement(req);
         pre.setInt(1, idDis);
         ResultSet res = pre.executeQuery();
         while (res.next()) {
             Message m = new Message();
             m.setIdMsg(res.getInt("idMsg"));
-            m.setTime(res.getTimestamp("DateSent"));
+            m.setTime(res.getTimestamp("datasent"));
             m.setIdSender(res.getInt("idSender"));
             m.setIdSender(res.getInt("idDis"));
             m.setContent(res.getString("content"));
@@ -111,11 +111,10 @@ public class ServiceMessage implements IService<Message>{
         return msg;
     }
 
-    public Message getContentById (int id){
-        Message m = null  ;
+    public Message getContentById (int id) throws SQLException{
+        Message m = new Message();
         String req = "SELECT * FROM message WHERE idmsg=?";
 
-        try {
             PreparedStatement pre = conn.prepareStatement(req);
             pre.setInt(1, id);
 
@@ -124,11 +123,13 @@ public class ServiceMessage implements IService<Message>{
                 m = new Message();
                 m.setIdMsg(res.getInt("idmsg"));
                 m.setContent(res.getString("content"));
+                m.setTime(res.getTimestamp("datasent"));
+                m.setIdSender(res.getInt("idSender"));
+                m.setIdDis(res.getInt("idDis"));
+                m.setContent(res.getString("content"));
+                m.setReaction(res.getString("reaction"));
             }
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         return m ;
     }
 

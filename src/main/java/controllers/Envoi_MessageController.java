@@ -35,14 +35,14 @@ public class Envoi_MessageController  {
     //List<Disscussion> dis= serviceDisscussion.afficher();
     int idSender = sender.getId_User();
 
-    @FXML
-    private Text disc;
+
     @FXML
     private ScrollPane discussion;
 
     @FXML
     private VBox dis;
-    private List<Disscussion> disscussions ;
+    @FXML
+    private VBox Msg;
 
     @FXML
     private Button Envoi;
@@ -109,6 +109,33 @@ public class Envoi_MessageController  {
                 DiscussionController discController = fxmlLoader.getController();
                 discController.setData(observableList.get(i));
                 dis.getChildren().add(cardBox);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            ObservableList<Message> messages = FXCollections.observableList(serviceMessage.afficher());
+            for (int i = 0; i < messages.size(); i++) {
+                FXMLLoader fxmlLoader= new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/message.fxml"));
+
+                VBox msgBox = fxmlLoader.load();
+                MessageController MsgController = fxmlLoader.getController();
+
+                MsgController.setData(messages.get(i));
+                Msg.getChildren().add(msgBox);
+
+//                FXMLLoader fxmlLoader= new FXMLLoader();
+//                fxmlLoader.setLocation(getClass().getResource("/message.fxml"));
+//
+//                VBox msgBox = fxmlLoader.load();
+//                MessageController MsgController = new MessageController();
+//                MsgController.setData(messages.get(i));
+//                fxmlLoader.setController(MsgController);
+//
+//                Msg.getChildren().add(msgBox);
+
             }
         }catch (Exception e){
             e.printStackTrace();
