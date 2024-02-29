@@ -12,15 +12,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import org.json.JSONException;
 import services.ServiceOrder;
-import javafx.scene.web.WebView;
 
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.sql.SQLException;
 
 import okhttp3.OkHttpClient;
@@ -40,6 +37,10 @@ import com.stripe.param.PaymentIntentCreateParams;
 import java.net.URISyntaxException;
 import java.net.URI;
 import java.awt.Desktop;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 
 public class PanierCardController {
@@ -81,6 +82,10 @@ public class PanierCardController {
     }
     @FXML
     void cancel_order_btn(ActionEvent event) {
+        delete();
+    }
+
+    void delete(){
         int id_prod = Integer.parseInt(prod_id.getText());
         int id_order = Integer.parseInt(order_id.getText());
         String title = order_title.getText();
@@ -94,7 +99,6 @@ public class PanierCardController {
         }
     }
 
-
     @FXML
     void payer_order_btn(ActionEvent event) {
         Double montant = Double.valueOf(order_price.getText());
@@ -105,8 +109,8 @@ public class PanierCardController {
             SessionCreateParams params = SessionCreateParams.builder()
                     .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
                     .setMode(SessionCreateParams.Mode.PAYMENT)
-                    .setSuccessUrl("https://your-website.com/success")
-                    .setCancelUrl("https://your-website.com/cancel")
+                    .setSuccessUrl("https://ruperhat.com/wp-content/uploads/2020/06/Paymentsuccessful21.png")
+                    .setCancelUrl("https://hypixel.net/attachments/1690923493412-png.3230490/")
                     .addLineItem(
                             SessionCreateParams.LineItem.builder()
                                     .setQuantity(1L)
@@ -156,8 +160,8 @@ public class PanierCardController {
         jsonBody.put("app_secret", "83c2f9f3-0fdc-4dec-9bf2-e642c1cce53d");
         jsonBody.put("accept_card", true); // Use boolean value, not string
         jsonBody.put("amount", (long) (montant * 1000));
-        jsonBody.put("success_link", "https://example.website.com/success");
-        jsonBody.put("fail_link", "https://example.website.com/fail");
+        jsonBody.put("success_link", "https://ruperhat.com/wp-content/uploads/2020/06/Paymentsuccessful21.png");
+        jsonBody.put("fail_link", "https://hypixel.net/attachments/1690923493412-png.3230490/");
         jsonBody.put("session_timeout_secs", 1200);
         jsonBody.put("developer_tracking_id", "df9dd458-65ed-4d8b-b354-302077358ef2");
 
@@ -176,6 +180,8 @@ public class PanierCardController {
                 System.out.println("Payment generated successfully");
                 String responseBody = response.body().string();
                 handleResponse(responseBody);
+                delete();
+                send_SMS();
 
             } else {
                 System.out.println("Error generating payment: " + response.code());
@@ -195,20 +201,33 @@ public class PanierCardController {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-
+        //open browser
         try {
             Desktop.getDesktop().browse(link);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    private void loadCheckoutPage(String url) {
-        Stage stage = new Stage();
-        WebView webView = new WebView();
-        webView.getEngine().load(url);
-        Scene scene = new Scene(webView);
-        stage.setScene(scene);
-        stage.show();
+    void send_SMS (){
+        // Initialisation de la bibliothèque Twilio avec les informations de votre compte
+        String ACCOUNT_SID = "AC6b55aa03993aa22f83c1263358f19836";
+        String AUTH_TOKEN = "94c2d7b0e0ff93d92096fe92437a63df";
+
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        String recipientNumber = "+21629082229";
+        String message = "Bonjour ,\n"
+                + "Nous sommes heureux de vous informer.\n "
+                + "que votre paiement a été effectué avec succès.\n "
+                + "Merci d'avoir choisi nos services ! \n"
+                + "Cordialement,\n"
+                + "ArtyVenci,";
+
+        Message twilioMessage = Message.creator(
+                new PhoneNumber(recipientNumber),
+                new PhoneNumber("+16506367355"),message).create();
+
+        System.out.println("SMS envoyé : " + twilioMessage.getSid());
     }
 }
 
