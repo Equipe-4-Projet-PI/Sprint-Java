@@ -9,6 +9,16 @@ public class Auction_participant {
     float prix;
     Date date ;
 
+    String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Auction_participant(int id_participant, int id_auction, float prix) {
         this.id_participant = id_participant;
         this.id_auction = id_auction;
@@ -46,10 +56,6 @@ public class Auction_participant {
 
     private int id; 
 
-    public String getNom() {
-        ServiceParticipant serviceParticipant = new ServiceParticipant();
-        return serviceParticipant.getNom(id);
-    }
 
     public Date getDate() {
         return date;

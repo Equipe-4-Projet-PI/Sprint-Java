@@ -41,10 +41,12 @@ public class AjouterAuctionController implements Initializable {
     @FXML
     private DatePicker tf_dateC;
 
+    int id_Artist = 3;
+
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<String> productNames = loadProductValuesFromDatabase(1);
+        List<String> productNames = loadProductValuesFromDatabase(id_Artist);
 
         ObservableList<String> products = FXCollections.observableArrayList(productNames);
         tf_produit.setItems(products);
@@ -75,24 +77,28 @@ public class AjouterAuctionController implements Initializable {
         LocalDate dateCloture = tf_dateC.getValue();
         try {
             String selectedProductName = tf_produit.getValue();
-            List<String> productNames = loadProductValuesFromDatabase(1);
+            List<String> productNames = loadProductValuesFromDatabase(id_Artist);
 
             if (selectedProductName != null && productNames.contains(selectedProductName)) {
                 int productId = serviceAuction.getProductID(selectedProductName);
-                int id_artist = 1 ;
+                serviceAuction.verifierDate(tf_date,tf_dateC);
+
                 serviceAuction.ajouter(new Auction( tf_nomAuction.getText() ,dateCloture,dateLancement, Integer.parseInt(tf_prix_initial.getValue().toString()) ,  productId ));
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
                 alert.setContentText("Enchère ajoutée");
                 alert.showAndWait();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEncheres.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/artistEnchers.fxml"));
                 Parent loginSuccessRoot = loader.load();
                 Scene scene = tf_nomAuction.getScene();
                 scene.setRoot(loginSuccessRoot);
 
             } else {
                 System.out.println("Selected product not found.");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Selected product not found.");
+                alert.showAndWait();
             }
         } catch (SQLException | IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

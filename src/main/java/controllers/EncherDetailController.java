@@ -10,10 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.*;
 
 
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,6 +44,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class EncherDetailController{
+    ServiceParticipant serviceParticipant = new ServiceParticipant();
 
     @FXML
     private Label nbreParticipant;
@@ -62,49 +66,57 @@ public class EncherDetailController{
     private ImageView imageProduit;
 
     @FXML
-    private Spinner<Integer> spinner;
+    private TextField montant;
+
 
     @FXML
     private Button effectuerButton;
     @FXML
     private HBox hboxFX;
     ServiceAuction serviceAuction = new ServiceAuction();
-    ServiceParticipant serviceParticipant = new ServiceParticipant();
 
 
     List<Auction_participant> recentlyAdded;
+    private Auction auc ;
 
+    public void SetDataAgain()
+    {
+//        System.out.println(auction.getId());
+        montant.setVisible(false);
 
-
-    public void initData(Auction auction) {
         try{
-            initialize(auction.getId());
+            System.out.println(auc.getId());
         }catch (NullPointerException j){
             j.printStackTrace();
         }
-        nomEnchere.setText(auction.getNom());
-        prixInitial.setText(String.valueOf(auction.getPrix_initial()));
-        dateLancement.setText(String.valueOf(auction.getDate_lancement()));
-        dateCloture.setText(String.valueOf(auction.getDate_cloture()));
-        byte[] imageData = loadImageFromDatabase(auction.getId_produit());
+        nomEnchere.setText(auc.getNom());
+        prixInitial.setText(String.valueOf(auc.getPrix_initial()));
+        dateLancement.setText(String.valueOf(auc.getDate_lancement()));
+        dateCloture.setText(String.valueOf(auc.getDate_cloture()));
+        byte[] imageData = loadImageFromDatabase(auc.getId_produit());
         Image image = new Image(new ByteArrayInputStream(imageData));
         imageProduit.setImage(image);
-        nbreParticipant.setText(String.valueOf(countPartcipant(auction.getId())));
+        nbreParticipant.setText(String.valueOf(countPartcipant(auc.getId())));
+    }
+    public void initData(Auction auction) {
+        this.auc = auction;
+        System.out.println("Controle From Detail Controller  :");
+        System.out.println(auction);
     }
 
-    public void initialize(int id_auction) {
-        recentlyAdded =new ArrayList<>(recentlyAdded1());
-        System.out.println("the size of data "+recentlyAdded.size());
+    public void initialize() {
+
+        SetDataAgain();
+        recentlyAdded =new ArrayList<>(recentlyAddedParticipant());
+        System.out.println("the number of Participant "+recentlyAdded.size());
+        System.out.println(recentlyAdded);
         try {
             VBox mainVBox = new VBox();
             hboxFX.getChildren().add(mainVBox);
             HBox currentHBox = new HBox();
-            currentHBox.setSpacing(10);
             for (int i = 0 ; i<recentlyAdded.size();i++){
-                if(i> 0 && i % 1 == 0){
-                    mainVBox.getChildren().add(currentHBox);
-                    currentHBox = new HBox();
-                }
+                mainVBox.getChildren().add(currentHBox);
+                currentHBox = new HBox();
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/Participant.fxml"));
                 HBox participantBox = fxmlLoader.load();
@@ -123,71 +135,74 @@ public class EncherDetailController{
         }
 
     }
-    @FXML
-    void handleParticipantsLabelClick(MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/ListeParticipant.fxml"));
-            Parent root = loader.load();
 
-            Stage newStage = new Stage();
-            newStage.setTitle("Liste Participants");
-            newStage.setScene(new Scene(root));
-
-            ListeParticipantsController listeParticipantsController = loader.getController();
-
-            listeParticipantsController.initialize(2);
-
-            newStage.show();
-
-
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    int id_user = 2;
     @FXML
     void effectuerArgent(ActionEvent event) {
-        int id_user = 5;
         Auction_participant auctionParticipant = new Auction_participant();
+        auctionParticipant.setId_participant(id_user);
+        auctionParticipant.setPrix(Integer.parseInt(montant.getText()));
+        auctionParticipant.setId_auction(auc.getId());
+        System.out.println("heeedha hoswa l participant "+auctionParticipant);
+        System.out.println("****id auction : +"+ auctionParticipant.getId_auction());// Set the correct auction ID
 
         try {
-            auctionParticipant = serviceParticipant.getParticipantById(id_user);
-            auctionParticipant.setPrix(Integer.parseInt(spinner.getValue().toString()));
+            if (serviceParticipant.search(id_user, auc.getId())) {
+                // User exists, modify
+                if (isMontantValide(auctionParticipant)) {
+                    serviceParticipant.modifier(auctionParticipant);
+                    System.out.println("hedhaa l auction li yra fih  : "+serviceAuction.getById(auctionParticipant.getId_auction()) );
+                    serviceAuction.modifierPrixFinal(serviceAuction.getById(auctionParticipant.getId_auction()));
+
+                    showSuccessAlert("L'enchère a été modifiée avec succès !");
+                    refreshData();
+                } else {
+                    showErrorAlert("Le montant doit être supérieur au prix initial et au dernier montant proposé.");
+                }
+            } else {
+                // User doesn't exist, add new participant
+                if (isMontantValide(auctionParticipant)) {
+                    serviceParticipant.ajouter(auctionParticipant);
+                    serviceAuction.modifierPrixFinal(serviceAuction.getById(auctionParticipant.getId_auction()));
+
+                    showSuccessAlert("L'enchère a été ajoutée avec succès !");
+                    refreshData();
+                } else {
+                    showErrorAlert("Le montant doit être supérieur au prix initial et au dernier montant proposé.");
+                }
+            }
         } catch (SQLException e) {
-            e.getMessage();
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
-        if(isMontantValide(auctionParticipant)){
-            try {
-                serviceParticipant.modifier(auctionParticipant);
-                serviceAuction.modifierPrixFinal(serviceAuction.getById(auctionParticipant.getId_auction()));
+    }
 
-                Stage stage = (Stage) nomEnchere.getScene().getWindow();
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
-                Parent root = loader.load();
-
-                EncherDetailController controller = loader.getController();
-                controller.initData(serviceAuction.getById(auctionParticipant.getId_auction()));
-
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-            } catch (IOException | SQLException e) {
-                throw new RuntimeException(e);
-            }
-
+// Helper methods for showing alerts
+        private void showSuccessAlert(String message) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
-            alert.setContentText("argent bien effectuée ! ");
+            alert.setContentText(message);
             alert.showAndWait();
         }
-        else{
+
+        private void showErrorAlert(String message) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setContentText("Le montant doit être supérieur au prix initial et au dernier montant proposé.");
+            alert.setContentText(message);
             alert.showAndWait();
         }
+
+
+
+    private Parent loadEnchere() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
+        EncherDetailController controller = new EncherDetailController();
+        loader.setController(controller);
+        controller.initData(auc);
+        Parent root = loader.load();
+        return root;
     }
 
     //hedhy traja3 taswiret l produit mtaa auction
@@ -209,12 +224,14 @@ public class EncherDetailController{
 
     }
 
+    @FXML
     public void participerClicked(ActionEvent actionEvent) {
-        spinner.setVisible(true);
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 1);
-        spinner.setValueFactory(valueFactory);
+        montant.setVisible(true);
         effectuerButton.setVisible(true);
+
     }
+
+
 
     private boolean isMontantValide(Auction_participant participant) {
         try {
@@ -242,12 +259,17 @@ public class EncherDetailController{
 
     }
 
-    private List<Auction_participant> recentlyAdded1(){
+    private List<Auction_participant> recentlyAddedParticipant(){
         try {
-            return serviceParticipant.afficher();
+            return serviceParticipant.list_by_auction(auc.getId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void refreshData() {
+        hboxFX.getChildren().clear();
+        initialize();
     }
 
 }

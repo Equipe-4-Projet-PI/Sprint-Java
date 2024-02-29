@@ -27,7 +27,9 @@ public class ParticipantController {
 
 
     public void initData(Auction_participant participant) {
-        nom_participant.setText(serviceParticipant.getNom(participant.getId_participant()));
+        System.out.println(participant.getId_participant());
+        System.out.println(participant.getName());
+        nom_participant.setText(participant.getName());
         prix_participant.setText(String.valueOf(participant.getPrix()));
         date.setText(String.valueOf(participant.getDate()));
     }

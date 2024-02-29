@@ -67,23 +67,42 @@ public class ListEncheresController {
 
     @FXML
     public void AfficherEncher(javafx.event.ActionEvent actionEvent) {
-        Auction selectedItem = fxTableViw.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/EncherDetail.fxml"));
-                Parent root = loader.load();
-                Scene scene =fxPrixFinal.getTableView().getScene();
-                scene.setRoot(root);
-                EncherDetailController encheredetails = loader.getController();
+//        Auction selectedItem = fxTableViw.getSelectionModel().getSelectedItem();
 
-                encheredetails.initData(selectedItem);
-
+            try{
+                Parent root = loadEnchre();
+                fxPrixFinal.getTableView().getScene().setRoot(root);
             } catch (IOException e) {
-                e.getMessage();
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        }
+
+//        if (selectedItem != null) {
+//            try {
+//                FXMLLoader loader = new FXMLLoader();
+//                loader.setLocation(getClass().getResource("/EncherDetail.fxml"));
+//                Parent root = loader.load();
+//                Scene scene =fxPrixFinal.getTableView().getScene();
+//                scene.setRoot(root);
+//                EncherDetailController encheredetails = loader.getController();
+//
+//                encheredetails.initData(selectedItem);
+//
+//            } catch (IOException e) {
+//                e.getMessage();
+//            }
+//        }
     }
+    private Parent loadEnchre() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
+        EncherDetailController controller = new EncherDetailController();
+        loader.setController(controller);
+        controller.initData(fxTableViw.getSelectionModel().getSelectedItem());
+        Parent root = loader.load();
+        return root;
+    }
+
     @FXML
     public void AjouterEncher(javafx.event.ActionEvent actionEvent)throws IOException {
         FXMLLoader loader = new FXMLLoader();

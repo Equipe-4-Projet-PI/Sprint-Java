@@ -7,41 +7,47 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="hbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#AfficherEncher" prefHeight="185.0" prefWidth="348.0" styleClass="Hbox" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UnEncherController">
+<HBox fx:id="hbox" alignment="CENTER" maxHeight="185.0" maxWidth="348.0" minHeight="185.0" minWidth="348.0" onMouseClicked="#AfficherEncher" prefHeight="185.0" prefWidth="348.0" styleClass="Hbox1" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UnEncherController">
    <children>
       <ImageView fx:id="imageEncher" fitHeight="160.0" fitWidth="160.0" onMouseClicked="#AfficherEncher" pickOnBounds="true" preserveRatio="true">
          <HBox.margin>
-            <Insets left="15.0" top="15.0" />
+            <Insets left="10.0" />
          </HBox.margin></ImageView>
-      <VBox prefHeight="142.0" prefWidth="134.0">
+      <VBox maxHeight="167.0" maxWidth="210.0" minHeight="154.0" minWidth="169.0" prefHeight="167.0" prefWidth="210.0" styleClass="Hbox" stylesheets="@css/styles.css">
          <children>
-            <Label fx:id="titreEncher" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#AfficherEncher" prefHeight="28.0" prefWidth="173.0" textAlignment="CENTER" underline="true">
+            <Label fx:id="titreEncher" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#AfficherEncher" prefHeight="38.0" prefWidth="158.0" textAlignment="CENTER" underline="true">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="Times New Roman Bold" size="15.0" />
                </font>
                <VBox.margin>
-                  <Insets left="20.0" right="20.0" />
+                  <Insets left="3.0" right="3.0" top="17.0" />
                </VBox.margin></Label>
             <Label fx:id="prix_initial" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="151.0">
                <font>
                   <Font name="Times New Roman Bold Italic" size="13.0" />
                </font>
                <VBox.margin>
-                  <Insets left="20.0" right="20.0" />
+                  <Insets left="20.0" right="20.0" top="7.0" />
                </VBox.margin></Label>
-            <Label fx:id="dateL" prefHeight="43.0" prefWidth="197.0">
+            <Label fx:id="dateL" prefHeight="30.0" prefWidth="144.0">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
-               </VBox.margin></Label>
-            <Label fx:id="dateC" prefHeight="31.0" prefWidth="197.0">
+               </VBox.margin>
+               <font>
+                  <Font name="Times New Roman Italic" size="12.0" />
+               </font></Label>
+            <Label fx:id="dateC" prefHeight="30.0" prefWidth="144.0">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
-               </VBox.margin></Label>
-            <ImageView fx:id="statu" fitHeight="40.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
+               </VBox.margin>
+               <font>
+                  <Font name="Times New Roman Italic" size="12.0" />
+               </font></Label>
+            <ImageView fx:id="statu" fitHeight="30.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin></ImageView>
-            <Label fx:id="IDAuction" prefHeight="18.0" prefWidth="22.0" textFill="WHITE" />
+            <Label fx:id="IDAuction" prefHeight="13.0" prefWidth="19.0" textFill="WHITE" />
          </children>
       </VBox>
    </children>

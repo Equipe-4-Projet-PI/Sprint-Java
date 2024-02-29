@@ -20,9 +20,10 @@ public class ServiceParticipant implements IService<Auction_participant> {
     }
     @Override
     public void ajouter(Auction_participant auctionParticipant) throws SQLException {
-        String req = "INSERT INTO auction_participant (id_Auction, id_Participant) VALUES ('"
+        String req = "INSERT INTO auction_participant (id_Auction, id_Participant,prix) VALUES ('"
                 + auctionParticipant.getId_auction() + "','"
-                + auctionParticipant.getId_participant() + "')";
+                + auctionParticipant.getId_participant()+"','"
+                + auctionParticipant.getPrix() +"')";
         Statement ste = con.createStatement();
         ste.executeUpdate(req);
     }
@@ -65,7 +66,7 @@ public class ServiceParticipant implements IService<Auction_participant> {
 
     public List<Auction_participant> list_by_auction(int id_auction ) throws SQLException{
         List<Auction_participant> list = new ArrayList<>();
-        String req = "SELECT u.Username, ap.id_Participant, ap.id_Auction, ap.prix, ap.date FROM auction_participant ap JOIN User u ON u.id = ap.id_Participant WHERE ap.id_Auction = ?";
+        String req = "SELECT u.Username, ap.id_Participant, ap.id_Auction, ap.prix, ap.date FROM auction_participant ap JOIN User u ON u.id_User = ap.id_Participant WHERE ap.id_Auction =? ORDER BY date DESC";
         PreparedStatement pre = con.prepareStatement(req);
         pre.setInt(1,id_auction);
         ResultSet res = pre.executeQuery();
@@ -75,11 +76,33 @@ public class ServiceParticipant implements IService<Auction_participant> {
             a.setId_auction(res.getInt("id_Auction"));
             a.setPrix(res.getFloat("prix"));
             a.setDate(res.getTimestamp("date"));
+            a.setName(res.getString("Username"));
             list.add(a);
         }
         return list;
     }
     //get nom partcipant a partir de son ID
+//    public String getNom(int id) {
+//        String nom = null;
+//
+//        try {
+//            String req = "SELECT user.username FROM user " +
+//                    "JOIN auction_participant ON user.id_user = auction_participant.id_participant " +
+//                    "WHERE auction_participant.id_auction = ?";
+//
+//            PreparedStatement pre = con.prepareStatement(req);
+//            pre.setInt(1, id);
+//
+//            ResultSet resultSet = pre.executeQuery();
+//            if (resultSet.next()) {
+//                nom = resultSet.getString("Username");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return nom;
+//    }
     public String getNom(int id) {
         String nom = null;
 
@@ -93,7 +116,7 @@ public class ServiceParticipant implements IService<Auction_participant> {
 
             ResultSet resultSet = pre.executeQuery();
             if (resultSet.next()) {
-                nom = resultSet.getString("username");
+                nom = resultSet.getString("username"); // Use lowercase "username"
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,6 +124,7 @@ public class ServiceParticipant implements IService<Auction_participant> {
 
         return nom;
     }
+
 
 
     public InputStream getCheminImageParticipant(int id) {
@@ -194,5 +218,14 @@ public class ServiceParticipant implements IService<Auction_participant> {
         }
     }
 
+
+    public boolean search(int idUser, int id_Auction) throws SQLException {
+        String req = "SELECT * FROM auction_participant WHERE id_Participant = ? AND id_Auction = ?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1, idUser);
+        pre.setInt(2, id_Auction);
+        ResultSet resultSet = pre.executeQuery();
+        return resultSet.next();
+    }
 
 }

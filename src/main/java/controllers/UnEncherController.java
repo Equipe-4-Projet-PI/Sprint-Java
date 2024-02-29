@@ -35,7 +35,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class UnEncherController {
-    int id ;
+
     @FXML
     private Label IDAuction;
     ServiceAuction serviceAuction = new ServiceAuction();
@@ -61,6 +61,8 @@ public class UnEncherController {
     @FXML
     private Label titreEncher;
 
+    private Auction auc;
+
     public void initData(Auction auction) {
         titreEncher.setText(auction.getNom());
         prix_initial.setText(String.valueOf(auction.getPrix_initial()));
@@ -70,13 +72,13 @@ public class UnEncherController {
         Image image = new Image(new ByteArrayInputStream(imageData));
         imageEncher.setImage(image);
         IDAuction.setText(String.valueOf(auction.getId()));
-        setId(auction.getId());
+        this.auc = auction;
+        //hbox.setStyle("-fx-background-color: #ACAFB6;"+
+                //" -fx-border-radius: 15; ");
 
     }
 
-    public void setId(int id){
-        this.id = id;
-    }
+
 
     //hedhy traja3 taswiret l produit mtaa auction
     private byte[] loadImageFromDatabase(int id_produit) {
@@ -85,26 +87,52 @@ public class UnEncherController {
         return imageData;
     }
 
+//    @FXML
+//    void AfficherEncher(MouseEvent event) throws IOException {
+//
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("EnchereDetail"));
+//            EncherDetailController cont = new EncherDetailController();
+//            loader.setController(cont);
+//            Parent root = loader.load();
+//            Scene scene = prix_initial.getScene();
+//            scene.setRoot(root);
+//
+//            try {
+//                Auction auc = serviceAuction.getById(id);
+//                System.out.println(auc);
+//                cont.initData(auc);
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//        } catch (IOException e) {
+//            e.getMessage();
+//        }catch(NullPointerException j ){
+//            j.printStackTrace();
+//        }
+//
+//    }
+
     @FXML
     void AfficherEncher(MouseEvent event) throws IOException {
 
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/EncherDetail.fxml"));
-            Parent root = loader.load();
-            Scene scene = dateC.getScene();
-            scene.setRoot(root);
-            EncherDetailController encheredetails = loader.getController();
-
-            try {
-                encheredetails.initData(serviceAuction.getById(id));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
+        try{
+            Parent root = loadEnchere();
+            imageEncher.getScene().setRoot(root);
         } catch (IOException e) {
-            e.getMessage();
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+    }
+    private Parent loadEnchere() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
+        EncherDetailController controller = new EncherDetailController();
+        loader.setController(controller);
+        controller.initData(auc);
+        Parent root = loader.load();
+        return root;
     }
 }

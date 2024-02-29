@@ -62,7 +62,7 @@ public class ModifierController{
             alert.setContentText("Auction details updated successfully");
             alert.showAndWait();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeEncheres.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/artistEnchers.fxml"));
             Parent loginSuccessRoot = loader.load();
             Scene scene = tf_nomAuction.getScene();
             scene.setRoot(loginSuccessRoot);

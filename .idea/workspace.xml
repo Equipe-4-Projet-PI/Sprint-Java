@@ -6,30 +6,40 @@
   <component name="ChangeListManager">
     <list default="true" id="3d221d32-f33c-456f-9e39-957fb388d4d4" name="Changes" comment="version 1">
       <change afterPath="$PROJECT_DIR$/.idea/cssdialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ArtistEnchersController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/AuctionEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EncherArtistController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EnchereContainerController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EnchersController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ListEncheresController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ListeParticipantsController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ModifierController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ParticipantController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/UnEncherController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/EncherArtist.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/EncherDetail.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/EnchereContainer.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/Enchers.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/ListeEncheres.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/ListeParticipant.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/Modifier.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/Participant.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/UnEncher.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/artistEnchers.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/css/styles.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/Navbar.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/annuler.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/art1.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/art2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/bouton-modifier.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/bouton-supprimer.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/cap14.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/cap15.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/cap16.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/images.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/images.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/loupe.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/recher_icone.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/images/retourner.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -73,24 +83,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/DELL/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/DELL/IdeaProjects/workshop_jdbc/src/main/java/org/example/Main.java&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/DELL/IdeaProjects/workshop_jdbc",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/DELL/IdeaProjects/workshop_jdbc/src/main/java/org/example/Main.java",
+    "settings.editor.selected.configurable": "editor.preferences.tabs",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\DELL\IdeaProjects\workshop_jdbc\src\main\resources\images" />
@@ -198,6 +208,10 @@
       <workItem from="1708981552548" duration="5145000" />
       <workItem from="1709032726601" duration="20666000" />
       <workItem from="1709069023300" duration="6588000" />
+      <workItem from="1709075959946" duration="8426000" />
+      <workItem from="1709127502626" duration="13917000" />
+      <workItem from="1709156413330" duration="6577000" />
+      <workItem from="1709204358772" duration="22165000" />
     </task>
     <task id="LOCAL-00001" summary="version 1">
       <option name="closed" value="true" />
@@ -239,15 +253,6 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
-          <line>174</line>
-          <properties class="Services.ServiceAuction" method="getById">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
           <line>53</line>
           <properties class="Services.ServiceAuction" method="supprimer">
             <option name="EMULATED" value="true" />
@@ -266,7 +271,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
-          <line>193</line>
+          <line>208</line>
           <properties class="controllers.EncherDetailController" method="loadImageFromDatabase">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -275,16 +280,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
-          <line>126</line>
-          <properties class="controllers.EncherDetailController" method="handleParticipantsLabelClick">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
-          <line>200</line>
+          <line>215</line>
           <properties class="controllers.EncherDetailController" method="countPartcipant">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -293,7 +289,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceParticipant.java</url>
-          <line>31</line>
+          <line>32</line>
           <properties class="Services.ServiceParticipant" method="modifier">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -302,7 +298,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
-          <line>78</line>
+          <line>100</line>
           <properties class="controllers.EncherDetailController" method="initData">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -313,21 +309,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
           <line>23</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
-          <line>84</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/controllers/ListEncheresController.java</url>
-          <line>69</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
-          <line>127</line>
-          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

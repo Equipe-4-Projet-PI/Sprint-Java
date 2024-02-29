@@ -38,17 +38,17 @@ public class ServiceAuction implements IService<Auction>{
     //hedhy tbadali auction lkol kif yheb l artiste yaaml modification aala auction mte3ou
     @Override
     public void modifier(Auction auction) throws SQLException {
-        String req = "update Auction set nom=? ,date_cloture=? , date_lancement=? , prix_initial=?  , prix_final=? ,  id_produit=? where id_Auction=?";
+        String req = "update Auction set nom=? , date_cloture=? , date_lancement=? , prix_initial=? , prix_final=? where id_Auction=?";
         PreparedStatement pre = con.prepareStatement(req);
         pre.setString(1, auction.getNom());
         pre.setString(2, String.valueOf(Date.valueOf(auction.getDate_cloture())));
-        pre.setString(3,String.valueOf(Date.valueOf(auction.getDate_lancement())));
-        pre.setInt(4,auction.getPrix_initial());
-        pre.setInt(5,auction.getPrix_final());
-        pre.setInt(6,auction.getId_produit());
-        pre.setInt(7, auction.getId());
+        pre.setString(3, String.valueOf(Date.valueOf(auction.getDate_lancement())));
+        pre.setInt(4, auction.getPrix_initial());
+        pre.setInt(5, auction.getPrix_final());
+        pre.setInt(6, auction.getId());
         pre.executeUpdate();
     }
+
 
     @Override
     public void supprimer(Auction auction) throws SQLException{
@@ -228,5 +228,45 @@ public class ServiceAuction implements IService<Auction>{
     }
 
 
+    public List<Auction> getMesEnchers(int idArtist) throws SQLException {
+        List<Auction> list = new ArrayList<>();
+        String req = "select * from Auction where id_artist=?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1,idArtist);
+        ResultSet res = pre.executeQuery();
+        while(res.next()){
+            Auction a = new Auction();
+            a.setId(res.getInt(1));
+            a.setNom(res.getString("nom"));
+            a.setDate_cloture(res.getDate("date_cloture").toLocalDate());
+            a.setDate_lancement(res.getDate("date_lancement").toLocalDate());
+            a.setPrix_initial(res.getInt("prix_initial"));
+            a.setPrix_final(res.getInt("prix_final"));
+            a.setId_produit(res.getInt("id_produit"));
+            a.setId_artist(res.getInt("id_artist"));
+            list.add(a);
+        }
+        return list;
+    }
 
+    public List<Auction> getAutresEncheres(int idArtist) throws SQLException {
+        List<Auction> list = new ArrayList<>();
+        String req = "select * from Auction where id_artist!=?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1,1);
+        ResultSet res = pre.executeQuery();
+        while(res.next()){
+            Auction a = new Auction();
+            a.setId(res.getInt(1));
+            a.setNom(res.getString("nom"));
+            a.setDate_cloture(res.getDate("date_cloture").toLocalDate());
+            a.setDate_lancement(res.getDate("date_lancement").toLocalDate());
+            a.setPrix_initial(res.getInt("prix_initial"));
+            a.setPrix_final(res.getInt("prix_final"));
+            a.setId_produit(res.getInt("id_produit"));
+            a.setId_artist(res.getInt("id_artist"));
+            list.add(a);
+        }
+        return list;
+    }
 }
