@@ -55,7 +55,7 @@
             <artifactId>javafx-web</artifactId>
             <version>15.0.1</version>
             </dependency>
-            <version>15.0.1</version> <!-- or any other version -->
+
 
         <dependency>
             <groupId>com.sun.mail</groupId>

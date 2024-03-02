@@ -27,6 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AdminController {
 
@@ -60,6 +62,8 @@ public class AdminController {
     public Button ConfirméEdit;
     public ComboBox E_Sexe;
     public ComboBox E_Role;
+    public ImageView recherche;
+    public TextField recherchenom;
     @FXML
     private TableColumn<User, String>  id_image;
     @FXML
@@ -697,6 +701,85 @@ public class AdminController {
         E_Email.setVisible(false);
         ConfirméEdit.setVisible(false);
         AnnulerEdit.setVisible(false);
+
+    }
+
+    public void rechercheuser(MouseEvent mouseEvent) {
+        try {
+            tv_users.getItems().clear();
+            String searchText = recherchenom.getText().trim();
+            ObservableList<User> observableList = FXCollections.observableList(serviceUser.DISPLAY());
+
+            List<User> filteredList = observableList.stream()
+                    .filter(e -> e.getUsername().toLowerCase().contains(searchText.toLowerCase()))
+                    .collect(Collectors.toList());
+
+            ObservableList<User> filteredObservableList = FXCollections.observableList(filteredList);
+            tv_users.setItems(filteredObservableList);
+            id_username.setCellValueFactory(new PropertyValueFactory<>("Username"));
+            id_email.setCellValueFactory(new PropertyValueFactory<>("Email"));
+            id_role.setCellValueFactory(new PropertyValueFactory<>("Role"));
+            id_firstname.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
+            id_lastname.setCellValueFactory(new PropertyValueFactory<>("LastName"));
+            id_adress.setCellValueFactory(new PropertyValueFactory<>("Adress"));
+            id_phone.setCellValueFactory(new PropertyValueFactory<>("Phone"));
+            id_gender.setCellValueFactory(new PropertyValueFactory<>("Gender"));
+            id_dob.setCellValueFactory(new PropertyValueFactory<>("DOB"));
+            id_image.setCellValueFactory(new PropertyValueFactory<>("ImageURL"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    void Go_To_Auction(MouseEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin_Interface/Admin_Auction.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = Num_Arts.getScene();
+        scene.setRoot(loginSuccessRoot);
+    }
+
+    @FXML
+    void Go_To_Event(MouseEvent event)throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin_Interface/Admin_Event.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = Num_Arts.getScene();
+        scene.setRoot(loginSuccessRoot);
+    }
+
+    @FXML
+    void Go_To_Forum(MouseEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin_Interface/Admin_Forum.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = Num_Arts.getScene();
+        scene.setRoot(loginSuccessRoot);
+    }
+
+    @FXML
+    void Go_To_Messages(MouseEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin_Interface/Admin_Message.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = Num_Arts.getScene();
+        scene.setRoot(loginSuccessRoot);
+    }
+
+    @FXML
+    void Go_To_Product(MouseEvent event)throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin_Interface/Admin_Produit.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = Num_Arts.getScene();
+        scene.setRoot(loginSuccessRoot);
+    }
+
+    @FXML
+    void Go_To_User(MouseEvent event) {
 
     }
 }

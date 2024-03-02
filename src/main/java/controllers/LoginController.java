@@ -13,7 +13,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.ServiceUser;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class LoginController {
@@ -43,7 +42,7 @@ public void Login(javafx.event.ActionEvent actionEvent) throws IOException {
             Parent root;
 
             if (user.getRole().equals("Admin")) {
-                loader = new FXMLLoader(getClass().getResource("/AdminUI.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/Admin_Interface/AdminUI.fxml"));
                 root = loader.load();
                 AdminController adminController = loader.getController();
                 adminController.initData(user);
