@@ -66,6 +66,48 @@ public class ServiceProduct implements IService<Product>{
     }
 
     @Override
+    public List<Product> saleList() throws SQLException {
+        List<Product> pro = new ArrayList<>();
+        String req ="select * from product where ForSale=1";
+        PreparedStatement pre = con.prepareStatement(req);
+        ResultSet res= pre.executeQuery();
+        while (res.next()){
+            Product p = new Product();
+            p.setId_Product(res.getInt(1));
+            p.setId_User(res.getInt(2));
+            p.setTitle(res.getString("Title"));
+            p.setDescription(res.getString("Description"));
+            p.setForSale(res.getInt("ForSale"));
+            p.setPrice(res.getDouble("Price"));
+            p.setCreationDate(res.getString("CreationDate"));
+            p.setProductImage(res.getString("ProductImage"));
+            pro.add(p);
+        }
+        return pro;
+    }
+
+    @Override
+    public List<Product> NosaleList() throws SQLException {
+        List<Product> pro = new ArrayList<>();
+        String req ="select * from product where ForSale=0";
+        PreparedStatement pre = con.prepareStatement(req);
+        ResultSet res= pre.executeQuery();
+        while (res.next()){
+            Product p = new Product();
+            p.setId_Product(res.getInt(1));
+            p.setId_User(res.getInt(2));
+            p.setTitle(res.getString("Title"));
+            p.setDescription(res.getString("Description"));
+            p.setForSale(res.getInt("ForSale"));
+            p.setPrice(res.getDouble("Price"));
+            p.setCreationDate(res.getString("CreationDate"));
+            p.setProductImage(res.getString("ProductImage"));
+            pro.add(p);
+        }
+        return pro;
+    }
+
+    @Override
     public List<Product> afficher() throws SQLException {
         List<Product> pro = new ArrayList<>();
 
@@ -86,6 +128,28 @@ public class ServiceProduct implements IService<Product>{
         }
 
 
+        return pro;
+    }
+
+    @Override
+    public List<Product> FilterShow(String title) throws SQLException {
+        List<Product> pro = new ArrayList<>();
+        String req ="select * from product where Title=?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setString(1,title);
+        ResultSet res = pre.executeQuery();
+        while (res.next()){
+            Product p = new Product();
+            p.setId_Product(res.getInt(1));
+            p.setId_User(res.getInt(2));
+            p.setTitle(res.getString("Title"));
+            p.setDescription(res.getString("Description"));
+            p.setForSale(res.getInt("ForSale"));
+            p.setPrice(res.getDouble("Price"));
+            p.setCreationDate(res.getString("CreationDate"));
+            p.setProductImage(res.getString("ProductImage"));
+            pro.add(p);
+        }
         return pro;
     }
 }

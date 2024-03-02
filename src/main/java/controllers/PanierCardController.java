@@ -2,13 +2,9 @@ package controllers;
 
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
-import entities.Product;
 import entities.ProductOrder;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,7 +29,6 @@ import org.json.JSONObject;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
-import com.stripe.param.PaymentIntentCreateParams;
 import java.net.URISyntaxException;
 import java.net.URI;
 import java.awt.Desktop;
@@ -210,10 +205,9 @@ public class PanierCardController {
     }
     void send_SMS (){
         // Initialisation de la bibliothèque Twilio avec les informations de votre compte
-        String ACCOUNT_SID = "AC6b55aa03993aa22f83c1263358f19836";
-        String AUTH_TOKEN = "94c2d7b0e0ff93d92096fe92437a63df";
 
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        Twilio.init(System.getenv("sid_sms"), System.getenv("key_sms"));
 
         String recipientNumber = "+21629082229";
         String message = "Bonjour ,\n"

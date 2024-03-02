@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 
 public class ProductController implements Initializable{
 
-    int userid,userid_ed,pr_pid;
+    int userid;
     double price,price_ed;
     @FXML
     private Pane add_panel;
@@ -40,8 +40,6 @@ public class ProductController implements Initializable{
     @FXML
     private TextField pr_price_ed;
 
-    @FXML
-    private TextField pr_title_ed;
     @FXML
     private ImageView product_image_ed;
     @FXML
@@ -61,12 +59,6 @@ public class ProductController implements Initializable{
     private TextField pr_price;
 
     @FXML
-    private TextField pr_title;
-
-    @FXML
-    private TextField pr_userid;
-
-    @FXML
     private ImageView product_image;
     @FXML
     private ScrollPane Affichage_panel;
@@ -75,6 +67,19 @@ public class ProductController implements Initializable{
     @FXML
     private ScrollPane afficher_panier;
 
+    @FXML
+    private ChoiceBox<String> pr_title;
+    @FXML
+    private ChoiceBox<String> pr_title_ed;
+
+    @FXML
+    private ChoiceBox<String> FilterBox;
+
+    @FXML
+    private CheckBox box_fsale;
+
+    @FXML
+    private CheckBox box_nosale;
     int forsalevalue(){
         if (pr_oui.isSelected()){
             return 1;
@@ -108,7 +113,7 @@ public class ProductController implements Initializable{
             }
         }
         try {
-            s.ajouter(new Product(userid,forsalevalue(),price,pr_title.getText(),pr_desc.getText(),formattedDate,imagePath));
+            s.ajouter(new Product(userid,forsalevalue(),price,pr_title.getValue(),pr_desc.getText(),formattedDate,imagePath));
             Alert alert=new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("succes");
             alert.setContentText("product added");
@@ -129,6 +134,9 @@ public class ProductController implements Initializable{
         afficher_panier.setVisible(false);
         afficher_ma_list.setVisible(false);
         Edit_panel.setVisible(false);
+        box_fsale.setVisible(false);
+        box_nosale.setVisible(false);
+        FilterBox.setVisible(false);
         refreshData();
     }
     @FXML
@@ -136,20 +144,27 @@ public class ProductController implements Initializable{
         clear();
     }
     void clear(){
-        pr_title.setText("");
+        pr_title.setValue("");
         pr_desc.setText("");
         pr_price.setText("");
         pr_oui.setSelected(false);
         product_image.setImage(new Image("file:C:\\Users\\bigal\\Documents\\GitHub\\Sprint-Java\\src\\main\\resources\\img.png"));
     }
+    void ini(){
+        pr_title.getItems().addAll("peinture","sculpture","photography");
+    }
 
     @FXML
     void add_form_button(MouseEvent event) {
+    ini();
     add_panel.setVisible(true);
     Affichage_panel.setVisible(false);
         afficher_panier.setVisible(false);
         Edit_panel.setVisible(false);
         afficher_ma_list.setVisible(false);
+        box_fsale.setVisible(false);
+        box_nosale.setVisible(false);
+        FilterBox.setVisible(false);
         product_image.setImage(new Image("file:C:\\Users\\bigal\\Documents\\GitHub\\Sprint-Java\\src\\main\\resources\\img.png"));
     }
 
@@ -174,7 +189,23 @@ public class ProductController implements Initializable{
     @FXML
     private HBox CardLayout;
     public void initialize(URL location, ResourceBundle resources){
-        recentlyAdded =new ArrayList<>(recentlyAdded());
+        if (box_fsale.isSelected()){
+            recentlyAdded =new ArrayList<>(recentlyAdded1());
+            box_nosale.setSelected(false);
+            FilterBox.setValue(null);
+        } else if (box_nosale.isSelected()) {
+            recentlyAdded =new ArrayList<>(recentlyAdded2());
+            box_fsale.setSelected(false);
+            FilterBox.setValue(null);
+        } else if (FilterBox.getValue()!=null) {
+            recentlyAdded =new ArrayList<>(recentlyAdded3());
+            box_fsale.setSelected(false);
+            box_nosale.setSelected(false);
+        } else {
+            recentlyAdded = new ArrayList<>(recentlyAdded());
+            box_nosale.setSelected(false);
+            box_fsale.setSelected(false);
+        }
         System.out.println("the size of data "+recentlyAdded.size());
         try {
             VBox mainVBox = new VBox();
@@ -203,9 +234,44 @@ public class ProductController implements Initializable{
         }
     }
 
+    @FXML
+    void fsale_box_clicked(ActionEvent event) {
+        refreshData();
+
+    }
+    @FXML
+    void no_sale_box_clicked(ActionEvent event) {
+        refreshData();
+
+    }
+    @FXML
+    void BoxExitFilter(MouseEvent event) {
+        refreshData();
+    }
     public void refreshData() {
         CardLayout.getChildren().clear();
         initialize(null, null);
+    }
+    private List<Product> recentlyAdded1(){
+        try {
+            return s.saleList();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private List<Product> recentlyAdded2(){
+        try {
+            return s.NosaleList();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private List<Product> recentlyAdded3(){
+        try {
+            return s.FilterShow(FilterBox.getValue());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     private List<Product> recentlyAdded(){
         try {
@@ -214,7 +280,9 @@ public class ProductController implements Initializable{
             throw new RuntimeException(e);
         }
     }
-
+    void ini2(){
+        FilterBox.getItems().addAll("peinture","sculpture","photography");
+    }
     @FXML
     void MagPage(MouseEvent event) {
         add_panel.setVisible(false);
@@ -222,17 +290,22 @@ public class ProductController implements Initializable{
         afficher_panier.setVisible(false);
         afficher_ma_list.setVisible(false);
         Edit_panel.setVisible(false);
-
+        box_fsale.setVisible(true);
+        box_nosale.setVisible(true);
+        FilterBox.setVisible(true);
         refreshData();
     }
     @FXML
     void all_art(MouseEvent event) {
         add_panel.setVisible(false);
+        box_fsale.setVisible(true);
+        box_nosale.setVisible(true);
         Affichage_panel.setVisible(true);
         afficher_panier.setVisible(false);
         afficher_ma_list.setVisible(false);
         Edit_panel.setVisible(false);
-
+        FilterBox.setVisible(true);
+        ini2();
         refreshData();
     }
 
@@ -248,6 +321,9 @@ public class ProductController implements Initializable{
         afficher_panier.setVisible(true);
         afficher_ma_list.setVisible(false);
         Edit_panel.setVisible(false);
+        box_fsale.setVisible(false);
+        box_nosale.setVisible(false);
+        FilterBox.setVisible(false);
 
 
     }
@@ -295,13 +371,14 @@ public class ProductController implements Initializable{
         PanierCard.getChildren().clear();
         initialize();
     }
-    @FXML
-    private ScrollPane afficher_ma_list;
 
-    @FXML
-    private HBox ma_list_box;
+
 
     ///partie ma liste ////////////////////////
+    @FXML
+    private ScrollPane afficher_ma_list;
+    @FXML
+    private HBox ma_list_box;
     int id=2;
     private List<Product> fo(){
         try {
@@ -309,6 +386,9 @@ public class ProductController implements Initializable{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    void ini1(){
+        pr_title_ed.getItems().addAll("peinture","sculpture","photography");
     }
     private List<Product> fa;
     public void initialized(){
@@ -330,13 +410,14 @@ public class ProductController implements Initializable{
                 MyListner myListner= new MyListner() {
                     @Override
                     public void onClick(int value,String value1,String value2,String value3,int value4,Double value5,String value6) {
+                        ini1();
                         Edit_panel.setVisible(true);
                         afficher_ma_list.setVisible(false);
                         add_panel.setVisible(false);
                         Affichage_panel.setVisible(false);
                         afficher_panier.setVisible(false);
                         pr_id_ed.setText(String.valueOf(value));
-                        pr_title_ed.setText(value1);
+                        pr_title_ed.setValue(value1);
                         pr_desc_ed.setText(value2);
                         pr_date_ed.setText(String.valueOf(value3));
                         if (value4!=0){
@@ -379,15 +460,22 @@ public class ProductController implements Initializable{
         Affichage_panel.setVisible(false);
         afficher_panier.setVisible(false);
         Edit_panel.setVisible(false);
+        box_fsale.setVisible(false);
+        box_nosale.setVisible(false);
+        FilterBox.setVisible(false);
         refreshMyCards();
     }
     @FXML
     void CancelEditProduct(ActionEvent event) {
         afficher_ma_list.setVisible(true);
         add_panel.setVisible(false);
+        box_fsale.setVisible(false);
+        box_nosale.setVisible(false);
         Affichage_panel.setVisible(false);
         afficher_panier.setVisible(false);
         Edit_panel.setVisible(false);
+        FilterBox.setVisible(false);
+
         refreshMyCards();
     }
 
@@ -420,7 +508,7 @@ public class ProductController implements Initializable{
             System.out.println("invalid integer input");
         }
         int id = Integer.parseInt(pr_id_ed.getText());
-        String title = pr_title_ed.getText();
+        String title = pr_title_ed.getValue();
         String desc = pr_desc_ed.getText();
         String date = pr_date_ed.getText();
         Double price = Double.valueOf(pr_price_ed.getText());
@@ -440,8 +528,12 @@ public class ProductController implements Initializable{
         afficher_ma_list.setVisible(true);
         add_panel.setVisible(false);
         Affichage_panel.setVisible(false);
+        box_fsale.setVisible(false);
+        box_nosale.setVisible(false);
         afficher_panier.setVisible(false);
         Edit_panel.setVisible(false);
+        FilterBox.setVisible(false);
+
         refreshMyCards();
     }
 

@@ -8,5 +8,9 @@ public interface IService<T>{
     public  void modifier(T t ) throws SQLException;
     public  void supprimer(T t )throws SQLException;
     public List<T> maList(int t)throws SQLException;
+    public List<T> saleList()throws SQLException;
+    public List<T> NosaleList()throws SQLException;
     public List<T> afficher() throws SQLException;
+    public List<T> FilterShow(String t) throws SQLException;
+
 }
