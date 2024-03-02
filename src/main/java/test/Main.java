@@ -1,84 +1,84 @@
 package test;
 
 
-import entities.Product;
-import entities.ProductOrder;
-import services.ServiceOrder;
-import services.ServiceProduct;
-import utils.MyDB;
 
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
+//import javax.mail.*;
+//import javax.mail.internet.InternetAddress;
+//import javax.mail.internet.MimeMessage;
+//import java.util.Properties;
 
 public class Main {
-    public static void main(String[] args) {
-        /*LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDate = currentDate.format(formatter);
-        MyDB conn1 = MyDB.getInstance();
 
-        ServiceProduct s = new ServiceProduct();
+    public static final String ACCOUNT_SID = "ACbcf4c99c48945b2f672930185f76f269";
+    public static final String AUTH_TOKEN = "56950fcf953a2f0073bd1d0a0d070040";
+    public static void main(String[] args) throws Exception {
+//        // Create a sample Artist object
+//        //User user1 = new User("Yassine","Yassine@gmail.com","Password","Artist","Yassine","Manai","Tunis","10/10/2005");
+//        //User user2 = new User("Ali","aLI@gmail.com","Password","Artist","ALI","Msahli","Tunis","18/03/2003");
+//        //User user3 = new User("Hamdi","Hamdi@gmail.com","Password","Member","Hamdi","ben Hamdi","Tunis","18/03/2003");
+//
+//        //User updateTest = new User(13,"Ali","aLI@gmail.com","Password","Member","ALI","Msahli","Tunis","18/03/2003");
+//        User DeleteTest = new User(13);
+//        // Create an instance of ServiceArtist
+//        ServiceUser serviceUser = new ServiceUser();
+//
+//        try {
+//            // ADD
+//          /* serviceUser.ADD(user1);
+//            System.out.println("User added successfully.");
+//            serviceUser.ADD(user2);
+//            System.out.println("User added successfully.");
+//            serviceUser.ADD(user3);
+//            System.out.println("User added successfully.");*/
+//
+//            // DELETE
+//          /* serviceUser.DELETE(DeleteTest);
+//            System.out.println("User Deleted Succefully");*/
+//
+//
+//
+//            //UPDATE
+//            /*serviceUser.UPDATE(updateTest);
+//            System.out.println("User Updated Succefully");*/
+//
+//          //DISPLAY
+//
+//            System.out.println(serviceUser.DISPLAY());
+//            System.out.println(serviceUser.DISPLAYARTIST());
+//
+//
+//
+//        } catch (SQLException e) {
+//            System.out.println("Error : " + e.getMessage());
+//        }
+//
+//        if (serviceUser.authenticateUser("Yassine", "passwordo")) {
+//            System.out.println("Authentication successful!");
+//        } else {
+//            System.out.println("Authentication failed. Invalid username or password.");
+//        }
 
-        Product p1 = new Product(1,0,50.25,"Mona liza","by leonardo davenci",formattedDate,"fdsfsd");
-        Product p2 = new Product(2,1,25.35,"the statue of liberty","by donald trump",formattedDate,"sdfvsdv");
-        Product p3 = new Product(1,1,20.00,"pizza","by napolion",formattedDate,"defsqdf");*/
+      // JavaMailutil.SendMail("yessin.manaibs@gmail.com");
 
 
-        /* add products */
-        /*try {
-            s.ajouter(p1);
-            s.ajouter(p2);
-            s.ajouter(p3);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }*/
-        /* show products */
-        /*try {
-            System.out.println(s.afficher());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
-        /* modify a product */
-        /*try {
-            s.modifier(p3);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }*/
-        /* delete a product */
-        /*try{
-            s.supprimer(p2);
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
-        }*/
-        /*try {
-            System.out.println(s.afficher());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
+//
+//        Twilio.init("ACbcf4c99c48945b2f672930185f76f269", "56950fcf953a2f0073bd1d0a0d070040");
+//
+//        Message message = Message.creator(
+//                        new com.twilio.type.PhoneNumber("+21654189162"),
+//                        new com.twilio.type.PhoneNumber("+16232584939"),
+//                        "3ib 3lik tansa mode passe")
+//                .create();
+//
+//        System.out.println(message.getSid());
 
-        /*ServiceOrder o = new ServiceOrder();
-        ProductOrder o1=new ProductOrder(19,"Mona liza",formattedDate,50.25);
-        ProductOrder o2=new ProductOrder(20,"the statue of liberty",formattedDate,25.35);
-        ProductOrder o3=new ProductOrder(21,"pizza",formattedDate,20.00);
-        try {
-            o.ajouter(o1);
-            o.ajouter(o2);
-            o.ajouter(o3);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }*/
-        /*try{
-            o.supprimer(o2);
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
-        }*/
-        /*try {
-            System.out.println(o.afficher());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
+
+
+
+
+
+
+
 
     }
 }

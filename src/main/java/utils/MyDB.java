@@ -5,15 +5,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyDB {
-    public final String URL = "jdbc:mysql://localhost:3308/artyvenci_database";
-    public final String USERNAME = "root";
-    public final String PWD = "";
-    //2 creer une variable de m type que la classe
-    public static MyDB instance;
 
+    public final String URL = "jdbc:mysql://localhost:3306/artyvenci_database";
+    public final String USERNAME = "root";
+    public  final String PWD = "";
+    public static MyDB instance;
     private Connection connection;
 
-    //1 Rendre le constructeur Prive
+
     private MyDB() {
 
         try {
@@ -21,11 +20,10 @@ public class MyDB {
             System.out.println("Connected");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            System.out.println("Not Connected");
+
         }
     }
 
-    //3 creer une methode getInstance
     public static MyDB getInstance(){
         if(instance==null){
             instance = new MyDB();

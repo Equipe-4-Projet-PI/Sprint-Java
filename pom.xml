@@ -5,7 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>workshop_1</artifactId>
+
+    <artifactId>ArtyVenci</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -13,15 +14,14 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
         <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <version>8.3.0</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
         </dependency>
-
-
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
@@ -33,6 +33,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>21.0.2</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
@@ -53,6 +54,12 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
             <version>15.0.1</version> <!-- or any other version -->
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+
         </dependency>
         <dependency>
             <groupId>com.twilio.sdk</groupId>
@@ -68,6 +75,7 @@
 
 
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -76,8 +84,12 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>test.MainFX</mainClass>
+
+                    <executable>${java.home}/bin/java</executable>
+
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>

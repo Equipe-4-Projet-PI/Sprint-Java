@@ -6,15 +6,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+import java.sql.SQLException;
+
 public class MainFX extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/Product.fxml"));
-        Parent root = fxmlloader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("gerer produit");
-        stage.show();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Login ");
+            stage.show();
+        }
+        catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

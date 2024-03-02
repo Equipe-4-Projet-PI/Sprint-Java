@@ -13,4 +13,11 @@ public interface IService<T>{
     public List<T> afficher() throws SQLException;
     public List<T> FilterShow(String t) throws SQLException;
 
+    public void ADD(T t) throws SQLException;
+
+    public void UPDATE(T t) throws SQLException;
+
+    public void DELETE(T t) throws SQLException ;
+
+    public List<T> DISPLAY() throws SQLException;
 }
