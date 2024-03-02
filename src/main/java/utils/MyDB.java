@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyDB {
+
     public final String URL = "jdbc:mysql://localhost:3306/artyvenci_database";
     public final String USERNAME = "root";
     public  final String PWD = "";
@@ -19,6 +20,7 @@ public class MyDB {
             System.out.println("Connected");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+
         }
     }
 
