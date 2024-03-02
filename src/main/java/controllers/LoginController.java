@@ -77,6 +77,13 @@ public void Login(javafx.event.ActionEvent actionEvent) throws IOException {
         Scene scene = id_Password.getScene(); // Get the scene from any node in the current scene
         scene.setRoot(loginSuccessRoot); // Set the root of the current scene to the LoginSuccess scene
     }
+
+    public void resetPassword(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Reset_Account.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = id_Password.getScene(); // Get the scene from any node in the current scene
+        scene.setRoot(loginSuccessRoot); // Set the root of the current scene to the LoginSuccess scene
+    }
 }
 
 
