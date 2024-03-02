@@ -1,5 +1,6 @@
-package controllers;
+package controllers.Member;
 
+import entities.ForumEntity;
 import entities.PostEntity;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,17 +13,19 @@ import services.ServicePost;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class NewPostPageController {
+public class NewPostPageMembreController {
     @FXML
     private TextField post_desc;
 
     @FXML
     private TextField post_title;
 
+    private ForumEntity forum;
+
     @FXML
     void AfficherPostes(ActionEvent event) {
         try {
-            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Artist/AfficherForumArtist.fxml"));
+            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Member/AfficherForumMembre.fxml"));
             post_title.getScene().setRoot(root);
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -33,14 +36,14 @@ public class NewPostPageController {
     void AjouterPoste(ActionEvent event) {
         try {
             ServicePost sp=new ServicePost();
-            sp.ajouter(new PostEntity(1,1,post_title.getText(),post_desc.getText()));
+            sp.ajouter(new PostEntity(forum.getId_forum(),1,post_title.getText(),post_desc.getText()));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("Forum Ajouté");
             alert.showAndWait();
 
 
-            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Artist/AfficherForumArtist.fxml"));
+            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Old/AfficherForumArtist.fxml"));
             post_title.getScene().setRoot(root);
 
 
@@ -54,4 +57,8 @@ public class NewPostPageController {
         }
     }
 
+    public void setData(ForumEntity currentForum) {
+
+        this.forum = currentForum;
+    }
 }

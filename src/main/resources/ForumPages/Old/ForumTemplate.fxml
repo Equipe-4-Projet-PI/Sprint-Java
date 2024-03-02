@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="box" alignment="BOTTOM_LEFT" prefHeight="91.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ForumTemplateController">
+<HBox fx:id="box" alignment="BOTTOM_LEFT" prefHeight="91.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OLD.ForumTemplateController">
    <children>
       <VBox prefHeight="91.0" prefWidth="366.0">
          <children>

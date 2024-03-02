@@ -13,7 +13,7 @@ public class ForumEntity {
 
     public ForumEntity(){
 
-    };
+    }
 
     public ForumEntity(int id_forum, String title, String description, int replies_num, Date date) {
         this.id_forum = id_forum;

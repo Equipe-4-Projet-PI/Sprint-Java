@@ -1,4 +1,4 @@
-package controllers;
+package controllers.OLD;
 
 import entities.ForumEntity;
 import entities.PostEntity;
@@ -76,7 +76,7 @@ public class AddPostController {
 
             // Load and display filtered data
             for (PostEntity f : filteredList) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Artist/PostTemplate.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Old/PostTemplate.fxml"));
                 HBox cardBox = fxmlLoader.load();
                 PostTemplateController cardController = fxmlLoader.getController();
                 cardController.setData(f);
@@ -91,7 +91,7 @@ public class AddPostController {
     @FXML
     void GotoforumPage(ActionEvent event) {
         try {
-            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Artist/AfficherForumArtist.fxml"));
+            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Old/AfficherForumArtist.fxml"));
             forumPage_id.getScene().setRoot(root);
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -116,9 +116,10 @@ public class AddPostController {
 
 
     private Parent loadRootLayoutForForum() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Artist/NewPostPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Old/NewPostPage.fxml"));
         NewPostPageController controller = new NewPostPageController();
         loader.setController(controller);
+        controller.setData(forum);
         Parent root = loader.load();
         return root;
     }

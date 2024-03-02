@@ -1,4 +1,4 @@
-package controllers;
+package controllers.OLD;
 
         import entities.ForumEntity;
         import javafx.event.ActionEvent;
@@ -24,7 +24,7 @@ public class AddForumController {
     @FXML
     void AfficherForum(ActionEvent event) {
         try {
-            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Artist/AfficherForumArtist.fxml"));
+            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Old/AfficherForumArtist.fxml"));
             f_title.getScene().setRoot(root);
         }catch (IOException e){
             System.out.println(e.getMessage());

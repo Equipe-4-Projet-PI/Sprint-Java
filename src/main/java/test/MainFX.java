@@ -9,6 +9,7 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Member/AfficherForumMembre.fxml"));
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Admin/GestionForumAdmin.fxml"));
         Parent root= fxmlLoader.load();
 

@@ -64,19 +64,20 @@ public class ServiceUser implements IService<UserEntity>{
 
         return posts;
     }
-    public  UserEntity getbyid(int id) throws SQLException{
-        String req = "SELECT * From user where user_id=?";
+    public UserEntity getbyid(int id) throws SQLException {
+        UserEntity f = null;
+        String req = "SELECT * FROM user WHERE user_id=?";
         PreparedStatement pre = con.prepareStatement(req);
-        pre.setInt(1,id);
+        pre.setInt(1, id);
         ResultSet res = pre.executeQuery();
-        UserEntity f = new UserEntity();
-        while(res.next()) {
-
-            f.setUser_id(res.getInt(1));
-            f.setUsername(res.getString(2));
-            f.setRole(res.getString(3));
+        if (res.next()) {
+            f = new UserEntity();
+            f.setUser_id(res.getInt("user_id"));
+            f.setUsername(res.getString("name"));
+            f.setRole(res.getString("role"));
         }
         return f;
     }
+
 
 }

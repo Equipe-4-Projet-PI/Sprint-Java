@@ -1,5 +1,6 @@
 package services;
 import entities.ForumEntity;
+import entities.UserEntity;
 import utils.MyDB;
 
 import java.sql.*;
@@ -73,5 +74,21 @@ public class ServiceForum implements IService<ForumEntity>{
         }
 
         return forums;
+    }
+    public ForumEntity getbyid(int id) throws SQLException {
+        ForumEntity f = null;
+        String req = "SELECT * FROM forum WHERE id_forum=?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1, id);
+        ResultSet res = pre.executeQuery();
+        if (res.next()) {
+            f = new ForumEntity();
+            f.setId_forum(res.getInt("id_forum"));
+            f.setTitle(res.getString("title"));
+            f.setDescription(res.getString("description"));
+            f.setReplies_num(res.getInt("Replies_number"));
+            f.setDate(res.getDate("date"));
+        }
+        return f;
     }
 }

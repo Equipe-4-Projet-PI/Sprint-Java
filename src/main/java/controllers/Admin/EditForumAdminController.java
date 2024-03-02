@@ -1,4 +1,4 @@
-package controllers;
+package controllers.Admin;
 
 import entities.ForumEntity;
 import javafx.event.ActionEvent;

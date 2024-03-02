@@ -1,4 +1,4 @@
-package controllers;
+package controllers.Admin;
 
 import entities.ForumEntity;
 import javafx.collections.FXCollections;
@@ -18,7 +18,6 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

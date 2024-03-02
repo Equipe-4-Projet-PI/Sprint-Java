@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PostTemplateController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OLD.PostTemplateController">
    <children>
       <AnchorPane prefWidth="600.0">
          <children>
@@ -21,9 +21,10 @@
                   <Font size="21.0" />
                </font>
             </Label>
-            <Label fx:id="post_label_id" alignment="TOP_LEFT" layoutX="35.0" layoutY="128.0" prefHeight="82.0" prefWidth="530.0" text="This is a Test of a Comment that i am writing to create my PostTemplate it will help me determine if this template works and works Great" wrapText="true" />
+            <Label fx:id="post_label_id" alignment="TOP_LEFT" layoutX="35.0" layoutY="113.0" prefWidth="530.0" text="This is a Test of a Comment that i am writing to create my PostTemplate it will help me determine if this template works and works Great" wrapText="true" />
             <Label fx:id="Like_num_id" layoutX="534.0" layoutY="30.0" text="0" />
             <Button fx:id="like_butt_id" layoutX="547.0" layoutY="26.0" mnemonicParsing="false" onAction="#LikeAction" text="Like" />
+            <Label layoutX="29.0" layoutY="147.0" prefHeight="26.0" prefWidth="506.0" />
          </children>
       </AnchorPane>
    </children>

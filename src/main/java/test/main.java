@@ -3,6 +3,7 @@ import java.security.Provider;
 import java.sql.*;
 
 import services.ServicePost;
+import services.ServiceUser;
 import utils.MyDB;
 import entities.PostEntity;
 import entities.ForumEntity;
@@ -92,5 +93,13 @@ public class main {
 //        } catch (SQLException e) {
 //            throw new RuntimeException(e);
 //        }
+
+        /*================USER SERVICE====================*/
+        ServiceUser SU = new ServiceUser();
+        try {
+            System.out.println(SU.getbyid(2));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

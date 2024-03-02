@@ -60,7 +60,7 @@
       </AnchorPane>
       <HBox layoutX="524.0" layoutY="151.0">
          <children>
-            <TextField fx:id="id_search" promptText="search here" />
+            <TextField fx:id="id_search" onAction="#searchForPost" promptText="search here" />
             <Button fx:id="searchbutt_id" mnemonicParsing="false" onAction="#searchForPost" text="Search" />
          </children>
       </HBox>

@@ -1,4 +1,4 @@
-package controllers;
+package controllers.OLD;
 
 import entities.PostEntity;
 import javafx.event.ActionEvent;
@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import services.ServicePost;
+import services.ServiceUser;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -32,6 +33,7 @@ public class PostTemplateController {
 
     private PostEntity post;
 
+    ServiceUser SU = new ServiceUser();
     public void setData(PostEntity postEntity)
     {
         title_label_id.setText(postEntity.getTitle());
@@ -39,7 +41,11 @@ public class PostTemplateController {
         Like_num_id.setText(""+postEntity.getLike_num());
         timestamp_label_id.setText(""+postEntity.getTime());
         this.post = postEntity;
-//        user_label_id = ?
+        try {
+            user_label_id.setText(SU.getbyid(post.getId_user()).getUsername());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     @FXML
     private Button like_butt_id;

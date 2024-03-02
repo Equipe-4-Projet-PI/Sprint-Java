@@ -1,4 +1,4 @@
-package controllers;
+package controllers.OLD;
 
 import entities.ForumEntity;
 import javafx.collections.FXCollections;
@@ -45,7 +45,7 @@ public class AfficherForumController {
 
                 // Load and display filtered data
                 for (ForumEntity f : filteredList) {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Artist/ForumTemplate.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Old/ForumTemplate.fxml"));
                     HBox cardBox = fxmlLoader.load();
                     ForumTemplateController cardController = fxmlLoader.getController();
                     cardController.setData(f);
@@ -68,7 +68,7 @@ public class AfficherForumController {
             ObservableList<ForumEntity> observableList = FXCollections.observableList(SF.afficher());
             for (int i = 0; i < observableList.size(); i++) {
                 FXMLLoader fxmlLoader= new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ForumPages/Artist/ForumTemplate.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/ForumPages/Old/ForumTemplate.fxml"));
                 HBox cardBox = fxmlLoader.load();
                 ForumTemplateController cardController = fxmlLoader.getController();
                 cardController.setData(observableList.get(i));
@@ -87,7 +87,7 @@ public class AfficherForumController {
     @FXML
     void GotoforumPage(ActionEvent event) {
         try {
-            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Artist/AfficherForumArtist.fxml"));
+            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Old/AfficherForumArtist.fxml"));
             forumPage_id.getScene().setRoot(root);
         }catch (IOException e){
             System.out.println(e.getMessage());

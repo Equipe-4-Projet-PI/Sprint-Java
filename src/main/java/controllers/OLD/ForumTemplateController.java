@@ -1,4 +1,4 @@
-package controllers;
+package controllers.OLD;
 
 import entities.ForumEntity;
 import javafx.fxml.FXML;
@@ -46,7 +46,7 @@ public class ForumTemplateController {
     void Delete(ActionEvent event) {
         try {
             SF.supprimer(fdetest);
-            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Artist/AfficherForumArtist.fxml"));
+            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Old/AfficherForumArtist.fxml"));
             del_butt.getScene().setRoot(root);
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
@@ -66,7 +66,7 @@ public class ForumTemplateController {
         }
     }
     private Parent loadRootLayout() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Artist/ModifierForum.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Old/ModifierForum.fxml"));
         ModifierForumController controller = new ModifierForumController();
         loader.setController(controller);
         Parent root = loader.load();
@@ -87,7 +87,7 @@ public class ForumTemplateController {
     }
 
     private Parent loadRootLayoutForForum() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Artist/AddPostArtist.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Old/AddPostArtist.fxml"));
         AddPostController controller = new AddPostController();
         loader.setController(controller);
         controller.setData(fdetest); // Add data to the controller

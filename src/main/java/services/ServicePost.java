@@ -1,6 +1,8 @@
 package services;
 
 import entities.PostEntity;
+import entities.UserEntity;
+import javafx.scene.control.Label;
 import utils.MyDB;
 
 import java.sql.*;
@@ -102,5 +104,23 @@ public class ServicePost implements IService<PostEntity>{
         }
 
         return posts;
+    }
+
+    public PostEntity getbyid(int id) throws SQLException {
+        PostEntity f = null;
+        String req = "SELECT * FROM post WHERE id_post=?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1, id);
+        ResultSet res = pre.executeQuery();
+        if (res.next()) {
+            f.setId_post(res.getInt(1));
+            f.setId_forum(res.getInt(2));
+            f.setId_user(res.getInt(3));
+            f.setTitle(res.getString(4));
+            f.setText(res.getString(5));
+            f.setLike_num(res.getInt(6));
+            f.setTime(res.getTimestamp(7));
+        }
+        return f;
     }
 }
