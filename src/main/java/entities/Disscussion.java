@@ -17,6 +17,11 @@ public class Disscussion {
         this.idReceiver = idReceiver;
     }
 
+    public Disscussion(int idDis, int idSender, int idReceiver) {
+        this.idDis = idDis;
+        this.idSender = idSender;
+        this.idReceiver = idReceiver;
+    }
 
     public int getIdDis() {
         return idDis;

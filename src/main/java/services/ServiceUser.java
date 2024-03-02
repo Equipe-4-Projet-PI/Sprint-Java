@@ -213,5 +213,21 @@ public class ServiceUser implements IService<User> {
         }
         return f;
     }
+
+
+    public User getbyUsername(String username) throws SQLException {
+        User f = null;
+        String req = "SELECT * FROM user WHERE Username=?";
+        PreparedStatement pre = conn.prepareStatement(req);
+        pre.setString(1, username);
+        ResultSet res = pre.executeQuery();
+        if (res.next()) {
+            f = new User();
+            f.setId_User(res.getInt("Id_User"));
+            f.setUsername(res.getString("Username"));
+            f.setRole(res.getString("Role"));
+        }
+        return f;
+    }
 }
 

@@ -14,6 +14,13 @@ public class Message {
     public Message() {
     }
 
+    public Message(int idSender, int idDis, String content, String reaction) {
+        this.idSender = idSender;
+        this.idDis = idDis;
+        this.content = content;
+        this.reaction = reaction;
+    }
+
     @Override
     public String toString() {
         return "Message{" +

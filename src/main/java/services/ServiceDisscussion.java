@@ -20,22 +20,21 @@ public class ServiceDisscussion implements IService<Disscussion> {
 
     @Override
     public void ajouter(Disscussion disscussion) throws SQLException {
-        String req = "INSERT INTO discussion ( idSender , idReceiver) VALUES (?, ? )";
+        String req = "INSERT INTO discussion (idReciever, idSender) VALUES (?, ? )";
         PreparedStatement pre = conn.prepareStatement(req);
 
-        pre.setInt(1, disscussion.getIdSender());
-        pre.setInt(2, disscussion.getIdReceiver());
-
+        pre.setInt(2, disscussion.getIdSender());
+        pre.setInt(1, disscussion.getIdReceiver());
 
         pre.executeUpdate();
-        pre.close();
+//        pre.close();
     }
 
 
     @Override
     public void modifier(Disscussion disscussion) throws SQLException {
 
-        String req = "UPDATE discussion SET  idSender=? , idReceiver =? , Signal =? WHERE idDis= ?";
+        String req = "UPDATE discussion SET  idSender=? , idReceiver =? , Sig =? WHERE idDis= ?";
         PreparedStatement pre = conn.prepareStatement(req);
 
         pre.setInt(1, disscussion.getIdSender());
@@ -67,7 +66,7 @@ public class ServiceDisscussion implements IService<Disscussion> {
     public List<Disscussion> afficher() throws SQLException {
         List<Disscussion> dis = new ArrayList<>();
 
-        String req = "SELECT idDis, idSender, idReciever , 'Signal'  FROM discussion";
+        String req = "SELECT idDis, idSender, idReciever , 'Sig'  FROM discussion";
         PreparedStatement pre = conn.prepareStatement(req);
         ResultSet res = pre.executeQuery();
         while (res.next()) {
@@ -76,7 +75,7 @@ public class ServiceDisscussion implements IService<Disscussion> {
             d.setIdDis(res.getInt("idDis"));
             d.setIdSender(res.getInt("idSender"));
             d.setIdReceiver(res.getInt("idReciever"));
-            d.setSignal(res.getString("Signal"));
+            d.setSignal(res.getString("Sig"));
 
             dis.add(d);
     }
@@ -98,7 +97,27 @@ public class ServiceDisscussion implements IService<Disscussion> {
             d.setIdDis(res.getInt("idDis"));
             d.setIdSender(res.getInt("idSender"));
             d.setIdReceiver(res.getInt("idReciever"));
-            d.setSignal(res.getString("Signal"));
+            d.setSignal(res.getString("Sig"));
+        }
+
+        return d ;
+    }
+
+    public Disscussion getDiscussionByReceiverId (int id) throws SQLException{
+        Disscussion d = new Disscussion() ;
+        String req = "SELECT * FROM discussion WHERE idReciever=?";
+
+        PreparedStatement pre = conn.prepareStatement(req);
+        pre.setInt(1, id);
+
+        ResultSet res = pre.executeQuery();
+        if (res.next()) {
+            d = new Disscussion();
+
+            d.setIdDis(res.getInt("idDis"));
+            d.setIdSender(res.getInt("idSender"));
+            d.setIdReceiver(res.getInt("idReciever"));
+            d.setSignal(res.getString("Sig"));
         }
 
         return d ;

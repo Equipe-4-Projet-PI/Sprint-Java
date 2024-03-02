@@ -83,7 +83,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button layoutX="803.0" layoutY="27.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;">
+            <Button fx:id="notification" layoutX="803.0" layoutY="27.0" mnemonicParsing="false" onAction="#btnNotificationOnAction" style="-fx-background-color: #FFFFFF;">
                <font>
                   <Font size="20.0" />
                </font>
@@ -104,25 +104,17 @@
                <font>
                   <Font size="20.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/params.PNG" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/params.PNG" />
-               </image>
-            </ImageView>
          </items>
       </ToolBar>
-      <Button fx:id="nonlu" layoutX="120.0" layoutY="182.0" mnemonicParsing="false" style="-fx-background-color: #B4DBDC;" text="Messages non lus" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold Italic" size="20.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="53.0" fitWidth="56.0" layoutX="67.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/grp.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="signal" layoutX="1009.0" layoutY="180.0" mnemonicParsing="false" onAction="#SignalerMessage" style="-fx-background-color: #B4DBDC;" text="Signaler Un Message" textAlignment="CENTER">
+      <Button fx:id="signal" layoutX="1009.0" layoutY="180.0" mnemonicParsing="false" onAction="#signalerMessage" style="-fx-background-color: #B4DBDC;" text="Signaler Un Message" textAlignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
@@ -141,6 +133,37 @@
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
+      </Button>
+      <Button layoutX="571.0" layoutY="663.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fx:id="emoji" fitHeight="38.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/emoji.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="addDis" layoutX="14.0" layoutY="185.0" mnemonicParsing="false" onAction="#AjouterDisc" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="42.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/plus.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TextField fx:id="username" layoutX="73.0" layoutY="187.0" prefHeight="44.0" prefWidth="234.0" style="-fx-background-color: #B4DBDC;">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Button fx:id="chercher" layoutX="272.0" layoutY="187.0" mnemonicParsing="false" onAction="#chercheruser" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/loupe.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
    </children>
 </AnchorPane>
