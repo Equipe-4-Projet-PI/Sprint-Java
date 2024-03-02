@@ -26,15 +26,6 @@
             <Image url="@bg2.png" />
          </image>
       </ImageView>
-      <ScrollPane layoutX="812.0" layoutY="51.0" prefHeight="336.0" prefWidth="387.0">
-         <content>
-            <GridPane fx:id="grid">
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
-         </content>
-      </ScrollPane>
       <Pane layoutX="61.0" layoutY="83.0" opacity="0.95" prefHeight="271.0" prefWidth="506.0" style="-fx-background-radius: 25; -fx-border-radius: 25; -fx-border-width: 3; -fx-background-color: #79B4CD;">
          <children>
             <Pane layoutX="-67.0" layoutY="15.0" prefHeight="60.0" prefWidth="637.0" style="-fx-background-color: white;">
@@ -96,11 +87,25 @@
                   <Image url="@3orsa.png" />
                </image>
             </ImageView>
+            <Button layoutX="141.0" layoutY="216.0" mnemonicParsing="false" onAction="#ajouterEvenement" prefHeight="34.0" prefWidth="111.0" style="-fx-background-radius: 50; -fx-background-color: #0076A8;" text="Créer" textFill="WHITE">
+               <font>
+                  <Font name="Perpetua Bold Italic" size="20.0" />
+               </font>
+            </Button>
          </children>
          <effect>
             <ColorAdjust />
          </effect>
       </Pane>
+      <ScrollPane layoutX="812.0" layoutY="51.0" prefHeight="336.0" prefWidth="387.0">
+         <content>
+            <GridPane fx:id="grid">
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
       <ImageView fitHeight="60.0" fitWidth="92.0" layoutX="1153.0" layoutY="23.0">
          <image>
             <Image url="@faracha_fer8a.png" />

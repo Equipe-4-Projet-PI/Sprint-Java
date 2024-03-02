@@ -108,6 +108,11 @@
                   </GridPane>
                </content>
             </ScrollPane>
+            <Button layoutX="172.0" layoutY="209.0" mnemonicParsing="false" onAction="#ajouterWorkshop" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: white; -fx-background-radius: 50;" text="Creer">
+               <font>
+                  <Font name="Perpetua Bold Italic" size="20.0" />
+               </font>
+            </Button>
             </children>
         </Pane>
     </children>

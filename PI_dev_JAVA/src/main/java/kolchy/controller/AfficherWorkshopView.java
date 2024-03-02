@@ -56,7 +56,7 @@ public class AfficherWorkshopView implements EventChangeListener<Workshop> {
     }
     public void refresh(){
         grid.getChildren().clear();
-        List<Workshop> workshops=sw.afficher();
+        List<Workshop> workshops=sw.afficherParIdEvent(idEvent);
         int column=0;
         int row=1;
         for(int i=0;i<workshops.size();i++){
@@ -137,7 +137,7 @@ public class AfficherWorkshopView implements EventChangeListener<Workshop> {
 
 
     }
-    @FXML
+   @FXML
     void gotoEvent(ActionEvent event) {
         Stage stage=(Stage) grid.getScene().getWindow();
         stage.close();
@@ -155,7 +155,15 @@ public class AfficherWorkshopView implements EventChangeListener<Workshop> {
             throw new RuntimeException(ex);
         }
     }
-
+/* @FXML
+ void gotoEvent(ActionEvent event){
+     try{
+         Parent root = FXMLLoader.load(getClass().getResource("afficher-event-view.fxml"));
+         grid.getScene().setRoot(root);
+     } catch (IOException ex) {
+         System.out.println(ex.getMessage());
+     }
+ }*/
 
 }
 

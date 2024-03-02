@@ -134,4 +134,13 @@ public class AfficherOneEventView {
 
 
     }
+  /*  @FXML
+    void gotoWorkshop2(ActionEvent event){
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("afficher-workshop-view.fxml"));
+            lnom.getScene().setRoot(root);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }*/
 }

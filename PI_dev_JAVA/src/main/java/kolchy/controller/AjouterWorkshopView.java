@@ -52,8 +52,8 @@ public class AjouterWorkshopView implements EventChangeListener<Workshop> {
     }
     @FXML
     public void initialize(){
-      /*  cbevenement.getItems().setAll(serviceEvent.getEventIdsAndNames());
-        cbevenement.setDisable(true);*/
+        cbevenement.getItems().setAll(serviceEvent.getEventIdsAndNames());
+      /*  cbevenement.setDisable(true);*/
 
         refresh();
     }
@@ -86,22 +86,36 @@ public class AjouterWorkshopView implements EventChangeListener<Workshop> {
         }
     }
 
-   /* @FXML
+    @FXML
     void ajouterWorkshop(ActionEvent event) {
         Workshop w=new Workshop();
         w.setDetails(tadescription.getText());
         w.setImage(tfimage.getText());
         w.setTitle(tftitre.getText());
-        //w.setId_Workshop(cbevenement.getValue());
-        /*String selectedEvent=cbevenement.getValue();
+     //   w.setId_Workshop(Integer.parseInt(cbevenement.getValue()));
+        String selectedEvent=cbevenement.getValue();
         String[] parts=selectedEvent.split(" - ");
         w.setId_Event(Integer.parseInt(parts[0]));
-        System.out.println(w);*/
-       /* w.setId_Event(idEvent);
+        System.out.println(w);
+        w.setId_Event(idEvent);
         sw.ajouter(w);
         refresh();
 
-    }*/
+    }
+/* @FXML
+ void ajouterWorkshop(ActionEvent event) {
+     Workshop w=new Workshop();
+     w.setDetails(tadescription.getText());
+     w.setImage(tfimage.getText());
+     w.setTitle(tftitre.getText());
+     w.setId_Workshop(cbevenement.getValue());
+     String selectedEvent=cbevenement.getValue();
+     String[] parts=selectedEvent.split(" - ");
+     w.setId_Event(Integer.parseInt(parts[0]));
+     System.out.println(w);
+     sw.ajouter(w);
+
+ }*/
     @FXML
     void modifierWorkshop(ActionEvent event) {
         if(idModifier!=0){
@@ -110,14 +124,14 @@ public class AjouterWorkshopView implements EventChangeListener<Workshop> {
             w.setDetails(tadescription.getText());
             w.setImage(tfimage.getText());
             w.setTitle(tftitre.getText());
-            //w.setId_Workshop(cbevenement.getValue());
-            String selectedEvent=cbevenement.getValue();
+            w.setId_Workshop(Integer.parseInt(cbevenement.getValue()));
+          /*  String selectedEvent=cbevenement.getValue();
             String[] parts=selectedEvent.split(" - ");
-            w.setId_Event(Integer.parseInt(parts[0]));
+            w.setId_Event(Integer.parseInt(parts[0]));*/
 
             sw.modifier(w);
             refresh();
-          //  cbevenement.setDisable(true);
+            cbevenement.setDisable(true);
         }
     }
     @FXML
