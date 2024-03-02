@@ -44,6 +44,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class EncherDetailController{
+
+    @FXML
+    private Button ParticiperButton;
     ServiceParticipant serviceParticipant = new ServiceParticipant();
 
     @FXML
@@ -81,7 +84,9 @@ public class EncherDetailController{
 
     public void SetDataAgain()
     {
-//        System.out.println(auction.getId());
+        if(serviceAuction.getSituation(auc) == -1){
+            ParticiperButton.setVisible(false);
+        }
         montant.setVisible(false);
 
         try{
@@ -136,7 +141,7 @@ public class EncherDetailController{
 
     }
 
-    int id_user = 2;
+    int id_user ;
     @FXML
     void effectuerArgent(ActionEvent event) {
         Auction_participant auctionParticipant = new Auction_participant();
@@ -144,7 +149,7 @@ public class EncherDetailController{
         auctionParticipant.setPrix(Integer.parseInt(montant.getText()));
         auctionParticipant.setId_auction(auc.getId());
         System.out.println("heeedha hoswa l participant "+auctionParticipant);
-        System.out.println("****id auction : +"+ auctionParticipant.getId_auction());// Set the correct auction ID
+        System.out.println("****id auction : +"+ auctionParticipant.getId_auction());
 
         try {
             if (serviceParticipant.search(id_user, auc.getId())) {
@@ -179,8 +184,7 @@ public class EncherDetailController{
 
     }
 
-// Helper methods for showing alerts
-        private void showSuccessAlert(String message) {
+    private void showSuccessAlert(String message) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText(message);
@@ -272,4 +276,7 @@ public class EncherDetailController{
         initialize();
     }
 
+    public void setIDUser(int idUser) {
+        this.id_user=idUser;
+    }
 }

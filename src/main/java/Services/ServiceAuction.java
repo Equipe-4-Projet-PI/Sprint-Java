@@ -1,6 +1,7 @@
 package Services;
 
 import entities.Auction;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import utils.MyDB;
 
@@ -9,6 +10,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ServiceAuction implements IService<Auction>{
 
@@ -253,7 +255,7 @@ public class ServiceAuction implements IService<Auction>{
         List<Auction> list = new ArrayList<>();
         String req = "select * from Auction where id_artist!=?";
         PreparedStatement pre = con.prepareStatement(req);
-        pre.setInt(1,1);
+        pre.setInt(1,idArtist);
         ResultSet res = pre.executeQuery();
         while(res.next()){
             Auction a = new Auction();
@@ -269,4 +271,21 @@ public class ServiceAuction implements IService<Auction>{
         }
         return list;
     }
+
+
+    public int getSituation(Auction auction) {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate dateDebut = auction.getDate_lancement();
+        LocalDate dateFin = auction.getDate_cloture();
+
+        if (currentDate.isBefore(dateDebut)) {
+            return -1;
+        } else if ((currentDate.isEqual(dateDebut) || currentDate.isAfter(dateDebut)) && (currentDate.isEqual(dateFin) || currentDate.isBefore(dateFin)) ){
+            return 0;
+        } else if(currentDate.isAfter(dateFin) ) {
+            return 1;
+        }
+        return 2;
+    }
+
 }

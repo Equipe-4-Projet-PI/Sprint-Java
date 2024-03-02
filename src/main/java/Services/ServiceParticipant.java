@@ -6,6 +6,7 @@ import utils.MyDB;
 
 import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -64,13 +65,14 @@ public class ServiceParticipant implements IService<Auction_participant> {
         return list;
     }
 
-    public List<Auction_participant> list_by_auction(int id_auction ) throws SQLException{
+    public List<Auction_participant> list_by_auction(int id_auction) throws SQLException {
         List<Auction_participant> list = new ArrayList<>();
-        String req = "SELECT u.Username, ap.id_Participant, ap.id_Auction, ap.prix, ap.date FROM auction_participant ap JOIN User u ON u.id_User = ap.id_Participant WHERE ap.id_Auction =? ORDER BY date DESC";
+        String req = "SELECT u.Username, ap.id_Participant, ap.id_Auction, ap.prix, ap.date FROM auction_participant ap JOIN User u ON u.id_User = ap.id_Participant WHERE ap.id_Auction = ? AND ap.prix != ? ORDER BY date DESC";
         PreparedStatement pre = con.prepareStatement(req);
-        pre.setInt(1,id_auction);
+        pre.setInt(1, id_auction);
+        pre.setInt(2, 0);
         ResultSet res = pre.executeQuery();
-        while(res.next()){
+        while (res.next()) {
             Auction_participant a = new Auction_participant();
             a.setId_participant(res.getInt("id_Participant"));
             a.setId_auction(res.getInt("id_Auction"));
@@ -81,6 +83,9 @@ public class ServiceParticipant implements IService<Auction_participant> {
         }
         return list;
     }
+
+
+
     //get nom partcipant a partir de son ID
 //    public String getNom(int id) {
 //        String nom = null;
@@ -170,9 +175,10 @@ public class ServiceParticipant implements IService<Auction_participant> {
         int count = 0;
 
         try {
-            String req = "SELECT COUNT(*) as participant_count FROM auction_participant WHERE id_auction=?";
+            String req = "SELECT COUNT(*) as participant_count FROM auction_participant WHERE id_auction=? AND prix != ? ";
             PreparedStatement pre = con.prepareStatement(req);
             pre.setInt(1, idAuction);
+            pre.setInt(2 , 0);
             ResultSet resultSet = pre.executeQuery();
 
             if (resultSet.next()) {
@@ -228,4 +234,123 @@ public class ServiceParticipant implements IService<Auction_participant> {
         return resultSet.next();
     }
 
+
+    public int getEtatFavori(int idAuction, int idUser) {
+        int favori = 0;
+
+        try {
+            String query = "SELECT Love FROM auction_participant WHERE id_auction = ? AND id_Participant = ?";
+
+            try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+                preparedStatement.setInt(1, idAuction);
+                preparedStatement.setInt(2, idUser);
+
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        favori = resultSet.getInt("Love");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return favori;
+    }
+
+    public void deleteFavori(int id_auction, int idUser) {
+        try {
+            String query = "UPDATE auction_participant SET Love = 0 WHERE id_auction = ? AND id_Participant = ?";
+
+            try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+                preparedStatement.setInt(1, id_auction);
+                preparedStatement.setInt(2, idUser);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    System.out.println("Favori deleted successfully.");
+                } else {
+                    System.out.println("Favori not found for deletion.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addFavori(int id_auction, int idUser) {
+        try {
+            String checkQuery = "SELECT * FROM auction_participant WHERE id_auction = ? AND id_Participant = ?";
+            String updateQuery = "UPDATE auction_participant SET date = ?, prix = ?, Love = 1 WHERE id_auction = ? AND id_Participant = ?";
+            String insertQuery = "INSERT INTO auction_participant (id_auction, id_Participant, date, prix, Love) VALUES (?, ?, ?, ?, 1)";
+
+            try (PreparedStatement checkStatement = con.prepareStatement(checkQuery)) {
+                checkStatement.setInt(1, id_auction);
+                checkStatement.setInt(2, idUser);
+
+                ResultSet resultSet = checkStatement.executeQuery();
+
+                if (resultSet.next()) {
+                    // Participant existe déjà, effectuer une mise à jour
+                    try (PreparedStatement updateStatement = con.prepareStatement(updateQuery)) {
+                        updateStatement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+                        updateStatement.setDouble(2, 0.0);
+                        updateStatement.setInt(3, id_auction);
+                        updateStatement.setInt(4, idUser);
+
+                        int rowsAffected = updateStatement.executeUpdate();
+
+                        if (rowsAffected > 0) {
+                            System.out.println("Favori updated successfully.");
+                        } else {
+                            System.out.println("Failed to update favori.");
+                        }
+                    }
+                } else {
+                    // Participant n'existe pas, effectuer une insertion
+                    try (PreparedStatement insertStatement = con.prepareStatement(insertQuery)) {
+                        insertStatement.setInt(1, id_auction);
+                        insertStatement.setInt(2, idUser);
+                        insertStatement.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+                        insertStatement.setDouble(4, 0.0);
+
+                        int rowsAffected = insertStatement.executeUpdate();
+
+                        if (rowsAffected > 0) {
+                            System.out.println("Favori added successfully.");
+                        } else {
+                            System.out.println("Failed to add favori.");
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer l'exception selon vos besoins
+        }
+    }
+
+    public int countFavori(int id) {
+        int count = 0;
+
+        try {
+            String countQuery = "SELECT COUNT(*) FROM auction_participant WHERE id_auction = ? AND Love = 1";
+
+            try (PreparedStatement countStatement = con.prepareStatement(countQuery)) {
+                countStatement.setInt(1, id);
+
+                try (ResultSet resultSet = countStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        count = resultSet.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer l'exception selon vos besoins
+        }
+
+        return count;
+    }
 }

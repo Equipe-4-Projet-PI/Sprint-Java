@@ -41,7 +41,7 @@ public class ArtistEnchersController implements Initializable {
 
     @FXML
     private TextField id_search;
-    int id_artist = 1;
+    int id_artist =3;
     ServiceAuction serviceAuction = new ServiceAuction();
 
     @FXML
@@ -55,7 +55,6 @@ public class ArtistEnchersController implements Initializable {
 
     private static ArtistEnchersController instance;
 
-// ... other code ...
 
     public ArtistEnchersController() {
         instance = this;
@@ -87,9 +86,10 @@ public class ArtistEnchersController implements Initializable {
                 fxmlLoader.setLocation(getClass().getResource("/EnchereContainer.fxml"));
                 VBox encherBox = fxmlLoader.load();
                 EnchereContainerController enchereContainerController = fxmlLoader.getController();
+                enchereContainerController.setIdArtist(id_artist);
                 enchereContainerController.initData(auction);
 
-                if (column == 6) {
+                if (column == 5) {
                     column = 0;
                     row++;
                 }
@@ -194,4 +194,6 @@ public class ArtistEnchersController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    //aandi ghalta kif nhot like w mbaaed naaml partciper yetzedli ligne jdid fi 3oudh ma yaaml modifier
 }

@@ -36,6 +36,8 @@ public class EnchersController implements Initializable {
     private TextField id_searcj;
 
     private List<Auction> tousEncheres;
+
+    int idUser = 6;
     @FXML
     void searchForAuction(MouseEvent event) {
         try {
@@ -117,6 +119,7 @@ public class EnchersController implements Initializable {
                 HBox encherBox = fxmlLoader.load();
                 UnEncherController unEncherController = fxmlLoader.getController();
 //                System.out.println(recentlyAdded.get(i));
+                unEncherController.setIdArtist(idUser);
                 unEncherController.initData(recentlyAdded.get(i));
                 currentHBox.getChildren().add(encherBox);
             }

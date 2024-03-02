@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javax.xml.crypto.Data;
 import java.awt.*;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
@@ -35,10 +36,11 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class UnEncherController {
-
+    int id_user ;
     @FXML
     private Label IDAuction;
     ServiceAuction serviceAuction = new ServiceAuction();
+    ServiceParticipant serviceParticipant = new ServiceParticipant();
 
     @FXML
     private Label dateC;
@@ -48,6 +50,8 @@ public class UnEncherController {
 
     @FXML
     private HBox hbox;
+    @FXML
+    private ImageView loveFX;
 
     @FXML
     private ImageView imageEncher;
@@ -62,6 +66,9 @@ public class UnEncherController {
     private Label titreEncher;
 
     private Auction auc;
+    String imagePath1;
+
+    private boolean isFavorite = false;
 
     public void initData(Auction auction) {
         titreEncher.setText(auction.getNom());
@@ -73,8 +80,34 @@ public class UnEncherController {
         imageEncher.setImage(image);
         IDAuction.setText(String.valueOf(auction.getId()));
         this.auc = auction;
+        byte[] imageStau = new byte[0];
+        int verif = serviceAuction.getSituation(auction);
+        if(verif == -1){
+            imagePath1 = "E:\\\\ESPRIT\\\\pi\\\\bientot-disponible.png";
+        }else if (verif == 0 ){
+            imagePath1 = "E:\\\\ESPRIT\\\\pi\\\\habitent.png";
+        }else if(verif == 1){
+            imagePath1 = "E:\\\\ESPRIT\\\\pi\\\\vendu.png";
+        }else{
+            System.out.println("there is a probleme with the statu");
+        }
+
+        javafx.scene.image.Image image1 = new Image(new File(imagePath1).toURI().toString());
+        statu.setImage(image1);
         //hbox.setStyle("-fx-background-color: #ACAFB6;"+
                 //" -fx-border-radius: 15; ");
+        if(serviceAuction.getSituation(auc) == -1 || serviceAuction.getSituation(auc) == 0){
+            //image favori
+            byte[] imageFavori = new byte[0];
+            int verifFavori = serviceParticipant.getEtatFavori(auc.getId() , id_user);
+            if(verifFavori == 0){
+                loveFX.setImage(new Image(new File("E:\\\\ESPRIT\\\\pi\\\\favori.png").toURI().toString()));
+            }else if (verifFavori == 1){
+                isFavorite = true;
+                loveFX.setImage(new Image(new File("E:\\\\ESPRIT\\\\pi\\\\prefere.png").toURI().toString()));
+            }
+        }
+
 
     }
 
@@ -116,14 +149,21 @@ public class UnEncherController {
 
     @FXML
     void AfficherEncher(MouseEvent event) throws IOException {
-
-        try{
-            Parent root = loadEnchere();
-            imageEncher.getScene().setRoot(root);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            e.printStackTrace();
+        int verif = serviceAuction.getSituation(auc);
+        if(verif == 1){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Cet enchère est Bien Terminé !");
+            alert.showAndWait();
+        }else{
+            try{
+                Parent root = loadEnchere();
+                imageEncher.getScene().setRoot(root);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -131,8 +171,27 @@ public class UnEncherController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
         EncherDetailController controller = new EncherDetailController();
         loader.setController(controller);
+        controller.setIDUser(id_user);
         controller.initData(auc);
         Parent root = loader.load();
         return root;
+    }
+
+    @FXML
+    void changerFavori(MouseEvent event) {
+        if (isFavorite) {
+            // L'utilisateur a déjà marqué l'enchère comme favorite, changez à l'image non favorite
+            loveFX.setImage(new Image(new File("E:\\\\ESPRIT\\\\pi\\\\favori.png").toURI().toString()));
+            serviceParticipant.deleteFavori(auc.getId(),id_user);
+            isFavorite = false;
+        } else {
+            // L'utilisateur n'a pas encore marqué l'enchère comme favorite, changez à l'image favorite
+            loveFX.setImage(new Image(new File("E:\\\\ESPRIT\\\\pi\\\\prefere.png").toURI().toString()));
+            serviceParticipant.addFavori(auc.getId(),id_user);
+            isFavorite = true;
+        }
+    }
+    public void setIdArtist(int idArtist) {
+        this.id_user=idArtist;
     }
 }

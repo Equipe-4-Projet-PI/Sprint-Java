@@ -1,5 +1,5 @@
 .white-background{
-    -fx-background-color: #fff;
+    -fx-background-color: #ffff;
 }
 
 .transparent{
@@ -23,7 +23,7 @@
 
 .Hbox1 {
     -fx-border-color: black;
-    -fx-border-width: 2; /* Adjust the width according to your preference */
+    -fx-border-width: 0.5; /* Adjust the width according to your preference */
     -fx-border-radius: 5; /* Adjust the corner rounding */
 }
 

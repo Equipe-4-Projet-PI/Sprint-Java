@@ -1,6 +1,7 @@
 package controllers;
 
 import Services.ServiceAuction;
+import Services.ServiceParticipant;
 import entities.Auction;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,6 +32,7 @@ import java.sql.SQLException;
 public class EncherArtistController {
     ServiceAuction serviceAuction = new ServiceAuction();
 
+    ServiceParticipant serviceParticipant = new ServiceParticipant();
     @FXML
     private HBox box_encherArtist;
 
@@ -40,6 +42,8 @@ public class EncherArtistController {
     @FXML
     private ImageView image_enchere;
 
+    @FXML
+    private Label tf_nmbreFavori;
     @FXML
     private Label prix_initial;
 
@@ -63,6 +67,8 @@ public class EncherArtistController {
         }
         box_encherArtist.setStyle(" -fx-border-radius: 15; ");
         this.auc=auction;
+        int nbreFavori = serviceParticipant.countFavori(auc.getId());
+        tf_nmbreFavori.setText(String.valueOf(nbreFavori));
     }
 
 

@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
+import java.time.LocalDate;
 
 public class AjouterAuctionController implements Initializable {
 
@@ -41,7 +42,7 @@ public class AjouterAuctionController implements Initializable {
     @FXML
     private DatePicker tf_dateC;
 
-    int id_Artist = 3;
+    int id_Artist = 1;
 
 
 
@@ -51,7 +52,8 @@ public class AjouterAuctionController implements Initializable {
         ObservableList<String> products = FXCollections.observableArrayList(productNames);
         tf_produit.setItems(products);
 
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 1);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory
+                .IntegerSpinnerValueFactory(1, 1000, 1);
         tf_prix_initial.setValueFactory(valueFactory);
     }
 
@@ -72,7 +74,6 @@ public class AjouterAuctionController implements Initializable {
 
     @FXML
     void AjouterAuction() {
-
         LocalDate dateLancement = tf_date.getValue();
         LocalDate dateCloture = tf_dateC.getValue();
         try {
@@ -81,19 +82,24 @@ public class AjouterAuctionController implements Initializable {
 
             if (selectedProductName != null && productNames.contains(selectedProductName)) {
                 int productId = serviceAuction.getProductID(selectedProductName);
-                serviceAuction.verifierDate(tf_date,tf_dateC);
 
-                serviceAuction.ajouter(new Auction( tf_nomAuction.getText() ,dateCloture,dateLancement, Integer.parseInt(tf_prix_initial.getValue().toString()) ,  productId ));
+                if (verifierDate(tf_date, tf_dateC)) {
+                    serviceAuction.ajouter(new Auction(tf_nomAuction.getText(), dateCloture, dateLancement, Integer.parseInt(tf_prix_initial.getValue().toString()), productId));
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Success");
-                alert.setContentText("Enchère ajoutée");
-                alert.showAndWait();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/artistEnchers.fxml"));
-                Parent loginSuccessRoot = loader.load();
-                Scene scene = tf_nomAuction.getScene();
-                scene.setRoot(loginSuccessRoot);
-
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setContentText("Enchère ajoutée");
+                    alert.showAndWait();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/artistEnchers.fxml"));
+                    Parent loginSuccessRoot = loader.load();
+                    Scene scene = tf_nomAuction.getScene();
+                    scene.setRoot(loginSuccessRoot);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Date non valide !");
+                    alert.setContentText("La date de l'enchère n'est pas valide.");
+                    alert.showAndWait();
+                }
             } else {
                 System.out.println("Selected product not found.");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -109,10 +115,31 @@ public class AjouterAuctionController implements Initializable {
     }
 
 
+    public boolean verifierDate(DatePicker tfDate, DatePicker tfDateC) {
+        // Récupérer les valeurs des DatePicker en tant que LocalDate
+        LocalDate dateDebut = tfDate.getValue();
+        LocalDate dateFin = tfDateC.getValue();
+
+        // Obtenir la date actuelle
+        LocalDate dateActuelle = LocalDate.now();
+
+        // Vérifier si tfDate est supérieur à la date actuelle
+        if (dateDebut != null && (dateDebut.isAfter(dateActuelle) ||dateActuelle.isEqual(dateDebut))) {
+            // Vérifier si tfDateC est supérieur à tfDate
+            if (dateFin != null && dateFin.isAfter(dateDebut)) {
+                return true;  // Les dates sont valides
+            }
+        }
+
+        // Les dates ne satisfont pas aux conditions
+        return false;
+    }
+
+
     @FXML
     public void retourner(javafx.scene.input.MouseEvent mouseEvent) throws IOException{
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeEncheres.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/artistEnchers.fxml"));
                 Parent loginSuccessRoot = loader.load();
                 Scene scene = tf_nomAuction.getScene();
                 scene.setRoot(loginSuccessRoot);
