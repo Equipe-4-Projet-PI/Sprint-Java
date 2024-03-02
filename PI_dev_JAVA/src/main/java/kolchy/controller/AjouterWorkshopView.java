@@ -11,6 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import kolchy.MainFX;
 import kolchy.entities.Event;
@@ -19,6 +20,7 @@ import kolchy.service.EventChangeListener;
 import kolchy.service.ServiceEvent;
 import kolchy.service.ServiceWorkshop;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -136,7 +138,11 @@ public class AjouterWorkshopView implements EventChangeListener<Workshop> {
     }
     @FXML
     void uploadImage(ActionEvent event) {
-
+        FileChooser fileChooser=new FileChooser();
+        File file=fileChooser.showOpenDialog(tfimage.getScene().getWindow());
+        if(file!=null){
+            tfimage.setText(file.getName());
+        }
     }
 
     @Override

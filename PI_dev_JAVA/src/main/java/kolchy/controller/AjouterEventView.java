@@ -8,11 +8,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import kolchy.MainFX;
 import kolchy.entities.Event;
 import kolchy.service.EventChangeListener;
 import kolchy.service.ServiceEvent;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -84,7 +86,11 @@ public class AjouterEventView implements EventChangeListener<Event> {
     }
     @FXML
     void uploadImage(ActionEvent event) {
-
+        FileChooser fileChooser=new FileChooser();
+        File file=fileChooser.showOpenDialog(tfimage.getScene().getWindow());
+        if(file!=null){
+            tfimage.setText(file.getName());
+        }
     }
     @FXML
     void modifierEvent(ActionEvent event) {

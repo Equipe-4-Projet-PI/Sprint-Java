@@ -13,6 +13,7 @@ import kolchy.entities.Event;
 import kolchy.service.EventChangeListener;
 import kolchy.service.ServiceEvent;
 import kolchy.service.ServiceWorkshop;
+import kolchy.utils.QRcode;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +33,8 @@ public class AfficherOneEventView {
 
     @FXML
     private Label ldate;
-
+    @FXML
+    private ImageView imgqr;
     Event e;
     ServiceEvent se=new ServiceEvent();
     ServiceWorkshop sw=new ServiceWorkshop();
@@ -48,10 +50,16 @@ public class AfficherOneEventView {
         lnom.setText(e.getE_Name());
         lplace.setText(e.getPlace());
         lprix.setText(String.valueOf(e.getTicket_Price()));
-        ldate.setText(e.getE_Date().getDate()+"/"+e.getE_Date().getMonth()+1+"/"+e.getE_Date().getYear());
+        ldate.setText(String.valueOf(e.getE_Date()));
+
         File file=new File("C:\\Users\\ASUS\\Desktop\\PI_dev_VER2\\src\\main\\java\\kolchy\\image\\"+e.getImage());
         Image image=new Image(file.toURI().toString());
         img.setImage(image);
+        QRcode.generateQrCode(e.toString(),e.getId_Event());
+        File file2=new File("C:\\Users\\ASUS\\Desktop\\PI_dev_VER2\\src\\main\\java\\kolchy\\qrcode\\Event_"+e.getId_Event()+".png");
+        Image image2=new Image(file2.toURI().toString());
+
+        imgqr.setImage(image2);
 
     }
 
