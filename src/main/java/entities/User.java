@@ -3,8 +3,8 @@ package entities;
 import java.time.LocalDate;
 
 public class User {
-int Id_User;
-String Username;
+    int Id_User;
+    String Username;
     String Email;
     String Password;
     String Role;
@@ -14,9 +14,11 @@ String Username;
     String Gender;
     int Phone;
     String DOB;
-  ;
 
-    public User(int id_User, String username, String email, String password, String role, String firstName, String lastName, String adress,String gender, int phone, LocalDate DOB) {
+    String ImageURL;
+    ;
+
+    public User(int id_User, String username, String email, String password, String role, String firstName, String lastName, String adress,String gender, int phone, LocalDate DOB, String imageURL) {
         Id_User = id_User;
         Username = username;
         Email = email;
@@ -28,9 +30,10 @@ String Username;
         Gender = gender;
         Phone = phone;
         this.DOB = String.valueOf(DOB);
+        ImageURL = imageURL;
     }
 
-    public User(String username, String email, String password, String role, String firstName, String lastName, String adress, String gender, int phone, LocalDate DOB) {
+    public User(String username, String email, String password, String role, String firstName, String lastName, String adress, String gender, int phone, LocalDate DOB ,String imageURL) {
         Username = username;
         Email = email;
         Password = password;
@@ -41,7 +44,17 @@ String Username;
         Gender = gender;
         Phone = phone;
         this.DOB = String.valueOf(DOB);
+        ImageURL = imageURL;
     }
+
+    public String getImageURL() {
+        return ImageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        ImageURL = imageURL;
+    }
+
     public User(){}
 
     public User(int id_User) {
@@ -61,6 +74,7 @@ String Username;
                         ", Adress='" + Adress + '\'' +
                         ", Phone='" + Phone + '\'' +
                         ", Gender='" + Gender + '\'' +
+                        ", Password='" + Password + '\'' +
                         ", DOB='" + DOB + '\'' +
                         '}';
     }
@@ -152,6 +166,4 @@ String Username;
     public void setRole(String role) {
         Role = role;
     }
-
-
 }

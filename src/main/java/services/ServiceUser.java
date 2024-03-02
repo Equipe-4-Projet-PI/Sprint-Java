@@ -226,6 +226,8 @@ public class ServiceUser implements IService<User> {
             f.setId_User(res.getInt("Id_User"));
             f.setUsername(res.getString("Username"));
             f.setRole(res.getString("Role"));
+            f.setImageURL(res.getString(""));
+//            f.= res.getString("ImageURL");
         }
         return f;
     }

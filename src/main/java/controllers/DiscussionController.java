@@ -2,6 +2,7 @@ package controllers;
 
 import entities.Disscussion;
 import entities.Message;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -19,6 +21,7 @@ import services.ServiceUser;
 import services.ServiceDisscussion;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.security.cert.PolicyNode;
 import java.sql.SQLException;
@@ -56,8 +59,14 @@ public class DiscussionController {
     }
 
     public void setData(Disscussion disscussion) throws SQLException {
+        User user = new User() ;
 //        Image image = new Image("bell.png");
 //        img.setImage(image);
+        File file = new File("C:\\Users\\Lenovo\\Desktop\\ArtyVenci\\src\\main\\resources\\images\\pers1.png"  ) ;
+        Image image = new Image(file.toURI().toString());
+        img.setImage(image);
+
+
         receiver.setText(serviceUser.getbyid(disscussion.getIdReceiver()).getUsername());
         content.setText(serviceMessage.getContentById(disscussion.getIdDis()).getContent());
         dis = disscussion;
