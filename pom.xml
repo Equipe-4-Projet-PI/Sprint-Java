@@ -55,6 +55,7 @@
             <artifactId>javafx-web</artifactId>
             <version>15.0.1</version>
             </dependency>
+            <version>15.0.1</version> <!-- or any other version -->
 
         <dependency>
             <groupId>com.sun.mail</groupId>
@@ -85,8 +86,8 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>test.MainFX</mainClass>
-                    <executable>${java.home}/bin/java</executable>
 
+                    <executable>${java.home}/bin/java</executable>
 
                 </configuration>
             </plugin>
