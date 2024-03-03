@@ -7,12 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
 public class LoginSuccess {
 
+    public Button inscrire;
     @FXML
     private Label nav_name;
 
@@ -53,7 +56,8 @@ public class LoginSuccess {
     }
 
     public void initData(User user) {
-        nav_name.setText("Bienvenue,"+ " "+user.getFirstName());
+        inscrire.setVisible(false);
+        nav_name.setText(user.getUsername());
         post_name.setText(user.getFirstName() + " " + user.getLastName());
         statue_name.setText(user.getFirstName() + " " + user.getLastName());
         userlogged = new User();
@@ -72,5 +76,47 @@ public class LoginSuccess {
 
 
 
+    }
+    public void Go_To_Home(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Product(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Product.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        ProductController productController = loader.getController();
+        productController.initUser(userlogged);
+    }
+
+    public void Go_To_Auction(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Forum(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Event(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Message(ActionEvent actionEvent) {
+    }
+
+    public void ProfileVisit(MouseEvent mouseEvent) {
+    }
+
+    public void Logout(MouseEvent mouseEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Déconnexion");
+        alert.setHeaderText(null);
+        alert.show();
+    }
+
+    public void sinscrire(ActionEvent actionEvent) {
     }
 }

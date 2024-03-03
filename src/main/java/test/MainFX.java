@@ -16,7 +16,7 @@ public class MainFX extends Application {
 
            
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Home.fxml"));
 
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);

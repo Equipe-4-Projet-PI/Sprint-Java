@@ -6,6 +6,8 @@ import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,7 +19,9 @@ import javafx.stage.FileChooser;
 import services.MyListner;
 import services.ServiceOrder;
 import services.ServiceProduct;
-import javafx.fxml.Initializable;
+
+import services.ServiceUser;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -27,12 +31,29 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import okhttp3.*;
+import org.json.JSONObject;
+
+import java.util.prefs.Preferences;
 
 public class ProductController {
+    public ImageView logouticon;
+    public TextArea ai_desc;
+    ServiceUser serviceUser = new ServiceUser();
 
+    Preferences preferences = Preferences.userNodeForPackage(ProductController.class);
+ 
+    @FXML
+    private ImageView bell;
 
+    public ImageView usericon;
 
-    int userid;
+    @FXML
+    private Button inscrire;
+    private User userlogged;
+
+    public Label nav_name;
+    int userid = 0 ;
     double price,price_ed;
     @FXML
     private Pane add_panel;
@@ -95,6 +116,8 @@ public class ProductController {
     String formattedDate = currentDate.format(formatter);
     ServiceProduct s = new ServiceProduct();
     ServiceOrder o = new ServiceOrder();
+    String savedUsername = preferences.get("username", null);
+    String savedPassword = preferences.get("Password", null);
     private List<Product> fo(){
         try {
             return s.maList(userid);
@@ -111,7 +134,10 @@ public class ProductController {
 
     void ini(){
         pr_title.getItems().addAll("peinture","sculpture","photography");
+
+
     }
+
     public void initialized(){
         fa =new ArrayList<>(fo());
         System.out.println("the size of data "+fa.size());
@@ -205,6 +231,7 @@ public class ProductController {
     }
 
     public void initialize(URL location, ResourceBundle resources){
+
         if (box_fsale.isSelected()){
             recentlyAdded =new ArrayList<>(recentlyAdded1());
             box_nosale.setSelected(false);
@@ -259,38 +286,43 @@ public class ProductController {
     @FXML
     void AddProduct(ActionEvent event) {
 
-        try{
-            price = Double.parseDouble(pr_price.getText());
-        }catch(NumberFormatException e){
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Price feild error");
-            alert.setContentText("invalid integer input");
-            alert.showAndWait();
-        }
 
-
-        String ImageURL="";
-        Image image = product_image.getImage();
-        if (image != null) {
-            String imageUrl = image.getUrl();
-            ImageURL = imageUrl;
+            try{
+                price = Double.parseDouble(pr_price.getText());
+            }catch(NumberFormatException e){
+                Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Price feild error");
+                alert.setContentText("invalid integer input");
+                alert.showAndWait();
+            }
+            String ImageURL="";
+            Image image = product_image.getImage();
+            if (image != null) {
+                String imageUrl = image.getUrl();
+                ImageURL = imageUrl;
 //            if (imageUrl.startsWith("file:/")) {
 //                imagePath = imageUrl.substring("file:/".length());
 //            }
-        }
-        try {
-            s.ajouter(new Product(userid,forsalevalue(),price,pr_title.getValue(),pr_desc.getText(),formattedDate,ImageURL));
-            Alert alert=new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("succes");
-            alert.setContentText("product added");
-            alert.showAndWait();
-        } catch (SQLException e) {
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("error");
-            alert.setContentText("Verifier les champs et contraint de saisir");
-            alert.showAndWait();
-        }
-        clear();
+            }
+            try {
+                s.ajouter(new Product(userid,forsalevalue(),price,pr_title.getValue(),pr_desc.getText(),formattedDate,ImageURL));
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("succes");
+                alert.setContentText("product added");
+                alert.showAndWait();
+            } catch (SQLException e) {
+                Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("error");
+                alert.setContentText("Verifier les champs et contraint de saisir");
+                alert.showAndWait();
+            }
+            clear();
+
+
+
+
+
+
 
     }
     void clear(){
@@ -395,17 +427,24 @@ clear();
 
     @FXML
     void add_form_button(MouseEvent event) {
-        ini();
-    add_panel.setVisible(true);
-    Affichage_panel.setVisible(false);
-        afficher_panier.setVisible(false);
-        Edit_panel.setVisible(false);
-        afficher_ma_list.setVisible(false);
-        box_fsale.setVisible(false);
-        box_nosale.setVisible(false);
-        FilterBox.setVisible(false);
-        product_image.setImage(new Image("file:D:\\Heikun\\ESPRIT 2023-2024\\JAVA\\TD Revision\\Sprint-Java-DEV\\src\\main\\resources\\images\\img.png"));
-
+        if (userlogged == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Vous n’avez pas de compte");
+            alert.setContentText("Crée un account pour partager votre art");
+            alert.showAndWait();
+        }
+        else {
+            ini();
+            add_panel.setVisible(true);
+            Affichage_panel.setVisible(false);
+            afficher_panier.setVisible(false);
+            Edit_panel.setVisible(false);
+            afficher_ma_list.setVisible(false);
+            box_fsale.setVisible(false);
+            box_nosale.setVisible(false);
+            FilterBox.setVisible(false);
+            product_image.setImage(new Image("file:D:\\Heikun\\ESPRIT 2023-2024\\JAVA\\TD Revision\\Sprint-Java-DEV\\src\\main\\resources\\images\\img.png"));
+        }
     }
 
     @FXML
@@ -498,8 +537,57 @@ clear();
         PanierCard.getChildren().clear();
     }
 
+
     public void initUser(User user) {
-        userid = user.getId_User();
+        System.out.println("initUser mte3 product");
+
+       if(user == null){
+           inscrire.setVisible(true);
+            bell.setVisible(false);
+            usericon.setVisible(false);
+            logouticon.setVisible(false);
+           System.out.println("el user mafamech");
+           userlogged = null ;
+    }
+
+
+
+       else {
+
+           userid = user.getId_User();
+            nav_name.setText(user.getUsername());
+           inscrire.setVisible(false);
+           bell.setVisible(true);
+           usericon.setVisible(true);
+           logouticon.setVisible(true);
+           add_panel.setVisible(false);
+           box_fsale.setVisible(true);
+           box_nosale.setVisible(true);
+           Affichage_panel.setVisible(true);
+           afficher_panier.setVisible(false);
+           afficher_ma_list.setVisible(false);
+           Edit_panel.setVisible(false);
+           FilterBox.setVisible(true);
+           ini2();
+           refreshData();
+
+           userlogged = new User();
+           userlogged.setGender(user.getGender());
+           userlogged.setDOB(user.getDOB());
+           userlogged.setPhone(user.getPhone());
+           userlogged.setAdress(user.getAdress());
+           userlogged.setUsername(user.getUsername());
+           userlogged.setEmail(user.getEmail());
+           userlogged.setFirstName(user.getFirstName());
+           userlogged.setPassword(user.getPassword());
+           userlogged.setLastName(user.getLastName());
+           userlogged.setId_User(user.getId_User());
+           userlogged.setRole(user.getRole());
+           userlogged.setImageURL(user.getImageURL());
+
+       }
+
+
     }
 
 
@@ -562,189 +650,112 @@ clear();
         else return 0;
     }
 
+    public void Go_To_Home(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        System.out.println(userlogged);
+        HomeController homeController = loader.getController();
+        homeController.initData(userlogged);
+    }
+
+    public void Go_To_Product(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Auction(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Forum(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Event(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Message(ActionEvent actionEvent) {
+    }
+
+    public void ProfileVisit(MouseEvent mouseEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginSuccess.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+
+        LoginSuccess loginSuccess = loader.getController();
+        loginSuccess.initData(userlogged);
+    }
+
+    public void Logout(MouseEvent mouseEvent)throws IOException {
+        preferences.remove("username");
+        preferences.remove("Password");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Déconnexion");
+        alert.setHeaderText(null);
+        alert.show();
+    }
+
+    public void sinscrire(ActionEvent actionEvent) throws IOException {
 
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
+            Parent loginSuccessRoot = loader.load();
+            Scene scene = nav_name.getScene();
+            scene.setRoot(loginSuccessRoot);
+    }
 
 
+    public void ai_generate(ActionEvent actionEvent) {
+        String apiKey = "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";
+        String prompt = ai_desc.getText(); // Modify this to your small phrase
+
+        OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse("application/json");
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("prompt", prompt+"get avery small artistic description it can be a few words seperated with , ");
+        jsonObject.put("max_tokens", 20);
+        jsonObject.put("model", "gpt-3.5-turbo-instruct"); // Specify the model identifier
 
 
-//
-    /////////////////////////add product form ////////////////////////////////////////
-  //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    ///partie ma liste ////////////////////////
-//    @FXML
-//    private ScrollPane afficher_ma_list;
-//    @FXML
-//    private HBox ma_list_box;
-//    int id=2;
-//    private List<Product> fo(){
-//        try {
-//            return s.maList(id);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//    void ini1(){
-//        pr_title_ed.getItems().addAll("peinture","sculpture","photography");
-//    }
-//    private List<Product> fa;
-//    public void initialized(){
-//        fa =new ArrayList<>(fo());
-//        System.out.println("the size of data "+fa.size());
-//        try {
-//            VBox mainVBox = new VBox();
-//            ma_list_box.getChildren().add(mainVBox);
-//
-//            HBox currentHBox = new HBox();
-//            currentHBox.setSpacing(50);
-//
-//            for (int i = 0; i < fa.size(); i++) {
-//                if (i > 0 && i % 3 == 0) {
-//                    mainVBox.getChildren().add(currentHBox);
-//                    currentHBox = new HBox();
-//                    currentHBox.setSpacing(50);
-//                }
-//                MyListner myListner= new MyListner() {
-//                    @Override
-//                    public void onClick(int value,String value1,String value2,String value3,int value4,Double value5,String value6) {
-//                        ini1();
-//                        Edit_panel.setVisible(true);
-//                        afficher_ma_list.setVisible(false);
-//                        add_panel.setVisible(false);
-//                        Affichage_panel.setVisible(false);
-//                        afficher_panier.setVisible(false);
-//                        pr_id_ed.setText(String.valueOf(value));
-//                        pr_title_ed.setValue(value1);
-//                        pr_desc_ed.setText(value2);
-//                        pr_date_ed.setText(String.valueOf(value3));
-//                        if (value4!=0){
-//                            pr_oui_ed.setSelected(true);
-//                        }else {
-//                            pr_oui_ed.setSelected(false);
-//                        }
-//                        pr_price_ed.setText(String.valueOf(value5));
-//
-//                        String imagePath = value6;
-//                        Image image = new Image(new File(imagePath).toURI().toString());
-//                        product_image_ed.setImage(image);
-//                    }
-//                };
-//                FXMLLoader fxmlLoader = new FXMLLoader();
-//                fxmlLoader.setLocation(getClass().getResource("/MyCard.fxml"));
-//                HBox cardBox = fxmlLoader.load();
-//                MyCardController myCardController = fxmlLoader.getController();
-//                myCardController.setData(fa.get(i),myListner);
-//                currentHBox.getChildren().add(cardBox);
-//            }
-//
-//            mainVBox.getChildren().add(currentHBox);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    public void refreshMyCards() {
-//        fa = new ArrayList<>(fo());
-//        ma_list_box.getChildren().clear();
-//        initialized();
-//    }
-//    //////////////////////ma liste end ////////////////////////////
-/////////////////////////////////edit post from my list /////////////////////////////
-//    @FXML
-//    void my_art(MouseEvent event) {
-//        afficher_ma_list.setVisible(true);
-//        add_panel.setVisible(false);
-//        Affichage_panel.setVisible(false);
-//        afficher_panier.setVisible(false);
-//        Edit_panel.setVisible(false);
-//        box_fsale.setVisible(false);
-//        box_nosale.setVisible(false);
-//        FilterBox.setVisible(false);
-//        refreshMyCards();
-//    }
-//    @FXML
-//    void CancelEditProduct(ActionEvent event) {
-//        afficher_ma_list.setVisible(true);
-//        add_panel.setVisible(false);
-//        box_fsale.setVisible(false);
-//        box_nosale.setVisible(false);
-//        Affichage_panel.setVisible(false);
-//        afficher_panier.setVisible(false);
-//        Edit_panel.setVisible(false);
-//        FilterBox.setVisible(false);
-//
-//        refreshMyCards();
-//    }
-//
-//    int forsalevalue_ed(){
-//        if (pr_oui_ed.isSelected()){
-//            return 1;
-//        }
-//        else return 0;
-//    }
-//
-//    @FXML
-//    void add_image_dialog_ed(MouseEvent event) {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Choose Image File");
-//        fileChooser.getExtensionFilters().addAll(
-//                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
-//        );
-//        File selectedFile = fileChooser.showOpenDialog(null);
-//        if (selectedFile != null) {
-//            Image image = new Image(selectedFile.toURI().toString());
-//            product_image_ed.setImage(image);
-//
-//        }
-//    }
-//    @FXML
-//    void EditProduct(ActionEvent event) {
-//        try{
-//            price_ed = Double.parseDouble(pr_price_ed.getText());
-//        }catch(NumberFormatException e){
-//            System.out.println("invalid integer input");
-//        }
-//        int id = Integer.parseInt(pr_id_ed.getText());
-//        String title = pr_title_ed.getValue();
-//        String desc = pr_desc_ed.getText();
-//        String date = pr_date_ed.getText();
-//        Double price = Double.valueOf(pr_price_ed.getText());
-//        String imagePath = "";
-//        Image image = product_image_ed.getImage();
-//        if (image != null) {
-//            String imageUrl = image.getUrl();
-//            if (imageUrl.startsWith("file:/")) {
-//                imagePath = imageUrl.substring("file:/".length());
-//            }
-//        }
-//        try {
-//            s.modifier(new Product(id,userid,forsalevalue_ed(),price,title,desc,date,imagePath));
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        afficher_ma_list.setVisible(true);
-//        add_panel.setVisible(false);
-//        Affichage_panel.setVisible(false);
-//        box_fsale.setVisible(false);
-//        box_nosale.setVisible(false);
-//        afficher_panier.setVisible(false);
-//        Edit_panel.setVisible(false);
-//        FilterBox.setVisible(false);
-//
-//        refreshMyCards();
-//    }
+        RequestBody body = RequestBody.create(mediaType, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url("https://api.openai.com/v1/completions")
+                .post(body)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer " + apiKey)
+                .build();
 
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String responseBody = response.body().string();
+                JSONObject jsonResponse = new JSONObject(responseBody);
+                String description = jsonResponse.getJSONArray("choices").getJSONObject(0).getString("text");
+                String[] words = description.split("\\s+");
+                StringBuilder formattedDescription = new StringBuilder();
+                int wordCount = 0;
+                for (String word : words) {
+                    formattedDescription.append(word).append(" ");
+                    wordCount++;
+                    if (wordCount == 5) {
+                        formattedDescription.append("\n");
+                        wordCount = 0;
+                    }
+                }
+                System.out.println("Generated Description: " + formattedDescription.toString());
+                pr_desc.setText(formattedDescription.toString());
+            } else {
+                System.out.println("Request failed with code: " + response.code());
+                System.out.println("Response body: " + response.body().string());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -394,4 +394,35 @@ public class DetailsProfileController {
         id_confirm.setVisible(true);
 
     }
+
+    public void Go_To_Home(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Product(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Product.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        ProductController productController = loader.getController();
+        productController.initUser(userlogged);
+    }
+
+    public void Go_To_Auction(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Forum(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Event(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Message(ActionEvent actionEvent) {
+    }
+
+    public void ProfileVisit(MouseEvent mouseEvent) {
+    }
+
+    public void Logout(MouseEvent mouseEvent) {
+    }
 }
