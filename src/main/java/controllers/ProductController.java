@@ -542,7 +542,7 @@ clear();
     public void initUser(User user) {
         System.out.println("initUser mte3 product");
 
-       if(user == null){
+       if(user == null || user.getId_User()==2){
            inscrire.setVisible(true);
             bell.setVisible(false);
             usericon.setVisible(false);

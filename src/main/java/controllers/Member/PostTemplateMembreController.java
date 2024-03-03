@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import services.ServiceForumF;
@@ -70,12 +71,19 @@ public class PostTemplateMembreController {
     private Button like_butt_id;
     @FXML
     void LikeAction(ActionEvent event) throws SQLException {
-        likes = post.getLike_num() + 1;
-        ServicePostF sp = new ServicePostF();
-        PostEntity newPost = new PostEntity(post.getId_post(),post.getId_forum(),post.getId_user(),post.getTitle(),post.getText(),likes,post.getTime(),post.getDate());
-        sp.modifier(newPost);
-        Like_num_id.setText(""+post.getLike_num());
-        reloadPage();
+        if (userlogged.getId_User() ==2){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Vous n’avez pas de compte");
+            alert.setContentText("Crée un account pour Reaction ");
+            alert.showAndWait();
+        } else {
+            likes = post.getLike_num() + 1;
+            ServicePostF sp = new ServicePostF();
+            PostEntity newPost = new PostEntity(post.getId_post(), post.getId_forum(), post.getId_user(), post.getTitle(), post.getText(), likes, post.getTime(), post.getDate());
+            sp.modifier(newPost);
+            Like_num_id.setText("" + post.getLike_num());
+            reloadPage();
+        }
     }
 
 

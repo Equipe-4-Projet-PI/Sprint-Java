@@ -42,7 +42,21 @@ public class ServiceProduct implements IService<Product>{
         pre.execute();
         System.out.println("deleted");
     }
-
+    public int CountProduct() throws SQLException {
+        String produit = "SELECT COUNT(*) FROM Product";
+        try (PreparedStatement pre = con.prepareStatement(produit)) {
+            try (ResultSet resultSet = pre.executeQuery()) {
+                if (resultSet.next()) {
+                    int total = resultSet.getInt(1);
+                    return total;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error counting users: " + e.getMessage());
+            // Optionally, you may throw an exception or return a default value here
+        }
+        return 0; // Return 0 if an error occurs
+    }
     @Override
     public List<Product> maList(int id) throws SQLException {
         List<Product> pro = new ArrayList<>();

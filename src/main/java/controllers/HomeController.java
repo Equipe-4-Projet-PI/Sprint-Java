@@ -75,7 +75,7 @@ public class HomeController {
     }
     public void initData(User user) throws IOException {
 
-        if (user != null) {
+        if (user != null & user.getId_User()!=2) {
             nav_name.setText(user.getUsername());
             inscrire.setVisible(false);
             bell.setVisible(true);

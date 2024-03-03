@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import services.ServiceProduct;
 import services.ServiceUser;
 
 import java.awt.*;
@@ -175,6 +176,7 @@ public class AdminController {
 
 
      ServiceUser serviceUser = new ServiceUser();
+     ServiceProduct p = new ServiceProduct();
 
     public void initialize() throws SQLException {
         label1.setVisible(false);
@@ -228,6 +230,7 @@ public class AdminController {
         initializeComboBoxContent();
         initializeComboBoxContentEdit();
         Num_Users.setText(String.valueOf(serviceUser.CountUsers()));
+        Num_Arts.setText(String.valueOf(p.CountProduct()));
 
 
         id_Choice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

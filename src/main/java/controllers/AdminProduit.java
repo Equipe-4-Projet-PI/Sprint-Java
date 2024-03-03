@@ -1,13 +1,22 @@
 package controllers;
 
+import com.stripe.service.ProductService;
+import entities.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import services.ServiceProduct;
 import services.ServiceUser;
 
 import java.io.IOException;
@@ -35,13 +44,100 @@ public class AdminProduit {
 
     @FXML
     private ImageView logout;
+    @FXML
+    private TableView<Product> tv_product;
+    @FXML
+    private TableColumn<Product, String> date;
+
+    @FXML
+    private TableColumn<Product, String> desc;
+
+    @FXML
+    private TableColumn<Product, Integer> fsale;
+
+    @FXML
+    private TableColumn<Product, Integer> id_prod;
+
+    @FXML
+    private TableColumn<Product, String> imgurl;
+
+    @FXML
+    private TableColumn<Product, Double> price;
+
+    @FXML
+    private TableColumn<Product, String> title;
+
+    @FXML
+    private TableColumn<Product, Integer> user_id;
+
+    ServiceProduct p = new ServiceProduct();
 
     ServiceUser serviceUser = new ServiceUser();
+//    void initialized(){
+//        try {
+//            ObservableList<Product> observableList= FXCollections.observableList(p.afficher());
+//            tv_product.setItems(observableList);
+//            id_prod.setCellValueFactory(new PropertyValueFactory<>("Id_Product"));
+//            user_id.setCellValueFactory(new PropertyValueFactory<>("Id_User"));
+//            title.setCellValueFactory(new PropertyValueFactory<>("Title"));
+//            desc.setCellValueFactory(new PropertyValueFactory<>("Description"));
+//            fsale.setCellValueFactory(new PropertyValueFactory<>("ForSale"));
+//            price.setCellValueFactory(new PropertyValueFactory<>("Price"));
+//            date.setCellValueFactory(new PropertyValueFactory<>("CreationDate"));
+//            imgurl.setCellValueFactory(new PropertyValueFactory<>("ProductImage"));
+//            System.out.println("impoted");
+//            System.out.println(observableList);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+public void initialize() throws SQLException {
+    Num_Users.setText(String.valueOf(serviceUser.CountUsers()));
+    Num_Arts.setText(String.valueOf(p.CountProduct()));
 
-    public void initialize() throws SQLException {
-        Num_Users.setText(String.valueOf(serviceUser.CountUsers()));
-        System.out.println("Welcome Produit");
+    System.out.println("Welcome Produit");
+
+
+    try {
+        ObservableList<Product> observableList= FXCollections.observableList(p.afficher());
+        tv_product.setItems(observableList);
+        id_prod.setCellValueFactory(new PropertyValueFactory<>("Id_Product"));
+        user_id.setCellValueFactory(new PropertyValueFactory<>("Id_User"));
+        title.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        desc.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        fsale.setCellValueFactory(new PropertyValueFactory<>("ForSale"));
+        price.setCellValueFactory(new PropertyValueFactory<>("Price"));
+        date.setCellValueFactory(new PropertyValueFactory<>("CreationDate"));
+        imgurl.setCellValueFactory(new PropertyValueFactory<>("ProductImage"));
+        System.out.println("impoted");
+        System.out.println(observableList);
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
     }
+}
+    @FXML
+    void Delete_Prod(ActionEvent event) throws SQLException {
+        Product selectedItem = tv_product.getSelectionModel().getSelectedItem();
+        if(selectedItem!=null){
+            try {
+                p.supprimer(selectedItem);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            initialize();
+        }
+    }
+
+    @FXML
+    void Refrech_Btn(ActionEvent event) {
+        //initialized();
+        int numberOfRows = tv_product.getItems().size();
+        Num_Arts.setText(String.valueOf(numberOfRows));
+    }
+
+
+
+
     @FXML
     void Go_To_Auction(MouseEvent event) throws IOException {
 
@@ -83,8 +179,13 @@ public class AdminProduit {
     }
 
     @FXML
-    void Go_To_Product(MouseEvent event) {
+    void Go_To_Product(MouseEvent event) throws IOException, SQLException {
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin_Interface/Admin_Produit.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = Num_Arts.getScene();
+        scene.setRoot(loginSuccessRoot);
+        initialize();
     }
 
     @FXML

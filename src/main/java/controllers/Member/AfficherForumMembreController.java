@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -83,8 +84,27 @@ public class AfficherForumMembreController {
             usericon.setVisible(false);
             logouticon.setVisible(false);
             System.out.println("el user mafamech");
-            userlogged = null ;
+            userlogged = new User();
+            userlogged.setId_User(2);
+
+            try{
+                ObservableList<ForumEntity> observableList = FXCollections.observableList(SF.afficher());
+                for (int i = 0; i < observableList.size(); i++) {
+                    FXMLLoader fxmlLoader= new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/ForumPages/Member/ForumTemplateMembre.fxml"));
+                    HBox cardBox = fxmlLoader.load();
+                    ForumTemplateMembreController cardController = fxmlLoader.getController();
+                    cardController.setData(observableList.get(i),userlogged);
+                    //   cardController.initData(userlogged);
+                    idVbox.getChildren().add(cardBox);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            searchButt_id.setGraphic(Lojo);
+
         }
+
 
 
 
@@ -160,13 +180,21 @@ public class AfficherForumMembreController {
 
     @FXML
     void CreateForum(ActionEvent event) throws IOException {
+        if (userlogged.getId_User() ==2){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Vous n’avez pas de compte");
+            alert.setContentText("Crée un account pour Creer un Forum");
+            alert.showAndWait();
+        }
+        else {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Member/AddForumMembre.fxml"));
         Parent loginSuccessRoot = loader.load();
         Scene scene = nav_name.getScene();
         scene.setRoot(loginSuccessRoot);
         System.out.println(userlogged);
         AddForumMembreController addForumMembreController = loader.getController();
-        addForumMembreController.initData(userlogged);
+        addForumMembreController.initData(userlogged);}
     }
 
     private Parent loadRootLayoutForForum() throws Exception {
