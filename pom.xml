@@ -39,6 +39,13 @@
             <version>21.0.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.vdurmont</groupId>
+            <artifactId>emoji-java</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <!-- Thanks for using https://jar-download.com -->
+
 
     </dependencies>
 

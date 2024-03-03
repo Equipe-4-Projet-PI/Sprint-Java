@@ -14,6 +14,7 @@ public class MyDB {
     private Connection connection;
 
     //1 Rendre le constructeur Prive
+
     private MyDB() {
 
         try {
@@ -23,7 +24,8 @@ public class MyDB {
             System.out.println(e.getMessage());
         }
     }
-
+    //1 Rendre le constructeur Prive
+    //2 creer une variable de m type que la classe
     //3 creer une methode getInstance
     public static MyDB getInstance(){
         if(instance==null){

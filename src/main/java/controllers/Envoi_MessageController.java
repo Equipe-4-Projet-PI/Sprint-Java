@@ -267,6 +267,9 @@ public class Envoi_MessageController implements Initializable {
 
 
     @FXML
+    private TextField msg;
+
+    @FXML
     private TextField username;
 
     @FXML
@@ -287,8 +290,7 @@ public class Envoi_MessageController implements Initializable {
     @FXML
     private Button Envoi;
 
-    @FXML
-    private TextField msg;
+
 
 
     private Disscussion discuss;
@@ -338,33 +340,6 @@ public class Envoi_MessageController implements Initializable {
         afficherDiscussions();
     }
 
-
-    @FXML
-    public void AfficherDis(ActionEvent event) {
-        Button boutonClique = (Button) event.getSource();
-        HBox parentHBox = (HBox) boutonClique.getParent();
-        VBox vb = (VBox) parentHBox.getChildren().get(1);
-        Label labelIdDiscussion = (Label) vb.getChildren().get(0);
-        int discussionId = 0;
-        try {
-//            discussionId = Integer.parseInt(String.valueOf(serviceUser.getbyUsername(labelIdDiscussion.getText()).getId_User()));
-            discussionId = discuss.getIdDis();
-            System.out.println("ID de la discussion sélectionnée : " + discussionId);
-
-            List<Message> messages = serviceMessage.afficheridDis(discussionId);
-
-            for (Message message : messages) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/message.fxml"));
-                VBox msgBox = fxmlLoader.load();
-                MessageController msgController = fxmlLoader.getController();
-                msgController.setData(message);
-                Msg.getChildren().add(msgBox);
-            }
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void afficherDiscussions() {
         try {
             ObservableList<Disscussion> discussions = FXCollections.observableList(serviceDisscussion.afficher());
@@ -411,8 +386,18 @@ public class Envoi_MessageController implements Initializable {
 //        System.out.println((serviceDisscussion.getDiscussionByReceiverId(chercheruser(event).getId_User()).getIdDis()));
 //        System.out.println(chercheruser(event).getId_User());
 //        System.out.println(d);
-        serviceDisscussion.ajouter(d);
-        System.out.println(serviceDisscussion.getDiscussionByReceiverId(chercheruser(event).getId_User())); ;
+
+
+        if(serviceDisscussion.Compare(d)){
+//            System.out.println(serviceDisscussion.Compare(d));
+            showAlert(Alert.AlertType.INFORMATION, "Déjà disponible", "Discussion déjà existante");
+            }
+        else { showAlert(Alert.AlertType.CONFIRMATION, "Discussion Créee", "Discussion Créee avec : " +chercheruser(event).getUsername());
+            serviceDisscussion.ajouter(d);
+        }
+
+
+//        System.out.println(serviceDisscussion.getDiscussionByReceiverId(chercheruser(event).getId_User())); ;
 
     }
 
@@ -421,7 +406,10 @@ public class Envoi_MessageController implements Initializable {
     User chercheruser(Event event) throws SQLException {
         String userName = username.getText().trim() ;
         receriver = serviceUser.getbyUsername(userName) ;
-        System.out.println(receriver.getUsername());
+
+        if(receriver==null){showAlert(Alert.AlertType.ERROR, "Erreur", "Utilisateur non trouvé " );}
+        else {System.out.println(receriver.getUsername());}
+
         return receriver ;
     }
 }

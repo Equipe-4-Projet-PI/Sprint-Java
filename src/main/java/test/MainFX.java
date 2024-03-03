@@ -9,9 +9,9 @@ import javafx.stage.Stage;
 public class MainFX extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Envoi_Message.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/EnvoiMessage.fxml"));
 //       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Admin_Signal.fxml"));
-//       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Notification.fxml"));
+//       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/EmojiMessenger.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root) ;
         stage.setScene(scene);

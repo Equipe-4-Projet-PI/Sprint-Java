@@ -25,7 +25,9 @@
             <Insets left="10.0" />
          </padding>
       </VBox>
-      <Button fx:id="Afficherdis" mnemonicParsing="false" onAction="#AfficherDis" prefHeight="95.0" prefWidth="109.0" style="-fx-background-color: transparent;">
+      <Button fx:id="Afficherdis" mnemonicParsing="false" onAction="#setMethod" prefHeight="95.0" prefWidth="109.0" style="-fx-background-color: transparent;">
+<!--              onAction="#AfficherDis" -->
+
          <graphic>
             <ImageView fitHeight="58.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                <image>

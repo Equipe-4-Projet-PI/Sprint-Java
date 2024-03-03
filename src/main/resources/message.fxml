@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MessageController">
+<VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="81.0" prefWidth="487.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MessageController">
    <children>
-      <Label fx:id="messagee" prefHeight="65.0" prefWidth="472.0" text="Label">
+      <Label fx:id="messagee" prefHeight="50.0" prefWidth="355.0" style="-fx-background-color: #B4DBDC;" text="Label">
          <font>
-            <Font size="25.0" />
+            <Font name="Century Schoolbook Italic" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="time" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="261.0" text="Label" />
+      <Button fx:id="emojibutton" mnemonicParsing="false" onAction="#openEmojiPicker">
+         <graphic>
+            <ImageView fx:id="emojibutton" fitHeight="26.0" fitWidth="472.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/emoji.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+         </graphic>
+         <VBox.margin>
+            <Insets left="400.0" />
+         </VBox.margin>
+      </Button>
+      <Label fx:id="time" alignment="CENTER_RIGHT" prefHeight="12.0" prefWidth="175.0" text="Label">
+         <font>
+            <Font name="System Bold Italic" size="8.0" />
+         </font></Label>
    </children>
 </VBox>

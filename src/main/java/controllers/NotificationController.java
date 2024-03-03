@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 import services.ServiceDisscussion;
 import services.ServiceUser;
 import tray.animations.AnimationType;

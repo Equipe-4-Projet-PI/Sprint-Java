@@ -18,7 +18,7 @@
                   <Image url="@images/Capture.PNG" />
                </image>
             </ImageView>
-            <ToolBar layoutX="20.0" layoutY="74.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="88.0" prefWidth="1278.0" style="-fx-background-color: #FFFFFF;">
+            <ToolBar layoutX="-10.0" layoutY="74.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="88.0" prefWidth="1308.0" style="-fx-background-color: #FFFFFF;">
                <items>
                   <ImageView fitHeight="47.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                      <image>

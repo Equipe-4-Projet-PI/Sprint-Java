@@ -10,8 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+import services.ServiceDisscussion;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class SignalerMessageController {
 
@@ -33,9 +35,14 @@ public class SignalerMessageController {
     @FXML
     private RadioButton spam;
 
+    String raison ;
+
+
     @FXML
-    void Signaler(ActionEvent event) throws IOException {
+    void Signaler(ActionEvent event) throws IOException, SQLException {
         RadioButton selectedRadioButton = null;
+
+
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Avertissement");
@@ -43,16 +50,24 @@ public class SignalerMessageController {
         // Vérifie quel bouton radio est sélectionné
         if (Contenu_inapproprie.isSelected()) {
             selectedRadioButton = Contenu_inapproprie;
+            raison = "Contenu_inapproprie";
         } else if (Contenu_offensant.isSelected()) {
             selectedRadioButton = Contenu_offensant;
+            raison = "Contenu_offensant";
         } else if (Faux_contenu.isSelected()) {
             selectedRadioButton = Faux_contenu;
+            raison = "Faux_contenu";
         } else if (harcelement.isSelected()) {
             selectedRadioButton = harcelement;
+            raison = "harcelement";
         } else if (spam.isSelected()) {
             selectedRadioButton = spam;
+            raison = "spam";
         }
 
+
+        ServiceDisscussion sd = new ServiceDisscussion() ;
+        sd.signal(sd.getDiscussionById(5) , raison);
         if (selectedRadioButton == null) {
             // Aucun bouton radio sélectionné
             alert.setContentText("Veuillez sélectionner une raison pour signaler le message.");
