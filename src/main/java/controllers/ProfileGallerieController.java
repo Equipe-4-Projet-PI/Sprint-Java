@@ -302,13 +302,11 @@ public class ProfileGallerieController {
     @FXML
     void CancelEditProduct(ActionEvent event) {
         afficher_ma_list.setVisible(true);
-        add_panel.setVisible(false);
-        box_fsale.setVisible(false);
-        box_nosale.setVisible(false);
-        Affichage_panel.setVisible(false);
-        afficher_panier.setVisible(false);
+
+
+
         Edit_panel.setVisible(false);
-        FilterBox.setVisible(false);
+
         refreshMyCards();
     }
 
@@ -361,7 +359,7 @@ public class ProfileGallerieController {
 
     @FXML
     void MagPage(MouseEvent event) {
-        add_panel.setVisible(false);
+
         Affichage_panel.setVisible(true);
         afficher_panier.setVisible(false);
         afficher_ma_list.setVisible(false);
