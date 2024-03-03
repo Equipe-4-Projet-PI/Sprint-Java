@@ -31,7 +31,7 @@ public class AfficherOneWorkshopView {
         this.w=w;
         lnom.setText(w.getTitle());
         lplace.setText(w.getDetails());
-        File file=new File("C:\\Users\\ASUS\\Desktop\\PI_dev_VER2\\src\\main\\java\\kolchy\\image\\"+w.getImage());
+        File file=new File("C:\\Users\\Hei\\OneDrive\\Documents\\GitHub\\Sprint-Java\\src\\main\\java\\kolchy\\image\\"+w.getImage());
         Image image=new Image(file.toURI().toString());
         img.setImage(image);
     }

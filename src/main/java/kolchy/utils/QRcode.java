@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class QRcode {
     public static boolean generateQrCode(String text,int id){
-        String filePath="C:\\Users\\ASUS\\Desktop\\PI_dev_VER2\\src\\main\\java\\kolchy\\qrcode\\Event_"+id+".png";
+        String filePath="C:\\Users\\Hei\\OneDrive\\Documents\\GitHub\\Sprint-Java\\src\\main\\java\\qrcode\\Event_"+id+".png";
         int size=150;
         String fileType="png";
         File myFile=new File(filePath);

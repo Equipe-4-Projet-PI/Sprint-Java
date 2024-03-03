@@ -52,12 +52,15 @@ public class AfficherOneEventView {
         lprix.setText(String.valueOf(e.getTicket_Price()));
         ldate.setText(String.valueOf(e.getE_Date()));
 
-        File file=new File("C:\\Users\\ASUS\\Desktop\\PI_dev_VER2\\src\\main\\java\\kolchy\\image\\"+e.getImage());
+        File file=new File("C:\\Users\\Hei\\OneDrive\\Documents\\GitHub\\Sprint-Java\\src\\main\\java\\kolchy\\image\\"+e.getImage());
+        System.out.println("C:\\Users\\Hei\\OneDrive\\Documents\\GitHub\\Sprint-Java\\src\\main\\java\\kolchy\\image"+e.getImage());
         Image image=new Image(file.toURI().toString());
+
         img.setImage(image);
         QRcode.generateQrCode(e.toString(),e.getId_Event());
-        File file2=new File("C:\\Users\\ASUS\\Desktop\\PI_dev_VER2\\src\\main\\java\\kolchy\\qrcode\\Event_"+e.getId_Event()+".png");
+        File file2=new File("C:\\Users\\Hei\\OneDrive\\Documents\\GitHub\\Sprint-Java\\src\\main\\java\\qrcode\\Event_"+e.getId_Event()+".png");
         Image image2=new Image(file2.toURI().toString());
+
 
         imgqr.setImage(image2);
 

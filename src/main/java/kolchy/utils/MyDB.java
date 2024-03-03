@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class MyDB {
 
 
-    public final String URL = "jdbc:mysql://localhost:3306/montaha";
+    public final String URL = "jdbc:mysql://localhost:3306/artyvenci_database";
 
     public final String USERNAME = "root";
     public final String PWD = "";

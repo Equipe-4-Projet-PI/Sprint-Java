@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>PI_dev_VER2</artifactId>
+    <artifactId>ArtyVenci</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -57,6 +57,7 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>kolchy.MainFX</mainClass>
+                    <executable>${java.home}/bin/java</executable>
                 </configuration>
             </plugin>
         </plugins>
