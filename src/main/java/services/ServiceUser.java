@@ -358,6 +358,50 @@ public class ServiceUser implements IService<User> {
         return null;
     }
 
+
+
+    public User GetUserById(int id) {
+        // SQL query to check if the provided username and password match a record in the database
+        String UserReq = "SELECT * FROM User WHERE Id_User = ? ";
+
+        try (PreparedStatement UserStmt = con.prepareStatement(UserReq)) {
+            UserStmt.setInt(1, id);
+
+
+            try (ResultSet resultSet = UserStmt.executeQuery()) {
+                // If there is at least one matching record, retrieve the user details
+                if (resultSet.next()) {
+                    // Create a new User object with the retrieved details
+
+                    String username = resultSet.getString("Username");
+                    String password = resultSet.getString("Password");
+
+
+                    String email = resultSet.getString("Email");
+
+                    String role = resultSet.getString("Role");
+                    String firstName = resultSet.getString("FirstName");
+                    String lastName = resultSet.getString("LastName");
+                    String adress = resultSet.getString("Adress");
+                    int Phone = resultSet.getInt("Phone");
+                    String gender = resultSet.getString("Gender");
+                    LocalDate dob = LocalDate.parse(resultSet.getString("DOB"));
+                    String imageUrl = resultSet.getString("ImageURL");
+
+                    // You can retrieve other fields similarly
+
+                    // Return the created User object
+                    return new User(id,username,email,password,role,firstName,lastName,adress,gender,Phone,dob,imageUrl);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error authenticating user: " + e.getMessage());
+        }
+
+        // If no user found or error occurred, return null
+        return null;
+    }
+
     public User GetUserFromUsername(String username) {
         // SQL query to check if the provided username and password match a record in the database
         String UserReq = "SELECT * FROM User WHERE Username = ? ";

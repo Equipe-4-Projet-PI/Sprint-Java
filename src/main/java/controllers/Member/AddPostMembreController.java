@@ -1,6 +1,7 @@
 package controllers.Member;
 import entities.ForumEntity;
 import entities.PostEntity;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import services.ServicePostF;
-import services.ServiceUserF;
+import services.ServiceUser;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class AddPostMembreController {
 
     @FXML
     private Button forumPage_id;
-
+    private User userlogged;
     @FXML
     private Label forum_name_id;
 
@@ -48,12 +49,28 @@ public class AddPostMembreController {
 
     //SERVICE POST
     ServicePostF sp = new ServicePostF();
-    ServiceUserF su = new ServiceUserF();
 
-    public void setData(ForumEntity forumEntity)
+    ServiceUser serviceUser= new ServiceUser();
+
+    public void setData(ForumEntity forumEntity,User user)
     {
 
         this.current_forum = forumEntity;
+
+
+        userlogged = new User();
+        userlogged.setGender(user.getGender());
+        userlogged.setDOB(user.getDOB());
+        userlogged.setPhone(user.getPhone());
+        userlogged.setAdress(user.getAdress());
+        userlogged.setUsername(user.getUsername());
+        userlogged.setEmail(user.getEmail());
+        userlogged.setFirstName(user.getFirstName());
+        userlogged.setPassword(user.getPassword());
+        userlogged.setLastName(user.getLastName());
+        userlogged.setId_User(user.getId_User());
+        userlogged.setRole(user.getRole());
+        userlogged.setImageURL(user.getImageURL());
 
     }
     private void SetDataAgain()
@@ -86,7 +103,7 @@ public class AddPostMembreController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Member/PostTemplateMembre.fxml"));
                 HBox cardBox = fxmlLoader.load();
                 PostTemplateMembreController cardController = fxmlLoader.getController();
-                cardController.setData(f);
+                cardController.setData(f,userlogged);
                 id_vbox_posts.getChildren().add(cardBox);
             }
         } catch (IOException e) {
@@ -128,7 +145,8 @@ public class AddPostMembreController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Member/NewPostPageMembre.fxml"));
         NewPostPageMembreController controller = new NewPostPageMembreController();
         loader.setController(controller);
-        controller.setData(current_forum);
+        controller.setData(current_forum,userlogged);
+//        controller.initData(userlogged);
         Parent root = loader.load();
         return root;
     }
@@ -153,7 +171,7 @@ public class AddPostMembreController {
         if (mostLikedPost.isPresent())
         {
             top_likes_is.setText(""+mostLikedPost.get().getLike_num());
-            top_post_user_id.setText(su.getbyid(mostLikedPost.get().getId_user()).getUsername());
+            top_post_user_id.setText(serviceUser.GetUserById(mostLikedPost.get().getId_user()).getUsername());
         }else {
             top_likes_is.setText("No One :(");
             top_post_user_id.setText("No One :(");
@@ -240,7 +258,7 @@ public class AddPostMembreController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Member/PostTemplateMembre.fxml"));
                 HBox cardBox = fxmlLoader.load();
                 PostTemplateMembreController cardController = fxmlLoader.getController();
-                cardController.setData(f);
+                cardController.setData(f,userlogged);
                 id_vbox_posts.getChildren().add(cardBox);
             }
         }catch (SQLException e) {
@@ -282,7 +300,7 @@ public class AddPostMembreController {
                     title.setAlignment(Paragraph.ALIGN_LEFT);
                     document.add(title);
 
-                    Paragraph user = new Paragraph(su.getbyid(p.getId_user()).getUsername(), titleFont);
+                    Paragraph user = new Paragraph(serviceUser.GetUserById(p.getId_user()).getUsername(), titleFont);
                     user.setAlignment(Paragraph.ALIGN_LEFT);
                     document.add(user);
 
@@ -306,5 +324,6 @@ public class AddPostMembreController {
             }
         }
     }
+
 
 }

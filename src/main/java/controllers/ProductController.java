@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.Member.AfficherForumMembreController;
 import entities.Product;
 import entities.ProductOrder;
 import entities.User;
@@ -667,8 +668,16 @@ clear();
     public void Go_To_Auction(ActionEvent actionEvent) {
     }
 
-    public void Go_To_Forum(ActionEvent actionEvent) {
-    }
+    public void Go_To_Forum(ActionEvent actionEvent)  throws IOException {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Member/AfficherForumMembre.fxml"));
+            Parent loginSuccessRoot = loader.load();
+            Scene scene = nav_name.getScene();
+            scene.setRoot(loginSuccessRoot);
+            AfficherForumMembreController afficherForumMembreController = loader.getController();
+            afficherForumMembreController.initUser(userlogged);
+
+        }
 
     public void Go_To_Event(ActionEvent actionEvent) {
     }

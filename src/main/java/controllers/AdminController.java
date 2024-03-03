@@ -754,7 +754,7 @@ public class AdminController {
     @FXML
     void Go_To_Forum(MouseEvent event) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin_Interface/Admin_Forum.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Admin/GestionForumAdmin.fxml"));
         Parent loginSuccessRoot = loader.load();
         Scene scene = Num_Arts.getScene();
         scene.setRoot(loginSuccessRoot);

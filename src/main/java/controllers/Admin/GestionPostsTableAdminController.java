@@ -2,7 +2,7 @@ package controllers.Admin;
 
 import entities.ForumEntity;
 import entities.PostEntity;
-import entities.UserEntity;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,7 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import services.ServiceForumF;
 import services.ServicePostF;
-import services.ServiceUserF;
+import services.ServiceUser;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -71,7 +71,8 @@ public class GestionPostsTableAdminController {
 
     private ForumEntity forum;
     ServiceForumF SF = new ServiceForumF();
-    ServiceUserF SU = new ServiceUserF();
+
+    ServiceUser serviceUser = new ServiceUser();
     ServicePostF SP = new ServicePostF();
 
 
@@ -99,13 +100,13 @@ public class GestionPostsTableAdminController {
             ObservableList<PostEntity> newList = FXCollections.observableList(filteredList);
 
             //GET UserNAMES
-            ObservableList<UserEntity> UserList = FXCollections.observableList(SU.afficher());
+            ObservableList<User> UserList = FXCollections.observableList(serviceUser.DISPLAY());
             table_id.setItems(newList);
             username_cloumn.setCellValueFactory(e -> {
                     int userId = e.getValue().getId_user();
-                    UserEntity userFound = null;
-                    for (UserEntity user : UserList) {
-                        if (user.getUser_id() == userId) {
+                    User userFound = null;
+                    for (User user : UserList) {
+                        if (user.getId_User() == userId) {
                             userFound =user;
                         }
                     }
@@ -177,14 +178,14 @@ public class GestionPostsTableAdminController {
             ObservableList<PostEntity> observableSecondFilteredList = FXCollections.observableList(secondFilteredList);
 
             // GET UserNAMES
-            ObservableList<UserEntity> userList = FXCollections.observableList(SU.afficher());
+            ObservableList<User> userList = FXCollections.observableList(serviceUser.DISPLAY());
 
             table_id.setItems(observableSecondFilteredList);
             username_cloumn.setCellValueFactory(e -> {
                 int userId = e.getValue().getId_user();
-                UserEntity userFound = null;
-                for (UserEntity user : userList) {
-                    if (user.getUser_id() == userId) {
+                User userFound = null;
+                for (User user : userList) {
+                    if (user.getId_User() == userId) {
                         userFound = user;
                         break; // once found, no need to continue loop
                     }

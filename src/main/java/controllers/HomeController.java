@@ -1,4 +1,5 @@
 package controllers;
+import controllers.Member.AfficherForumMembreController;
 import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,7 +57,15 @@ public class HomeController {
     public void Go_To_Auction(ActionEvent actionEvent) {
     }
 
-    public void Go_To_Forum(ActionEvent actionEvent) {
+    public void Go_To_Forum(ActionEvent actionEvent)  throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Member/AfficherForumMembre.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        AfficherForumMembreController afficherForumMembreController = loader.getController();
+        afficherForumMembreController.initUser(userlogged);
+
     }
 
     public void Go_To_Event(ActionEvent actionEvent) {
@@ -64,7 +73,7 @@ public class HomeController {
 
     public void Go_To_Message(ActionEvent actionEvent) {
     }
-    void initData(User user) throws IOException {
+    public void initData(User user) throws IOException {
 
         if (user != null) {
             nav_name.setText(user.getUsername());
@@ -89,23 +98,7 @@ public class HomeController {
         } else {
             System.out.println("user  null");
 
-//            if (isUserlogged()) {
-//                inscrire.setVisible(false);
-//                bell.setVisible(true);
-//                usericon.setVisible(true);
-//                logouticon.setVisible(true);
-//                User usersaved = serviceUser.GetUser(savedUsername, savedPassword);
-//                System.out.println(usersaved);
-//                initData(usersaved);
-//                System.out.println("Cond 1");
-//            } else {
-//
-//                inscrire.setVisible(true);
-//                bell.setVisible(false);
-//                usericon.setVisible(false);
-//                logouticon.setVisible(false);
-//                System.out.println("cond 2");
-//            }
+
 
         }
     }

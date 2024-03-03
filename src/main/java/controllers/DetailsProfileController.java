@@ -425,4 +425,7 @@ public class DetailsProfileController {
 
     public void Logout(MouseEvent mouseEvent) {
     }
+
+    public void sinscrire(ActionEvent actionEvent) {
+    }
 }

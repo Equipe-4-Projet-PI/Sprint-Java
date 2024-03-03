@@ -1,10 +1,13 @@
 package controllers.Member;
 
+import controllers.HomeController;
 import entities.ForumEntity;
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -21,7 +24,7 @@ public class AddForumMembreController {
     @FXML
     private TextArea desc_text_field;
 
-
+    private User userlogged;
 
     @FXML
     private TextField title_text_field;
@@ -59,8 +62,13 @@ public class AddForumMembreController {
             alert.setTitle("Success");
             alert.setContentText("Forum Ajouté");
             alert.showAndWait();
-            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Member/AfficherForumMembre.fxml"));
-            exitButt_id.getScene().setRoot(root);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Member/AfficherForumMembre.fxml"));
+            Parent loginSuccessRoot = loader.load();
+            Scene scene = exitButt_id.getScene();
+            scene.setRoot(loginSuccessRoot);
+            System.out.println(userlogged);
+            AfficherForumMembreController afficherForumMembreController = loader.getController();
+            afficherForumMembreController.initUser(userlogged);
         } catch (IOException | SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -73,12 +81,29 @@ public class AddForumMembreController {
     @FXML
     private Button exitButt_id;
     @FXML
-    void ExitAddPage(ActionEvent event) {
-        try {
-            Parent root= FXMLLoader.load(getClass().getResource("/ForumPages/Member/AfficherForumMembre.fxml"));
-            exitButt_id.getScene().setRoot(root);
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
+    void ExitAddPage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Member/AfficherForumMembre.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = exitButt_id.getScene();
+        scene.setRoot(loginSuccessRoot);
+        System.out.println(userlogged);
+        AfficherForumMembreController afficherForumMembreController = loader.getController();
+        afficherForumMembreController.initUser(userlogged);
+    }
+
+    public void initData(User user) {
+        userlogged = new User();
+        userlogged.setGender(user.getGender());
+        userlogged.setDOB(user.getDOB());
+        userlogged.setPhone(user.getPhone());
+        userlogged.setAdress(user.getAdress());
+        userlogged.setUsername(user.getUsername());
+        userlogged.setEmail(user.getEmail());
+        userlogged.setFirstName(user.getFirstName());
+        userlogged.setPassword(user.getPassword());
+        userlogged.setLastName(user.getLastName());
+        userlogged.setId_User(user.getId_User());
+        userlogged.setRole(user.getRole());
+        userlogged.setImageURL(user.getImageURL());
     }
 }
