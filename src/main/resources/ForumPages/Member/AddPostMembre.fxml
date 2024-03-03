@@ -159,5 +159,6 @@
       </AnchorPane>
       <Button fx:id="OrderButt" layoutX="1160.0" layoutY="261.0" mnemonicParsing="false" onAction="#OrderByLikeNumber" text="OrderByLikes" />
       <ChoiceBox fx:id="box" layoutX="1127.0" layoutY="310.0" prefWidth="150.0" />
+      <Button fx:id="PrintPDF_butt" layoutX="1176.0" layoutY="412.0" mnemonicParsing="false" onAction="#PrintPDF" text="Button" />
    </children>
 </AnchorPane>

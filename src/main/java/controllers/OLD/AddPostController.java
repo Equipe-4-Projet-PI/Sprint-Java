@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import services.ServicePost;
+import services.ServicePostF;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,7 +34,7 @@ public class AddPostController {
 
 
     //SERVICE POST
-    ServicePost sp = new ServicePost();
+    ServicePostF sp = new ServicePostF();
 
     public void setData(ForumEntity forumEntity)
     {

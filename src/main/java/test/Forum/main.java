@@ -1,25 +1,23 @@
-package test;
-import java.security.Provider;
+package test.Forum;
 import java.sql.*;
 
-import services.ServicePost;
-import services.ServiceUser;
-import utils.MyDB;
-import entities.PostEntity;
+import services.ServicePostF;
+import services.ServiceUserF;
+import utils.MyDBF;
 import entities.ForumEntity;
 //import services.ServicePost;
-import services.ServiceForum;
+import services.ServiceForumF;
 
 public class main {
     public static void main(String[] args) {
         //Connect to Database
-        MyDB conn1 = MyDB.getInstance();
+        MyDBF conn1 = MyDBF.getInstance();
         /*===================ForumEntities======================*/
         ForumEntity f1 = new ForumEntity("Abstract Art","Isnt it Beautiful?");
         ForumEntity f2 = new ForumEntity("Surrealisme is weird","Just for Testing");
         ForumEntity f3 = new ForumEntity(3, "Digital Art is Beautiful","I would like to know more about your opinions",5);
         /*===================ForumService=======================*/
-        ServiceForum forumService = new ServiceForum();
+        ServiceForumF forumService = new ServiceForumF();
 //        //----------------Add Test----------------------
 //        try {
 //            forumService.ajouter(f1);
@@ -55,7 +53,7 @@ public class main {
 //        }
 
         /*================POST SERVICE====================*/
-        ServicePost postService = new ServicePost();
+        ServicePostF postService = new ServicePostF();
         /*================POST Entities====================*/
 //        PostEntity p1 = new PostEntity(1,1,"it is interesting");
 //        PostEntity p2 = new PostEntity(2,1,"It really is");
@@ -95,7 +93,7 @@ public class main {
 //        }
 
         /*================USER SERVICE====================*/
-        ServiceUser SU = new ServiceUser();
+        ServiceUserF SU = new ServiceUserF();
         try {
             System.out.println(SU.getbyid(2));
         } catch (SQLException e) {

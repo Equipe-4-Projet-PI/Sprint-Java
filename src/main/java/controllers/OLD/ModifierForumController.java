@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import services.ServiceForum;
+import services.ServiceForumF;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,7 +30,7 @@ public class ModifierForumController {
         this.f_title_mod.setText(forum.getTitle());
         this.oldForum = forum;
     }
-    ServiceForum SF = new ServiceForum();
+    ServiceForumF SF = new ServiceForumF();
     @FXML
     void SaveNewDate(ActionEvent event) {
         try {

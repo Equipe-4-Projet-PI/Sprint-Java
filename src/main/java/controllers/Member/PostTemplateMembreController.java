@@ -7,9 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import services.ServiceForum;
-import services.ServicePost;
-import services.ServiceUser;
+import services.ServiceForumF;
+import services.ServicePostF;
+import services.ServiceUserF;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,8 +34,8 @@ public class PostTemplateMembreController {
     private  int likes;
 
     private PostEntity post;
-    ServiceUser SU = new ServiceUser();
-    ServiceForum SF = new ServiceForum();
+    ServiceUserF SU = new ServiceUserF();
+    ServiceForumF SF = new ServiceForumF();
     public void setData(PostEntity postEntity)
     {
         title_label_id.setText(postEntity.getTitle());
@@ -54,7 +54,7 @@ public class PostTemplateMembreController {
     @FXML
     void LikeAction(ActionEvent event) throws SQLException {
         likes = post.getLike_num() + 1;
-        ServicePost sp = new ServicePost();
+        ServicePostF sp = new ServicePostF();
         PostEntity newPost = new PostEntity(post.getId_post(),post.getId_forum(),post.getId_user(),post.getTitle(),post.getText(),likes,post.getTime(),post.getDate());
         sp.modifier(newPost);
         Like_num_id.setText(""+post.getLike_num());

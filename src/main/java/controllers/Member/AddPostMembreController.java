@@ -12,15 +12,26 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import services.ServicePost;
-import services.ServiceUser;
+import services.ServicePostF;
+import services.ServiceUserF;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+
+//PDF STUFF
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.BaseColor;
 
 public class AddPostMembreController {
 
@@ -36,8 +47,8 @@ public class AddPostMembreController {
     private ForumEntity current_forum;
 
     //SERVICE POST
-    ServicePost sp = new ServicePost();
-    ServiceUser su = new ServiceUser();
+    ServicePostF sp = new ServicePostF();
+    ServiceUserF su = new ServiceUserF();
 
     public void setData(ForumEntity forumEntity)
     {
@@ -68,6 +79,8 @@ public class AddPostMembreController {
                     .filter(e -> e.getId_forum() == current_forum.getId_forum())
                     .collect(Collectors.toList());
 
+            //FILL THE LIST TO PRINT IF WANT TO PRINT
+            ToPrintList = filteredList;
             // Load and display filtered data
             for (PostEntity f : filteredList) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Member/PostTemplateMembre.fxml"));
@@ -196,9 +209,6 @@ public class AddPostMembreController {
             Comparator<PostEntity> comparator = null;
 
             switch (c) {
-                case "id":
-                    comparator = Comparator.comparingInt(PostEntity::getId_post);
-                    break;
                 case "title":
                     comparator = Comparator.comparing(PostEntity::getTitle);
                     break;
@@ -222,6 +232,9 @@ public class AddPostMembreController {
 
             // Clear Dat VBox Mah Man
             id_vbox_posts.getChildren().clear();
+
+            //FILL THE LIST TO PRINT IF WANT TO PRINT
+            ToPrintList = filteredList;
             // Load and display filtered data
             for (PostEntity f : filteredList) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Member/PostTemplateMembre.fxml"));
@@ -239,6 +252,59 @@ public class AddPostMembreController {
 
     @FXML
     private ChoiceBox<String> box;
-    private String[] choices = {"Id","Title","Oldest to Newest","Newest to oldest","Likes"};
+    private String[] choices = {"Title","Oldest to Newest","Newest to oldest","Likes"};
+
+    //PRINTING LOGIC
+    @FXML
+    private Button PrintPDF_butt;
+    List<PostEntity> ToPrintList = new ArrayList<>();
+    @FXML
+    void PrintPDF(ActionEvent event) {
+        if(ToPrintList != null)
+        {
+            Document document = new Document();
+            document.setPageSize(PageSize.A4);
+
+            Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 21, Font.BOLD, BaseColor.BLACK);
+            Font textFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK);
+
+            Paragraph Ftitle = new Paragraph(this.forum_name_id.getText(), titleFont);
+            Ftitle.setAlignment(Paragraph.ALIGN_CENTER);
+
+            try {
+                PdfWriter.getInstance(document, new FileOutputStream("output.pdf"));
+                document.open();
+                document.add(Ftitle);
+                for(PostEntity p : ToPrintList)
+                {
+
+                    Paragraph title = new Paragraph(p.getTitle(), titleFont);
+                    title.setAlignment(Paragraph.ALIGN_LEFT);
+                    document.add(title);
+
+                    Paragraph user = new Paragraph(su.getbyid(p.getId_user()).getUsername(), titleFont);
+                    user.setAlignment(Paragraph.ALIGN_LEFT);
+                    document.add(user);
+
+                    Paragraph timestamp = new Paragraph(p.getTime().toString(), textFont);
+                    timestamp.setAlignment(Paragraph.ALIGN_RIGHT);
+                    document.add(timestamp);
+
+                    Paragraph postText = new Paragraph(p.getText(), textFont);
+                    postText.setAlignment(Paragraph.ALIGN_LEFT);
+                    document.add(postText);
+
+                    Paragraph likeNum = new Paragraph(""+p.getLike_num(), textFont);
+                    likeNum.setAlignment(Paragraph.ALIGN_RIGHT);
+                    document.add(likeNum);
+                }
+
+                document.close();
+                System.out.println("PDF created successfully.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

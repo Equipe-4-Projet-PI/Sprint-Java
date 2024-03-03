@@ -3,16 +3,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MyDB {
+public class MyDBF {
     public final String URL = "jdbc:mysql://localhost:3306/testbase";
     public final String USERNAME = "root";
     public final String PWD = "";
 
-    public static MyDB instance;
+    public static MyDBF instance;
 
     private Connection connection;
 
-    private MyDB() {
+    private MyDBF() {
 
         try {
             connection = DriverManager.getConnection(URL,USERNAME,PWD);
@@ -21,9 +21,9 @@ public class MyDB {
             System.out.println(e.getMessage());
         }
     }
-    public static MyDB getInstance(){
+    public static MyDBF getInstance(){
         if(instance==null){
-            instance = new MyDB();
+            instance = new MyDBF();
         }
         return instance;
 

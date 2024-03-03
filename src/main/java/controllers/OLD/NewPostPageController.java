@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import services.ServicePost;
+import services.ServicePostF;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,7 +34,7 @@ public class NewPostPageController {
     @FXML
     void AjouterPoste(ActionEvent event) {
         try {
-            ServicePost sp=new ServicePost();
+            ServicePostF sp=new ServicePostF();
             sp.ajouter(new PostEntity(forum.getId_forum(),1,post_title.getText(),post_desc.getText()));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");

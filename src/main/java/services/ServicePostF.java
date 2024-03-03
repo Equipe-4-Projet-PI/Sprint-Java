@@ -1,19 +1,17 @@
 package services;
 
 import entities.PostEntity;
-import entities.UserEntity;
-import javafx.scene.control.Label;
-import utils.MyDB;
+import utils.MyDBF;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServicePost implements IService<PostEntity>{
+public class ServicePostF implements IServiceF<PostEntity> {
     private Connection con;
 
-    public ServicePost(){
-        con = MyDB.getInstance().getConnection();
+    public ServicePostF(){
+        con = MyDBF.getInstance().getConnection();
     }
     @Override
     public void ajouter(PostEntity postEntity) throws SQLException {

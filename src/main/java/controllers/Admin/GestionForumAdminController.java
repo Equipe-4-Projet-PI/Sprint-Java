@@ -12,7 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import services.ServiceForum;
+import services.ServiceForumF;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class GestionForumAdminController {
     @FXML
     private TableColumn<ForumEntity, String> title_id;
 
-    ServiceForum SF = new ServiceForum();
+    ServiceForumF SF = new ServiceForumF();
     @FXML
     void initialize()
     {

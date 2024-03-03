@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
-import services.ServiceForum;
+import services.ServiceForumF;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -33,7 +33,7 @@ public class ForumTemplateController {
     private Button del_butt;
 
     private ForumEntity fdetest;
-    private ServiceForum SF = new ServiceForum();
+    private ServiceForumF SF = new ServiceForumF();
 
     public void setData(ForumEntity forum) {
         this.title_id.setText(forum.getTitle());

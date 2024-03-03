@@ -15,19 +15,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import services.ServiceForum;
-import services.ServicePost;
-import services.ServiceUser;
+import services.ServiceForumF;
+import services.ServicePostF;
+import services.ServiceUserF;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.ChoiceBox;
 
 
 public class GestionPostsTableAdminController {
@@ -72,9 +70,9 @@ public class GestionPostsTableAdminController {
 
 
     private ForumEntity forum;
-    ServiceForum SF = new ServiceForum();
-    ServiceUser SU = new ServiceUser();
-    ServicePost SP = new ServicePost();
+    ServiceForumF SF = new ServiceForumF();
+    ServiceUserF SU = new ServiceUserF();
+    ServicePostF SP = new ServicePostF();
 
 
 

@@ -1,16 +1,15 @@
 package services;
 import entities.ForumEntity;
-import entities.UserEntity;
-import utils.MyDB;
+import utils.MyDBF;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-public class ServiceForum implements IService<ForumEntity>{
+public class ServiceForumF implements IServiceF<ForumEntity> {
     private Connection con;
 
-    public ServiceForum(){
-        con = MyDB.getInstance().getConnection();
+    public ServiceForumF(){
+        con = MyDBF.getInstance().getConnection();
     }
 
     @Override

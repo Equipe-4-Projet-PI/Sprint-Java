@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import services.ServiceForum;
+import services.ServiceForumF;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,7 +17,7 @@ public class EditForumAdminController {
     @FXML
     private TextField desc_text_field;
 
-    ServiceForum SF = new ServiceForum();
+    ServiceForumF SF = new ServiceForumF();
 
     @FXML
     private TextField title_text_field;

@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import services.ServiceForum;
+import services.ServiceForumF;
 
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class AfficherForumController {
 
-    ServiceForum SF = new ServiceForum();
+    ServiceForumF SF = new ServiceForumF();
     @FXML
     private Button searchButt_id;
 

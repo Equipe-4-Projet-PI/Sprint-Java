@@ -1,18 +1,17 @@
 package services;
 
-import entities.PostEntity;
 import entities.UserEntity;
-import utils.MyDB;
+import utils.MyDBF;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceUser implements IService<UserEntity>{
+public class ServiceUserF implements IServiceF<UserEntity> {
     private Connection con;
 
-    public ServiceUser(){
-        con = MyDB.getInstance().getConnection();
+    public ServiceUserF(){
+        con = MyDBF.getInstance().getConnection();
     }
     @Override
     public void ajouter(UserEntity  userEntity) throws SQLException {

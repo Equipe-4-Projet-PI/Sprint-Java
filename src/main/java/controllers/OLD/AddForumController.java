@@ -7,14 +7,14 @@ package controllers.OLD;
         import javafx.scene.Parent;
         import javafx.scene.control.Alert;
         import javafx.scene.control.TextField;
-        import services.ServiceForum;
+        import services.ServiceForumF;
 
         import java.io.IOException;
         import java.sql.SQLException;
 
 public class AddForumController {
 
-    ServiceForum SF = new ServiceForum();
+    ServiceForumF SF = new ServiceForumF();
     @FXML
     private TextField f_desc;
 

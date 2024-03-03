@@ -3,14 +3,12 @@ package controllers.OLD;
 import entities.PostEntity;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import services.ServicePost;
-import services.ServiceUser;
+import services.ServicePostF;
+import services.ServiceUserF;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 
@@ -33,7 +31,7 @@ public class PostTemplateController {
 
     private PostEntity post;
 
-    ServiceUser SU = new ServiceUser();
+    ServiceUserF SU = new ServiceUserF();
     public void setData(PostEntity postEntity)
     {
         title_label_id.setText(postEntity.getTitle());
@@ -52,7 +50,7 @@ public class PostTemplateController {
     @FXML
     void LikeAction(ActionEvent event) throws SQLException {
         int likes = post.getLike_num() + 1;
-        ServicePost sp = new ServicePost();
+        ServicePostF sp = new ServicePostF();
         PostEntity newPost = new PostEntity(post.getId_post(),post.getId_forum(),post.getId_user(),post.getTitle(),post.getText(),likes,post.getTime(),post.getDate());
         sp.modifier(newPost);
         reloadPage();
