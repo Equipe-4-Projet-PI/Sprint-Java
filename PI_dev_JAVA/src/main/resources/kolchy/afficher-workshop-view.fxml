@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,14 +10,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchore" prefHeight="508.0" prefWidth="883.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kolchy.controller.AfficherWorkshopView">
+<AnchorPane fx:id="anchore" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kolchy.controller.AfficherWorkshopView">
     <children>
-        <ImageView fitHeight="508.0" fitWidth="887.0" opacity="0.61">
+        <ImageView fitHeight="630.0" fitWidth="1280.0" layoutY="90.0" opacity="0.61">
             <image>
                 <Image url="@bg8.png" />
             </image>
         </ImageView>
-        <ScrollPane fx:id="initialize" layoutX="116.0" layoutY="10.0" prefHeight="488.0" prefWidth="678.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: white; -fx-border-radius: 25; -fx-border-width: 3;">
+        <ScrollPane fx:id="initialize" layoutX="114.0" layoutY="174.0" prefHeight="488.0" prefWidth="678.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: white; -fx-border-radius: 25; -fx-border-width: 3;">
             <content>
                 <GridPane fx:id="grid">
                     <rowConstraints>
@@ -25,10 +26,11 @@
                 </GridPane>
             </content>
         </ScrollPane>
-      <Button layoutX="31.0" layoutY="30.0" mnemonicParsing="false" onAction="#gotoEvent" opacity="0.92" style="-fx-background-color: #0076A8; -fx-background-radius: 50;" text="events" textFill="WHITE">
+      <Button layoutX="24.0" layoutY="132.0" mnemonicParsing="false" onAction="#gotoEvent" opacity="0.92" style="-fx-background-color: #0076A8; -fx-background-radius: 50;" text="events" textFill="WHITE">
          <font>
             <Font name="Perpetua Bold" size="17.0" />
          </font>
       </Button>
+      <TextField fx:id="tfrecherche" layoutX="192.0" layoutY="107.0" promptText="rechercher" />
     </children>
 </AnchorPane>

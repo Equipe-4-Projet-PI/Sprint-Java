@@ -13,7 +13,7 @@ public class MainFX extends Application {
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(MainFX.class.getResource("ajouter-event-view.fxml"));
-      //  FXMLLoader fxmlLoader = new FXMLLoader(MainFX.class.getResource("afficher-event-view.fxml"));
+     //   FXMLLoader fxmlLoader = new FXMLLoader(MainFX.class.getResource("afficher-event-view.fxml"));
 
         /*  try{
             Parent root = Loader.load();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,7 +10,7 @@
 
 <AnchorPane fx:id="anchore" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kolchy.controller.AfficherEventView">
 <children>
-      <ImageView fitHeight="650.0" fitWidth="1280.0" layoutX="1.0" layoutY="120.0" opacity="0.61">
+      <ImageView fitHeight="685.0" fitWidth="1280.0" layoutX="1.0" layoutY="85.0" opacity="0.61">
          <image>
             <Image url="@bg8.png" />
          </image>
@@ -23,5 +24,6 @@
             </GridPane>
         </content>
     </ScrollPane>
+      <TextField fx:id="tfrecherche" layoutX="196.0" layoutY="107.0" prefHeight="25.0" prefWidth="213.0" promptText="Rechercher" />
 </children>
 </AnchorPane>

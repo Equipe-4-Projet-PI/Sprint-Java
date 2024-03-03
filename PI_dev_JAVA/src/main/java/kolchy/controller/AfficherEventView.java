@@ -1,5 +1,8 @@
 package kolchy.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,16 +41,17 @@ public class AfficherEventView implements EventChangeListener<Event> {
     private TextField tfimage;
     ServiceEvent serviceEvent=new ServiceEvent();
     int idModifier=0;
+    @FXML
+    private TextField tfrecherche;
 
 
     @FXML
     public void initialize(){
-        refresh();
 
+        recherche_avance();
     }
-    public void refresh(){
+    public void refresh(List<Event> events){
         grid.getChildren().clear();
-        List<Event> events=serviceEvent.afficher();
         int column=0;
         int row=1;
         for(int i=0;i<events.size();i++){
@@ -58,7 +62,7 @@ public class AfficherEventView implements EventChangeListener<Event> {
                 AfficherOneEventView item=card.getController();
                 item.remplireData(events.get(i));
                 item.setEventChangeListener(this);
-                if(column==2){
+                if(column==3){
                     column=0;
                     row++;
                 }
@@ -82,7 +86,7 @@ public class AfficherEventView implements EventChangeListener<Event> {
         e.setTicket_Price(Double.parseDouble(tfprix.getText()));
         e.setE_Date(Date.valueOf(dpdate.getValue()));
         serviceEvent.ajouter(e);
-        refresh();
+        refresh(serviceEvent.afficher());
     }
     @FXML
     void uploadImage(ActionEvent event) {
@@ -99,14 +103,14 @@ public class AfficherEventView implements EventChangeListener<Event> {
             e.setTicket_Price(Double.parseDouble(tfprix.getText()));
             e.setE_Date(Date.valueOf(dpdate.getValue()));
             serviceEvent.modifier(e);
-            refresh();
+            refresh(serviceEvent.afficher());
         }
 
     }
 
     @Override
     public void onSupprimerClicked() {
-        refresh();
+        refresh(serviceEvent.afficher());
     }
 
     @Override
@@ -119,6 +123,34 @@ public class AfficherEventView implements EventChangeListener<Event> {
 
         LocalDate localDate=e.getE_Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         dpdate.setValue(localDate);
+    }
+    public void recherche_avance(){
+        refresh(serviceEvent.afficher());
+        ObservableList<Event> events= FXCollections.observableArrayList(serviceEvent.afficher());
+        FilteredList<Event> filteredList=new FilteredList<>(events,e->true);
+        tfrecherche.textProperty().addListener(((observableValue, oldValue, newValue) ->{
+            filteredList.setPredicate(
+                    e->{
+                        if(newValue==null || newValue.isEmpty()){
+                            return true;
+                        }
+                        if(e.getPlace().toLowerCase().contains(newValue.toLowerCase())){
+                            return true;
+                        } else if (e.getE_Name().toLowerCase().contains(newValue.toLowerCase())) {
+                            return true;
+                        }else if (String.valueOf(e.getTicket_Price()).contains(newValue.toLowerCase())) {
+                            return true;
+                        }
+                        else if (String.valueOf(e.getE_Date()).contains(newValue.toLowerCase())) {
+                            return true;
+                        }
+                        else{
+                            return false;
+                        }
+                    }
+            );
+            refresh(filteredList);
+        } ));
     }
 
 }
