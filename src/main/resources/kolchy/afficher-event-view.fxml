@@ -12,7 +12,7 @@
 <children>
       <ImageView fitHeight="685.0" fitWidth="1280.0" layoutX="1.0" layoutY="85.0" opacity="0.61">
          <image>
-            <Image url="@bg8.png" />
+            <Image url="@../images/bg8.png" />
          </image>
       </ImageView>
     <ScrollPane fx:id="initialize" layoutX="107.0" layoutY="149.0" prefHeight="593.0" prefWidth="1044.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: white; -fx-border-radius: 25; -fx-border-width: 3;">

@@ -13,14 +13,14 @@
     <children>
         <ImageView fitHeight="328.0" fitWidth="262.0" layoutX="19.0" layoutY="136.0" opacity="0.47">
             <image>
-                <Image url="@bg7.png" />
+                <Image url="@../images/bg7.png" />
             </image>
         </ImageView>
         <Pane layoutX="19.0" layoutY="14.0" prefHeight="264.0" prefWidth="262.0">
             <children>
                 <ImageView fitHeight="213.0" fitWidth="395.0" layoutX="-74.0" layoutY="17.0">
                     <image>
-                        <Image url="@kwatrou.png" />
+                        <Image url="@../images/kwatrou.png" />
                     </image>
                 </ImageView>
             </children>

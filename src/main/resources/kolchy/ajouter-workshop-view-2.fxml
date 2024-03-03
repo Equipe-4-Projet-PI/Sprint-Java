@@ -16,7 +16,7 @@
     <children>
         <ImageView fitHeight="372.0" fitWidth="641.0" layoutX="-3.0" layoutY="75.0" opacity="0.53">
             <image>
-                <Image url="@bg_nawar.png" />
+                <Image url="@../images/bg_nawar.png" />
             </image>
         </ImageView>
         <Pane layoutX="33.0" layoutY="132.0" opacity="0.91" prefHeight="263.0" prefWidth="572.0" style="-fx-background-radius: 25; -fx-border-radius: 25; -fx-border-width: 3; -fx-background-color: #00355B;">
@@ -26,7 +26,7 @@
             <children>
                 <ImageView fitHeight="281.0" fitWidth="583.0" layoutX="-11.0" layoutY="-6.0">
                     <image>
-                        <Image url="@bg_m9awsa.png" />
+                        <Image url="@../images/bg_m9awsa.png" />
                     </image>
                 </ImageView>
                 <Pane layoutX="-33.0" layoutY="14.0" prefHeight="60.0" prefWidth="638.0" style="-fx-background-color: white;">
@@ -59,12 +59,12 @@
                 <TextField fx:id="tftitre" layoutX="18.0" layoutY="85.0" prefHeight="25.0" prefWidth="136.0" promptText="Titre" style="-fx-background-radius: 15;" />
                 <ImageView fitHeight="447.0" fitWidth="812.0" layoutX="92.0" layoutY="-84.0">
                     <image>
-                        <Image url="@temthel.png" />
+                        <Image url="@../images/temthel.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="60.0" fitWidth="80.0" layoutX="-28.0" layoutY="226.0" rotate="21.5">
                     <image>
-                        <Image url="@faracha_melyena.png" />
+                        <Image url="@../images/faracha_melyena.png" />
                     </image>
                 </ImageView>
             </children>
