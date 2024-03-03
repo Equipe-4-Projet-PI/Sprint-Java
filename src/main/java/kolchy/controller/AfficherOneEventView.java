@@ -1,4 +1,5 @@
 package kolchy.controller;
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +36,7 @@ public class AfficherOneEventView {
     private Label ldate;
     @FXML
     private ImageView imgqr;
+    String username;
     Event e;
     ServiceEvent se=new ServiceEvent();
     ServiceWorkshop sw=new ServiceWorkshop();
@@ -46,6 +48,9 @@ public class AfficherOneEventView {
     }
 
     public void remplireData(Event e){
+
+
+
         this.e=e;
         lnom.setText(e.getE_Name());
         lplace.setText(e.getPlace());
@@ -125,23 +130,40 @@ public class AfficherOneEventView {
 
     }
     @FXML
-    void gotoWorkshop2(ActionEvent event) {
-        Stage stage=(Stage) lnom.getScene().getWindow();
-        stage.close();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainFX.class.getResource("afficher-workshop-view.fxml"));
+    void gotoWorkshop2(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/kolchy/afficher-workshop-view.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = lnom.getScene();
+        scene.setRoot(loginSuccessRoot);
+        AfficherWorkshopView afficherWorkshopView = loader.getController();
+        afficherWorkshopView.initEventId(e.getId_Event(),username);
 
 
-            Parent root = fxmlLoader.load();
-            AfficherWorkshopView controller=fxmlLoader.getController();
-            controller.initEventId(e.getId_Event());
-            Stage newStage=new Stage();
-            newStage.setTitle("workshops");
-            newStage.setScene(new Scene(root));
-            newStage.show();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+
+
+
+
+
+
+
+//        Stage stage=(Stage) lnom.getScene().getWindow();
+//        stage.close();
+
+
+//        try {
+//            FXMLLoader fxmlLoader = new FXMLLoader(MainFX.class.getResource("afficher-workshop-view.fxml"));
+//
+//            Parent root = fxmlLoader.load();
+//            AfficherWorkshopView controller=fxmlLoader.getController();
+//            controller.initEventId(e.getId_Event());
+//            Stage newStage=new Stage();
+//            newStage.setTitle("workshops");
+//            newStage.setScene(new Scene(root));
+//            newStage.show();
+//        } catch (IOException ex) {
+//            throw new RuntimeException(ex);
+//        }
 
 
     }

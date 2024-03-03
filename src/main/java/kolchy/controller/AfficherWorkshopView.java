@@ -1,14 +1,15 @@
 package kolchy.controller;
 
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -23,6 +24,15 @@ import java.io.IOException;
 import java.util.List;
 
 public class AfficherWorkshopView implements EventChangeListener<Workshop> {
+
+    public ImageView usericon;
+    public Button inscrire;
+    public ImageView bell;
+    public ImageView logouticon;
+    public Label nav_name;
+    @FXML
+    private AnchorPane anchore;
+    int userid;
     @FXML
     private TextField tftitre;
 
@@ -31,21 +41,25 @@ public class AfficherWorkshopView implements EventChangeListener<Workshop> {
 
     @FXML
     private TextField tfimage;
-
+    private User userlogged;
     @FXML
     private ComboBox<String> cbevenement;
     ServiceEvent serviceEvent=new ServiceEvent();
     ServiceWorkshop sw=new ServiceWorkshop();
-    @FXML
-    private AnchorPane anchore;
+
+
     @FXML
     private GridPane grid;
+    String user;
 
     int idModifier=0;
     private int idEvent;
-    public void initEventId(int idEvent){
+    public void initEventId(int idEvent,String username){
         this.idEvent=idEvent;
         refresh();
+        user = username;
+        System.out.println(username);
+
     }
     @FXML
     public void initialize(){
@@ -154,6 +168,33 @@ public class AfficherWorkshopView implements EventChangeListener<Workshop> {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public void sinscrire(ActionEvent actionEvent) {
+    }
+
+    public void Logout(MouseEvent mouseEvent) {
+    }
+
+    public void ProfileVisit(MouseEvent mouseEvent) {
+    }
+
+    public void Go_To_Event(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Message(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Forum(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Auction(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Product(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Home(ActionEvent actionEvent) {
     }
 /* @FXML
  void gotoEvent(ActionEvent event){

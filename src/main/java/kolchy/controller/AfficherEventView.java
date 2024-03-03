@@ -1,5 +1,6 @@
 package kolchy.controller;
 
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -7,8 +8,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import kolchy.MainFX;
@@ -24,9 +29,14 @@ import java.util.List;
 
 public class AfficherEventView implements EventChangeListener<Event> {
 
+    public ImageView usericon;
+    public Button inscrire;
+    public ImageView bell;
+    public ImageView logouticon;
+    public Label nav_name;
     @FXML
     private AnchorPane anchore;
-
+      int userid;
     @FXML
     private GridPane grid;
     @FXML
@@ -39,6 +49,7 @@ public class AfficherEventView implements EventChangeListener<Event> {
     private TextField tfprix;
     @FXML
     private TextField tfimage;
+    private User userlogged;
     ServiceEvent serviceEvent=new ServiceEvent();
     int idModifier=0;
     @FXML
@@ -47,9 +58,13 @@ public class AfficherEventView implements EventChangeListener<Event> {
 
     @FXML
     public void initialize(){
+        System.out.println("user fil event");
+        System.out.println(userlogged);
 
         recherche_avance();
     }
+
+
     public void refresh(List<Event> events){
         grid.getChildren().clear();
         int column=0;
@@ -58,6 +73,7 @@ public class AfficherEventView implements EventChangeListener<Event> {
 
             FXMLLoader card = new FXMLLoader(MainFX.class.getResource("afficher-one-event-view-2.fxml"));
             try {
+
                 AnchorPane anchorPane=card.load();
                 AfficherOneEventView item=card.getController();
                 item.remplireData(events.get(i));
@@ -153,4 +169,67 @@ public class AfficherEventView implements EventChangeListener<Event> {
         } ));
     }
 
+    public void initData(User user) {
+        if(user == null || user.getId_User()==2){
+            inscrire.setVisible(true);
+            bell.setVisible(false);
+            usericon.setVisible(false);
+            logouticon.setVisible(false);
+            System.out.println("el user mafamech");
+            userlogged = null ;
+        }
+        else {
+
+            userid = user.getId_User();
+            nav_name.setText(user.getUsername());
+            inscrire.setVisible(false);
+            bell.setVisible(true);
+            usericon.setVisible(true);
+            logouticon.setVisible(true);
+
+            userlogged = new User();
+            userlogged.setGender(user.getGender());
+            userlogged.setDOB(user.getDOB());
+            userlogged.setPhone(user.getPhone());
+            userlogged.setAdress(user.getAdress());
+            userlogged.setUsername(user.getUsername());
+            userlogged.setEmail(user.getEmail());
+            userlogged.setFirstName(user.getFirstName());
+            userlogged.setPassword(user.getPassword());
+            userlogged.setLastName(user.getLastName());
+            userlogged.setId_User(user.getId_User());
+            userlogged.setRole(user.getRole());
+            userlogged.setImageURL(user.getImageURL());
+
+        }
+
+
+    }
+
+    public void Logout(MouseEvent mouseEvent) {
+    }
+
+    public void sinscrire(ActionEvent actionEvent) {
+    }
+
+    public void ProfileVisit(MouseEvent mouseEvent) {
+    }
+
+    public void Go_To_Message(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Event(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Forum(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Auction(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Product(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Home(ActionEvent actionEvent) {
+    }
 }

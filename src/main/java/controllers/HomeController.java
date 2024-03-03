@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import kolchy.controller.AfficherEventView;
 import services.ServiceUser;
 
 import java.io.IOException;
@@ -68,7 +69,18 @@ public class HomeController {
 
     }
 
-    public void Go_To_Event(ActionEvent actionEvent) {
+    public void Go_To_Event(ActionEvent actionEvent) throws IOException {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/kolchy/afficher-event-view.fxml"));
+            Parent loginSuccessRoot = loader.load();
+            Scene scene = nav_name.getScene();
+            scene.setRoot(loginSuccessRoot);
+        AfficherEventView afficherEventView = loader.getController();
+        afficherEventView.initData(userlogged);
+
+
+
+
     }
 
     public void Go_To_Message(ActionEvent actionEvent) {
