@@ -1,5 +1,6 @@
 package controllers;
 
+import Services.RatingService;
 import Services.ServiceAuction;
 import Services.ServiceParticipant;
 import com.google.protobuf.StringValue;
@@ -22,6 +23,13 @@ import java.util.concurrent.TimeUnit;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.geometry.Pos;
+import javafx.scene.layout.StackPane;
+
+
 
 
 
@@ -97,6 +105,9 @@ public class EncherDetailController{
     @FXML
     private ImageView photoTimer;
     private ScheduledExecutorService scheduler;
+
+    @FXML
+    private VBox ratingBox;
 
 
 
@@ -259,7 +270,44 @@ public class EncherDetailController{
             throw new RuntimeException(e);
         }
 
+
     }
+
+    private VBox createRatingInterface() {
+        VBox ratingBox = new VBox(10);
+        ratingBox.setAlignment(Pos.CENTER);
+
+        Label ratingLabel = new Label("Rating: 0");
+        Slider ratingSlider = new Slider(0, 5, 0);
+
+        Button submitButton = new Button("Submit Rating");
+        submitButton.setOnAction(event -> {
+            int rating = (int) ratingSlider.getValue();
+            ratingLabel.setText("Rating: " + rating);
+            RatingService.submitRating(rating);
+
+            // Optionally, you can remove the ratingBox after submitting the rating
+            hboxFX.getChildren().remove(ratingBox);
+        });
+
+        ratingBox.getChildren().addAll(ratingLabel, ratingSlider, submitButton);
+
+        return ratingBox;
+    }
+
+    @FXML
+    private void getVBox(ActionEvent event) {
+        VBox ratingBox = createRatingInterface();
+        Stage ratingStage = new Stage();
+        ratingStage.setTitle("Rating Window");
+
+        Scene ratingScene = new Scene(ratingBox, 250, 200);
+
+        ratingStage.setScene(ratingScene);
+
+        ratingStage.show();
+    }
+
 
     private void showSuccessAlert(String message) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

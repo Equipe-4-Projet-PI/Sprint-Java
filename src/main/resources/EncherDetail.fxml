@@ -210,6 +210,12 @@
             <Image url="@images/time-and-calendar.png" />
          </image>
       </ImageView>
+      <VBox fx:id="ratingBox" layoutX="527.0" layoutY="271.0" prefHeight="200.0" prefWidth="276.0" />
+      <Button layoutX="604.0" layoutY="560.0" mnemonicParsing="false" onAction="#getVBox" prefHeight="36.0" prefWidth="147.0" style="-fx-background-color: #C4E5F2;" text="Donner un Raing">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="13.0" />
+         </font>
+      </Button>
 
 
 

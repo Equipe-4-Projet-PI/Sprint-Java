@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3d221d32-f33c-456f-9e39-957fb388d4d4" name="Changes" comment="version 1">
       <change afterPath="$PROJECT_DIR$/.idea/cssdialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Services/RatingService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ArtistEnchersController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/AuctionEvent.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EncherArtistController.java" afterDir="false" />
@@ -106,6 +107,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="Services" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\DELL\IdeaProjects\workshop_jdbc\src\main\resources\images" />
       <recent name="C:\Users\DELL\IdeaProjects\workshop_jdbc\src\main\resources" />
@@ -223,7 +227,7 @@
       <workItem from="1709407195457" duration="16469000" />
       <workItem from="1709451615629" duration="3141000" />
       <workItem from="1709484452392" duration="1795000" />
-      <workItem from="1709494711589" duration="5919000" />
+      <workItem from="1709494711589" duration="9692000" />
     </task>
     <task id="LOCAL-00001" summary="version 1">
       <option name="closed" value="true" />
@@ -283,7 +287,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
-          <line>289</line>
+          <line>339</line>
           <properties class="controllers.EncherDetailController" method="loadImageFromDatabase">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -292,7 +296,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
-          <line>296</line>
+          <line>346</line>
           <properties class="controllers.EncherDetailController" method="countPartcipant">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -310,12 +314,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
-          <line>150</line>
+          <line>161</line>
           <properties class="controllers.EncherDetailController" method="initData">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
+          <line>199</line>
+          <properties class="controllers.EncherDetailController" method="startTimer">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
