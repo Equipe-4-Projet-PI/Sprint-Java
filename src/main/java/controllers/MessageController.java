@@ -51,11 +51,12 @@ public class MessageController {
 
         String content = serviceMessage.getContentById(message.getIdMsg()).getContent();
         String heure = serviceMessage.getContentById(message.getIdMsg()).getTime().toString() ;
+        String reaction = serviceMessage.getContentById(message.getIdMsg()).getReaction();
 
 //        System.out.println(content);
 //        System.out.println(heure);
 
-        time.setText(heure);
+//        time.setText(heure);
         messagee.setText(content);
     }
 
@@ -75,7 +76,7 @@ public class MessageController {
             stage.setTitle("Sélectionner un Emoji");
 
             // Passer le contrôleur principal et l'étiquette de message à la fenêtre de sélection d'emoji
-            controller.initData(messageLabel);
+            controller.initData(curr_message);
 
             // Afficher la fenêtre de sélection d'emoji
             stage.show();

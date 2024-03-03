@@ -1,5 +1,6 @@
 package controllers ;
 
+import entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +36,7 @@ public class EmojiMessengerController {
             stage.setTitle("Sélectionner un Emoji");
 
             // Passer le contrôleur principal et l'étiquette de message à la fenêtre de sélection d'emoji
-            controller.initData(messageLabel);
+            controller.initData(new Message());
 
             // Afficher la fenêtre de sélection d'emoji
             stage.show();

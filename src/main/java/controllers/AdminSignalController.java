@@ -32,6 +32,10 @@ public class AdminSignalController {
     @FXML
     @SuppressWarnings("unchecked") // Supprime le warning relatif à la conversion en TableView<Disscussion>
     public void initialize() {
+        Signal();
+    }
+
+    public void  Signal(){
         try {
             ObservableList<Disscussion> observableList = FXCollections.observableList(serviceDisscussion.afficherSig());
             tableSignal.setItems(observableList);

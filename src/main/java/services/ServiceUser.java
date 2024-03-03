@@ -231,5 +231,64 @@ public class ServiceUser implements IService<User> {
         }
         return f;
     }
+
+    public int CountUsers() throws SQLException {
+        String UserReq = "SELECT COUNT(*) FROM User";
+        try (PreparedStatement pre = conn.prepareStatement(UserReq)) {
+            try (ResultSet resultSet = pre.executeQuery()) {
+                if (resultSet.next()) {
+                    int total = resultSet.getInt(1);
+                    return total;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error counting users: " + e.getMessage());
+            // Optionally, you may throw an exception or return a default value here
+        }
+        return 0; // Return 0 if an error occurs
+    }
+
+    public List<User> DISPLAY() throws SQLException {
+        List<User> users = new ArrayList<>();
+        String artistReq = "SELECT User.Id_User, User.Username, User.Email, User.Password, User.Role, User.FirstName, User.Lastname, User.Adress ,User.Phone ,User.Gender , User.DOB , User.ImageURL " +
+                "FROM User";
+        try (PreparedStatement UserStmt = conn.prepareStatement(artistReq)) {
+            ResultSet res = UserStmt.executeQuery();
+            while (res.next()) {
+                User user = new User();
+                user.setId_User(res.getInt(1));
+                user.setUsername(res.getString(2));
+                user.setEmail(res.getString(3));
+                user.setPassword(res.getString(4));
+                user.setRole(res.getString(5));
+                user.setFirstName(res.getString(6));
+                user.setLastName(res.getString(7));
+                user.setAdress(res.getString(8));
+                user.setPhone(res.getInt(9));
+                user.setGender(res.getString(10));
+                user.setDOB(res.getString(11));
+                user.setImageURL(res.getString(12));
+
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving artists: " + e.getMessage());
+        }
+        return users;
+
+    }
+
+    public void DELETEUser(int idUser) throws SQLException {
+        String UserReq = "DELETE FROM User WHERE Id_User  = ?";
+        try (PreparedStatement pre = conn.prepareStatement(UserReq)) {
+            pre.setInt(1, idUser);
+            pre.executeUpdate();
+
+        }
+        catch (SQLException e) {
+            System.out.println("Error deleting artist: " + e.getMessage());
+        }
+    }
+
 }
 

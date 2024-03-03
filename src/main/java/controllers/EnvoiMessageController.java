@@ -36,14 +36,6 @@ import java.util.ResourceBundle;
 
 public class EnvoiMessageController implements Initializable {
 
-
-    @FXML
-    private Label messageLabel;
-
-    @FXML
-    private Button emojiButton;
-
-
     @FXML
     private VBox dis;
 
@@ -61,7 +53,9 @@ public class EnvoiMessageController implements Initializable {
     private TextField username;
 
     @FXML
-    private VBox Msg;
+    public VBox Msg;
+
+
 
     public EnvoiMessageController() {
         // Initialisation de dis
@@ -193,6 +187,7 @@ public class EnvoiMessageController implements Initializable {
         try {
 //            List<Message> messages = serviceMessage.afficheridDis(recupereridDis(disscussion));
             List<Message> messages = serviceMessage.afficheridDis(1);
+            List<Message> messageSender  , messageReceiver;
 //            System.out.println(recupereridDis(disscussion));
             for (Message message : messages) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/message.fxml"));
@@ -213,9 +208,9 @@ public class EnvoiMessageController implements Initializable {
         DiscussionController dc = new DiscussionController() ;
         ServiceDisscussion sd = new ServiceDisscussion() ;
 
-
         int id = 1;
         HBox hbox = (HBox) dis.getChildren().get(3);
+        System.out.println(hbox);
         if (!hbox.getChildren().isEmpty()) {
 //            id = hbox.getChildren().indexOf(dc.i);
             System.out.println("retour : " +dc);
@@ -262,30 +257,5 @@ public class EnvoiMessageController implements Initializable {
         }
     }
 
-
-    @FXML
-    void openEmojiPicker(ActionEvent event) {
-        try {
-            // Charger la fenêtre de sélection d'emoji à partir du fichier FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Emojipicker.fxml"));
-            Parent root = loader.load();
-            EmojipickerController controller = loader.getController();
-
-            // Créer une nouvelle scène pour la fenêtre de sélection d'emoji
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Sélectionner un Emoji");
-
-            // Passer le contrôleur principal et l'étiquette de message à la fenêtre de sélection d'emoji
-            controller.initData(messageLabel);
-
-            // Afficher la fenêtre de sélection d'emoji
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
