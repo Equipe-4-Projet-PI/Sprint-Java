@@ -5,6 +5,7 @@ import Services.ServiceParticipant;
 import com.google.protobuf.StringValue;
 import entities.Auction;
 import entities.Auction_participant;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +13,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 
 import javafx.scene.control.Button;
@@ -44,6 +55,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class EncherDetailController{
+    int id_user ;
 
     @FXML
     private Button ParticiperButton;
@@ -69,6 +81,9 @@ public class EncherDetailController{
     private ImageView imageProduit;
 
     @FXML
+    private Label tfNomProduit;
+
+    @FXML
     private TextField montant;
 
 
@@ -77,6 +92,12 @@ public class EncherDetailController{
     @FXML
     private HBox hboxFX;
     ServiceAuction serviceAuction = new ServiceAuction();
+    @FXML
+    private Label remainingTimeLabel;
+    @FXML
+    private ImageView photoTimer;
+    private ScheduledExecutorService scheduler;
+
 
 
     List<Auction_participant> recentlyAdded;
@@ -84,8 +105,19 @@ public class EncherDetailController{
 
     public void SetDataAgain()
     {
+        photoTimer.setVisible(false);
         if(serviceAuction.getSituation(auc) == -1){
             ParticiperButton.setVisible(false);
+            photoTimer.setVisible(false);
+            showSuccessAlert("Enchère pas encore commencé !!");
+        }else if(serviceAuction.getSituation(auc) == 1){
+            ParticiperButton.setVisible(false);
+            showSuccessAlert("Enchère Terminé" +
+                    "!!");
+            photoTimer.setVisible(false);
+        }else{
+            startTimer();
+            photoTimer.setVisible(true);
         }
         montant.setVisible(false);
 
@@ -94,13 +126,26 @@ public class EncherDetailController{
         }catch (NullPointerException j){
             j.printStackTrace();
         }
+
+        String nomProduit = null; // Initialize to null or any default value
+        try {
+            nomProduit = serviceAuction.getNomProduit(auc.getId());
+        } catch (SQLException e) {
+            System.out.println("lalalalalalal");
+        }
+
+        tfNomProduit.setText(nomProduit);
         nomEnchere.setText(auc.getNom());
-        prixInitial.setText(String.valueOf(auc.getPrix_initial()));
+        prixInitial.setText("Commencez A Partir De : "+String.valueOf(auc.getPrix_initial())+ "DT Jusqu'à : "+String.valueOf(auc.getPrix_final())+"DT");
         dateLancement.setText(String.valueOf(auc.getDate_lancement()));
         dateCloture.setText(String.valueOf(auc.getDate_cloture()));
-        byte[] imageData = loadImageFromDatabase(auc.getId_produit());
-        Image image = new Image(new ByteArrayInputStream(imageData));
-        imageProduit.setImage(image);
+        try{
+            Image image = new Image("file:" + loadImageFromDatabase(auc.getId_produit()));
+            imageProduit.setImage(image);
+        }catch(Exception e ){
+            e.printStackTrace();
+        }
+
         nbreParticipant.setText(String.valueOf(countPartcipant(auc.getId())));
     }
     public void initData(Auction auction) {
@@ -138,10 +183,41 @@ public class EncherDetailController{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
     }
 
-    int id_user ;
+
+    private void startTimer() {
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(this::updateRemainingTime, 0, 1, TimeUnit.SECONDS);
+    }
+
+    private void updateRemainingTime() {
+        LocalDateTime endDateTime = auc.getDate_cloture().atStartOfDay();
+        Timestamp endTimeStamp = Timestamp.valueOf(endDateTime);
+        long currentTime = System.currentTimeMillis();
+        long endTime = endTimeStamp.getTime();
+
+        long remainingTimeMillis = endTime - currentTime;
+
+        if (remainingTimeMillis > 0) {
+            long remainingSeconds = remainingTimeMillis / 1000;
+            long days = remainingSeconds / (24 * 3600);
+            long hours = (remainingSeconds % (24 * 3600)) / 3600;
+            long minutes = ((remainingSeconds % (24 * 3600)) % 3600) / 60;
+            long seconds = ((remainingSeconds % (24 * 3600)) % 3600) % 60;
+
+            String remainingTime = String.format("%d days, %02d:%02d:%02d", days, hours, minutes, seconds);
+
+            // Update the JavaFX UI on the JavaFX Application Thread
+            Platform.runLater(() -> remainingTimeLabel.setText("Remaining Time: " + remainingTime));
+        } else {
+            // Auction has ended, display a message or take appropriate action
+            Platform.runLater(() -> remainingTimeLabel.setText("Auction has ended"));
+            scheduler.shutdown(); // Optionally, you can stop the timer if needed
+        }
+    }
+
+
     @FXML
     void effectuerArgent(ActionEvent event) {
         Auction_participant auctionParticipant = new Auction_participant();
@@ -176,6 +252,7 @@ public class EncherDetailController{
                     showErrorAlert("Le montant doit être supérieur au prix initial et au dernier montant proposé.");
                 }
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
@@ -210,8 +287,8 @@ public class EncherDetailController{
     }
 
     //hedhy traja3 taswiret l produit mtaa auction
-    private byte[] loadImageFromDatabase(int id_produit) {
-        byte[] imageData = null;
+    private String loadImageFromDatabase(int id_produit) {
+        String imageData = "";
         imageData = serviceAuction.loadImageFromDatabase(id_produit);
         return imageData;
     }
@@ -251,16 +328,29 @@ public class EncherDetailController{
 
     @FXML
     void retouner(MouseEvent event) {
+        String artist = "artist";
+        String member = "member";
+        String admin = "admin";
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Enchers.fxml"));
+            FXMLLoader loader = new FXMLLoader();
+            String resourcePath = "/Enchers.fxml";
+
+            if (artist.equals(artist)) {
+                resourcePath = "/artistEnchers.fxml";
+            } else if (member.equals("id_user.role")) {
+                resourcePath = "/Enchers.fxml";
+            } else if (admin.equals("id_user.role")) {
+                resourcePath = "/ListeEncheres.fxml";
+            }
+            loader.setLocation(getClass().getResource(resourcePath));
             Parent loginSuccessRoot = loader.load();
             Scene scene = prixInitial.getScene();
             scene.setRoot(loginSuccessRoot);
 
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     private List<Auction_participant> recentlyAddedParticipant(){
@@ -270,12 +360,10 @@ public class EncherDetailController{
             throw new RuntimeException(e);
         }
     }
-
     public void refreshData() {
         hboxFX.getChildren().clear();
         initialize();
     }
-
     public void setIDUser(int idUser) {
         this.id_user=idUser;
     }

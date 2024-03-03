@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -28,6 +29,10 @@ public class EnchersController implements Initializable {
 
 
     @FXML
+    private ImageView imageAfficherEncheres;
+
+
+    @FXML
     private HBox hboxFX;
 
     @FXML
@@ -37,7 +42,7 @@ public class EnchersController implements Initializable {
 
     private List<Auction> tousEncheres;
 
-    int idUser = 6;
+    int idUser = 6 ;
     @FXML
     void searchForAuction(MouseEvent event) {
         try {
@@ -130,7 +135,7 @@ public class EnchersController implements Initializable {
             throw new RuntimeException(e);
         }
 
-    }
+}
 
     public void refreshData() {
         hboxFX.getChildren().clear();
@@ -144,5 +149,48 @@ public class EnchersController implements Initializable {
         }
     }
 
-    
+    @FXML
+    void filtrerLive(MouseEvent event) {
+        filterAndDisplayAuctions();
+    }
+
+    private void filterAndDisplayAuctions() {
+        try {
+            hboxFX.getChildren().clear();
+            ObservableList<Auction> observableList = FXCollections.observableList(serviceAuction.afficher());
+
+            int column = 0;
+            int row = 1;
+
+            List<Auction> filteredList = observableList.stream()
+                    .filter(e -> serviceAuction.getSituation(e) == 0)
+                    .collect(Collectors.toList());
+
+            ObservableList<Auction> newList = FXCollections.observableList(filteredList);
+
+            for (Auction auction : newList) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/UnEncher.fxml"));
+                HBox encherBox = fxmlLoader.load();
+                UnEncherController unEncherController = fxmlLoader.getController();
+                unEncherController.initData(auction);
+
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+                hboxFX.getChildren().add(encherBox);
+                HBox.setMargin(encherBox, new Insets(10));
+            }
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void tousEnchers(MouseEvent event) {
+        refreshData();
+    }
+
+
 }

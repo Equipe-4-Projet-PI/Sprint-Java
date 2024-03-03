@@ -41,7 +41,7 @@ public class ArtistEnchersController implements Initializable {
 
     @FXML
     private TextField id_search;
-    int id_artist =3;
+    int id_artist =1;
     ServiceAuction serviceAuction = new ServiceAuction();
 
     @FXML
@@ -195,5 +195,4 @@ public class ArtistEnchersController implements Initializable {
         }
     }
 
-    //aandi ghalta kif nhot like w mbaaed naaml partciper yetzedli ligne jdid fi 3oudh ma yaaml modifier
 }

@@ -67,32 +67,14 @@ public class ListEncheresController {
 
     @FXML
     public void AfficherEncher(javafx.event.ActionEvent actionEvent) {
-//        Auction selectedItem = fxTableViw.getSelectionModel().getSelectedItem();
-
-            try{
-                Parent root = loadEnchre();
-                fxPrixFinal.getTableView().getScene().setRoot(root);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-
-//        if (selectedItem != null) {
-//            try {
-//                FXMLLoader loader = new FXMLLoader();
-//                loader.setLocation(getClass().getResource("/EncherDetail.fxml"));
-//                Parent root = loader.load();
-//                Scene scene =fxPrixFinal.getTableView().getScene();
-//                scene.setRoot(root);
-//                EncherDetailController encheredetails = loader.getController();
-//
-//                encheredetails.initData(selectedItem);
-//
-//            } catch (IOException e) {
-//                e.getMessage();
-//            }
-//        }
+        try{
+            Parent root = loadEnchre();
+            fxPrixFinal.getTableView().getScene().setRoot(root);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     private Parent loadEnchre() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
@@ -101,15 +83,6 @@ public class ListEncheresController {
         controller.initData(fxTableViw.getSelectionModel().getSelectedItem());
         Parent root = loader.load();
         return root;
-    }
-
-    @FXML
-    public void AjouterEncher(javafx.event.ActionEvent actionEvent)throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/AjouterAuction.fxml"));
-        Parent root = loader.load();
-        Scene scene =fxPrixFinal.getTableView().getScene();
-        scene.setRoot(root);
     }
 
     @FXML
@@ -127,27 +100,4 @@ public class ListEncheresController {
         }
     }
 
-    @FXML
-    public void modifier_enchere(javafx.event.ActionEvent actionEvent) {
-        Auction selectedItem = fxTableViw.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Modifier.fxml"));
-                Parent editUserRoot = loader.load();
-
-                ModifierController modifier = loader.getController();
-
-                modifier.initData(selectedItem);
-
-                Scene scene = fxPrixInitial.getTableView().getScene();
-
-                scene.setRoot(editUserRoot);
-
-                ObservableList<Auction> userList = fxTableViw.getItems();
-                userList.remove(selectedItem);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 }

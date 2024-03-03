@@ -54,27 +54,27 @@ public class EncherArtistController {
     Auction auc ;
 
     public void initData(Auction auction) {
-        titreEnchere.setText(auction.getNom());
-        prix_initial.setText("Estimé à Partir de : "+String.valueOf(auction.getPrix_initial()));
-        date.setText(String.valueOf(auction.getDate_lancement())+" - "+ String.valueOf(auction.getDate_cloture()));
-        byte[] imageData = loadImageFromDatabase(auction.getId_produit());
-        if (imageData != null) {
-            Image image = new Image(new ByteArrayInputStream(imageData));
-            image_enchere.setImage(image);
-        } else {
-            System.out.println("fama hwiiiija houni ca va pas "
-            );
-        }
-        box_encherArtist.setStyle(" -fx-border-radius: 15; ");
         this.auc=auction;
+        titreEnchere.setText(auction.getNom());
+        prix_initial.setText("Estimé à Partir de : "+String.valueOf(auction.getPrix_initial()) + "DT");
+        date.setText(String.valueOf(auction.getDate_lancement())+" - "+ String.valueOf(auction.getDate_cloture()));
+        try{
+            Image image = new Image("file:" + loadImageFromDatabase(auc.getId_produit()));
+            image_enchere.setImage(image);
+        }catch  (Exception e ){
+            e.printStackTrace();
+        }
+
+        box_encherArtist.setStyle(" -fx-border-radius: 15; ");
+
         int nbreFavori = serviceParticipant.countFavori(auc.getId());
         tf_nmbreFavori.setText(String.valueOf(nbreFavori));
     }
 
 
     //hedhy traja3 taswiret l produit mtaa auction
-    private byte[] loadImageFromDatabase(int id_produit) {
-        byte[] imageData = null;
+    private String loadImageFromDatabase(int id_produit) {
+        String imageData = "";
         imageData = serviceAuction.loadImageFromDatabase(id_produit);
         return imageData;
     }

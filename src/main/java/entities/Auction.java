@@ -137,4 +137,6 @@ public class Auction {
                 ", prix_final=" + prix_final +
                 '}';
     }
+
+
 }

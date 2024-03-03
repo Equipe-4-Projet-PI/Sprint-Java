@@ -205,28 +205,23 @@ public class ServiceAuction implements IService<Auction>{
     }
 
     //hedhy traja3 taswiret l produit mtaa auction
-    public byte[] loadImageFromDatabase(int id_produit) {
-        byte[] imageData = null;
+    public String loadImageFromDatabase(int id_produit) {
+        String imagePath = "";
 
         try {
-            String req= "SELECT image_produit FROM product WHERE id_product=?";
+            String req= "SELECT image_path FROM product WHERE id_product=?";
             PreparedStatement pre = con.prepareStatement(req);
             pre.setInt(1,id_produit);
             ResultSet resultSet = pre.executeQuery();
 
             if (resultSet.next()) {
-                // Récupérer l'objet Blob
-                Blob blob = resultSet.getBlob("image_produit");
-
-                // Convertir Blob en tableau de bytes
-                imageData = blob.getBytes(1, (int) blob.length());
+                imagePath = resultSet.getString("image_path");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return imageData;
+        return imagePath;
     }
 
 
@@ -286,6 +281,54 @@ public class ServiceAuction implements IService<Auction>{
             return 1;
         }
         return 2;
+    }
+
+    public Double getPrixFinal(Auction auc) throws SQLException {
+        String req = "select prix_final from auction where id_Auction =? ";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1, auc.getId());
+        ResultSet resultSet = pre.executeQuery();
+
+        float prixFinal = 0.0F;
+
+        while (resultSet.next()) {
+            prixFinal = resultSet.getFloat("prix_final");
+        }
+
+        return Double.valueOf(prixFinal);
+    }
+
+    public String getNomProduit(int id_auction) throws SQLException {
+        String nomProduit = null; // Initialize to null or any default value
+        String req = "SELECT Title FROM product p JOIN auction a ON p.id_Product = a.id_produit WHERE a.id_auction=?";
+
+        try (PreparedStatement pre = con.prepareStatement(req)) {
+            pre.setInt(1, id_auction);
+
+            try (ResultSet resultSet = pre.executeQuery()) {
+                if (resultSet.next()) {
+                    nomProduit = resultSet.getString("Title");
+                }
+            }
+        }
+
+        return nomProduit;
+    }
+
+
+    public int countAuction() throws SQLException {
+        int count= 0;
+        try {
+            String req ="select COUNT(*) as number_auction from auction ";
+            PreparedStatement pre = con.prepareStatement(req);
+            ResultSet resultSet = pre.executeQuery();
+            if (resultSet.next()) {
+                count = resultSet.getInt("number_auction");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+            return count;
     }
 
 }

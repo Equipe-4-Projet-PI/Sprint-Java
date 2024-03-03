@@ -26,12 +26,12 @@
             </Label>
             <Label fx:id="prix_initial" contentDisplay="CENTER" layoutX="20.0" layoutY="68.0" prefHeight="108.0" prefWidth="208.0">
                <font>
-                  <Font name="Times New Roman Bold Italic" size="18.0" />
+                  <Font name="Times New Roman Bold Italic" size="15.0" />
                </font>
             </Label>
             <Label fx:id="date" layoutX="20.0" layoutY="131.0" prefHeight="73.0" prefWidth="182.0">
                <font>
-                  <Font name="Times New Roman Bold Italic" size="15.0" />
+                  <Font name="Times New Roman Bold Italic" size="13.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="250.0" prefWidth="182.0">

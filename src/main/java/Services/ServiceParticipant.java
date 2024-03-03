@@ -16,15 +16,18 @@ public class ServiceParticipant implements IService<Auction_participant> {
 
     private Connection con;
 
-    public ServiceParticipant(){
+    public ServiceParticipant() {
         con = MyDB.getInstance().getConnection();
     }
+
+    ServiceAuction serviceAuction = new ServiceAuction();
+
     @Override
     public void ajouter(Auction_participant auctionParticipant) throws SQLException {
         String req = "INSERT INTO auction_participant (id_Auction, id_Participant,prix) VALUES ('"
                 + auctionParticipant.getId_auction() + "','"
-                + auctionParticipant.getId_participant()+"','"
-                + auctionParticipant.getPrix() +"')";
+                + auctionParticipant.getId_participant() + "','"
+                + auctionParticipant.getPrix() + "')";
         Statement ste = con.createStatement();
         ste.executeUpdate(req);
     }
@@ -34,9 +37,9 @@ public class ServiceParticipant implements IService<Auction_participant> {
     public void modifier(Auction_participant auctionParticipant) throws SQLException {
         String req = "update auction_participant set prix=? , date=? where id_Participant=?";
         PreparedStatement pre = con.prepareStatement(req);
-        pre.setFloat(1,auctionParticipant.getPrix());
-        pre.setTimestamp(2,new Timestamp(System.currentTimeMillis()));
-        pre.setInt(3,auctionParticipant.getId_participant());
+        pre.setFloat(1, auctionParticipant.getPrix());
+        pre.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+        pre.setInt(3, auctionParticipant.getId_participant());
         pre.executeUpdate();
     }
 
@@ -44,7 +47,7 @@ public class ServiceParticipant implements IService<Auction_participant> {
     public void supprimer(Auction_participant auctionParticipant) throws SQLException {
         String req = "delete from auction_participant where id_Participant=?";
         PreparedStatement pre = con.prepareStatement(req);
-        pre.setInt(1,auctionParticipant.getId_participant());
+        pre.setInt(1, auctionParticipant.getId_participant());
         pre.executeUpdate();
     }
 
@@ -54,7 +57,7 @@ public class ServiceParticipant implements IService<Auction_participant> {
         String req = "select * from auction_participant";
         PreparedStatement pre = con.prepareStatement(req);
         ResultSet res = pre.executeQuery();
-        while(res.next()){
+        while (res.next()) {
             Auction_participant a = new Auction_participant();
             a.setId_participant(res.getInt("id_Participant"));
             a.setId_auction(res.getInt("id_Auction"));
@@ -83,7 +86,6 @@ public class ServiceParticipant implements IService<Auction_participant> {
         }
         return list;
     }
-
 
 
     //get nom partcipant a partir de son ID
@@ -129,7 +131,6 @@ public class ServiceParticipant implements IService<Auction_participant> {
 
         return nom;
     }
-
 
 
     public InputStream getCheminImageParticipant(int id) {
@@ -178,14 +179,13 @@ public class ServiceParticipant implements IService<Auction_participant> {
             String req = "SELECT COUNT(*) as participant_count FROM auction_participant WHERE id_auction=? AND prix != ? ";
             PreparedStatement pre = con.prepareStatement(req);
             pre.setInt(1, idAuction);
-            pre.setInt(2 , 0);
+            pre.setInt(2, 0);
             ResultSet resultSet = pre.executeQuery();
 
             if (resultSet.next()) {
                 // Récupérer le nombre de participants
                 count = resultSet.getInt("participant_count");
             }
-
 
 
         } catch (SQLException e) {
@@ -208,7 +208,7 @@ public class ServiceParticipant implements IService<Auction_participant> {
             a.setDate(res.getTimestamp("date"));
             return a;
         }
-        return  a;
+        return a;
     }
 
     public float getDernierPrix(int id_auction) throws SQLException {
@@ -353,4 +353,32 @@ public class ServiceParticipant implements IService<Auction_participant> {
 
         return count;
     }
+
+    public int getIdGagnat(Auction auc) {
+        List<Auction_participant> liste;
+        try {
+            liste = list_by_auction(auc.getId());
+            System.out.println(liste);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (liste.isEmpty()) {
+            // Handle the case when the list is empty
+            System.out.println("List is empty");
+            return 0; // Change defaultValue to an appropriate default value
+        }
+
+        int dernierElement = liste.size() - 1;
+        try {
+            return liste.get(dernierElement).getId_participant();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            System.out.println("houuuni l ghaltaa");
+        }
+
+        return 0; // Change defaultValue to an appropriate default value
+    }
+
+
 }

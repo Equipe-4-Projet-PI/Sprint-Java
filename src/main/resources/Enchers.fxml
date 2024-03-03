@@ -140,9 +140,14 @@
          </ImageView>
       </children>
    </HBox>
-   <Label layoutX="110.0" layoutY="191.0" prefHeight="44.0" prefWidth="226.0" text="Tous les enchères">
+   <Label layoutX="110.0" layoutY="191.0" onMouseClicked="#tousEnchers" prefHeight="44.0" prefWidth="226.0" text="Tous les enchères">
       <font>
          <Font name="Times New Roman Bold Italic" size="25.0" />
       </font>
    </Label>
+   <ImageView fx:id="imageAfficherEncheres" fitHeight="80.0" fitWidth="50.0" layoutX="1003.0" layoutY="163.0" onMouseClicked="#filtrerLive" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@images/instagram-en-direct.png" />
+      </image>
+   </ImageView>
 </AnchorPane>

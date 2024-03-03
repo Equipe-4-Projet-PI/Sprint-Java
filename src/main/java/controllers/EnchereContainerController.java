@@ -8,23 +8,48 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
+import okhttp3.OkHttpClient;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.Request;
+import okhttp3.Response;
+import java.io.IOException;
+
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
+import java.net.URISyntaxException;
+import java.net.URI;
+import java.awt.Desktop;
+
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+
+import java.awt.event.ActionEvent;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class EnchereContainerController {
 
-    int idGagnant = 6;
     int id_user;
     ServiceAuction serviceAuction = new ServiceAuction();
     ServiceParticipant serviceParticipant = new ServiceParticipant();
@@ -50,11 +75,16 @@ public class EnchereContainerController {
     public void initData(Auction auction) {
         this.auc=auction;
         titre.setText(auction.getNom());
-        prixInitialFx.setText("Estimée a partir de "+String.valueOf(auction.getPrix_initial()));
+        prixInitialFx.setText("Estimée a partir de "+String.valueOf(auction.getPrix_initial())+"DT");
         //image produit
-        byte[] imageData = loadImageFromDatabase(auction.getId_produit());
-        javafx.scene.image.Image image = new Image(new ByteArrayInputStream(imageData));
-        imageE.setImage(image);
+        try {
+            Image image = new Image("file:" + loadImageFromDatabase(auc.getId_produit()));
+            imageE.setImage(image);
+        }catch  (Exception e ){
+            e.printStackTrace();
+        }
+
+
         //image favori
         byte[] imageFavori = new byte[0];
         int verifFavori = serviceParticipant.getEtatFavori(auc.getId() , id_user);
@@ -91,8 +121,8 @@ public class EnchereContainerController {
 
 
     //hedhy traja3 taswiret l produit mtaa auction
-    private byte[] loadImageFromDatabase(int id_produit) {
-        byte[] imageData = null;
+        private String loadImageFromDatabase(int id_produit) {
+        String imageData = null;
         imageData = serviceAuction.loadImageFromDatabase(id_produit);
         return imageData;
     }
@@ -100,26 +130,33 @@ public class EnchereContainerController {
     @FXML
     void AfficherEncher(MouseEvent event) throws IOException {
         int verif = serviceAuction.getSituation(auc);
-        if(verif == 1 ){
 
-            if(id_user!= idGagnant){
+        if (verif == 1) {
+            if (id_user != getIdGagnant(auc)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setContentText("Cet enchère est Bien Terminé !");
                 alert.showAndWait();
-            }else{
+            } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Bravo VOUS AVEZ GAGNE !");
-                alert.setContentText("Enchère ajoutée");
-                alert.showAndWait();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Payment.fxml"));
-                Parent loginSuccessRoot = loader.load();
-                Scene scene = tfFavori.getScene();
-                scene.setRoot(loginSuccessRoot);
-            }
+                alert.setContentText("Bravo VOUS AVEZ GAGNE !!");
 
-        }else{
-            try{
+                ButtonType detailsButton = new ButtonType("Commencer le payement.", ButtonBar.ButtonData.OK_DONE);
+                alert.getButtonTypes().add(detailsButton);
+
+                alert.showAndWait().ifPresent(buttonType -> {
+                    if (buttonType == detailsButton) {
+                        try {
+                            PayFlouci(event);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        } else {
+            try {
                 Parent root = loadEnchere();
                 imageE.getScene().setRoot(root);
             } catch (IOException e) {
@@ -128,8 +165,79 @@ public class EnchereContainerController {
                 e.printStackTrace();
             }
         }
+    }
+
+    void PayFlouci(MouseEvent event) throws JSONException {
+        Double montant = null;
+        try {
+            montant = serviceAuction.getPrixFinal(auc);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("app_token", "aebe6188-4587-4ff0-9b1c-a26c7898ee73");
+        jsonBody.put("app_secret", "83c2f9f3-0fdc-4dec-9bf2-e642c1cce53d");
+        jsonBody.put("accept_card", true); // Use boolean value, not string
+        jsonBody.put("amount", (long) (montant * 1000));
+        jsonBody.put("success_link", "https://ruperhat.com/wp-content/uploads/2020/06/Paymentsuccessful21.png");
+        jsonBody.put("fail_link", "https://hypixel.net/attachments/1690923493412-png.3230490/");
+        jsonBody.put("session_timeout_secs", 1200);
+        jsonBody.put("developer_tracking_id", "df9dd458-65ed-4d8b-b354-302077358ef2");
+
+
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, jsonBody.toString());
+        Request request = new Request.Builder()
+                .url("https://developers.flouci.com/api/generate_payment")
+                .method("POST", body)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                System.out.println("Payment generated successfully");
+                String responseBody = response.body().string();
+                handleResponse(responseBody);
+                delete(auc.getId());
+
+            } else {
+                System.out.println("Error generating payment: " + response.code());
+                System.out.println(response.body().string());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    void delete(int id_auction){
+        try {
+            serviceAuction.supprimer_auction(id_auction);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
+
+    private void handleResponse(String responseBody) throws JSONException {
+        JSONObject jsonResponse = new JSONObject(responseBody);
+        JSONObject result = jsonResponse.getJSONObject("result");
+        String linkString = result.getString("link");
+        URI link = null;
+        try {
+            link = new URI(linkString);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        //open browser
+        try {
+            Desktop.getDesktop().browse(link);
+            System.out.println("t7al");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private Parent loadEnchere() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
@@ -158,5 +266,9 @@ public class EnchereContainerController {
 
     public void setIdArtist(int idArtist) {
         this.id_user=idArtist;
+    }
+
+    public int getIdGagnant(Auction auc){
+        return serviceParticipant.getIdGagnat(auc);
     }
 }

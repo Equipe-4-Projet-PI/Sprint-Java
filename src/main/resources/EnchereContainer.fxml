@@ -42,7 +42,7 @@
             </Label>
             <Label fx:id="prixInitialFx" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="28.0" minHeight="29.0" minWidth="155.0" prefHeight="29.0" prefWidth="155.0">
                <font>
-                  <Font name="Times New Roman Italic" size="16.0" />
+                  <Font name="Times New Roman Italic" size="14.0" />
                </font>
             </Label>
             <ImageView fx:id="tfStatu" fitHeight="30.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">

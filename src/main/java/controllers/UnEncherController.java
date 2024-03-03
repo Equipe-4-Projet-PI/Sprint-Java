@@ -21,6 +21,9 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
+import okhttp3.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 import javax.xml.crypto.Data;
@@ -28,6 +31,8 @@ import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,18 +73,26 @@ public class UnEncherController {
     private Auction auc;
     String imagePath1;
 
+
+
     private boolean isFavorite = false;
 
     public void initData(Auction auction) {
+        this.auc = auction;
         titreEncher.setText(auction.getNom());
-        prix_initial.setText(String.valueOf(auction.getPrix_initial()));
+        prix_initial.setText(String.valueOf(auction.getPrix_initial())+"DT");
         dateL.setText(String.valueOf(auction.getDate_lancement()));
         dateC.setText(String.valueOf(auction.getDate_cloture()));
-        byte[] imageData = loadImageFromDatabase(auction.getId_produit());
-        Image image = new Image(new ByteArrayInputStream(imageData));
-        imageEncher.setImage(image);
+        try{
+            Image image = new Image("file:" + loadImageFromDatabase(auc.getId_produit()));
+            imageEncher.setImage(image);
+        }catch(Exception e ){
+            e.printStackTrace();
+        }
+
+
         IDAuction.setText(String.valueOf(auction.getId()));
-        this.auc = auction;
+
         byte[] imageStau = new byte[0];
         int verif = serviceAuction.getSituation(auction);
         if(verif == -1){
@@ -114,47 +127,46 @@ public class UnEncherController {
 
 
     //hedhy traja3 taswiret l produit mtaa auction
-    private byte[] loadImageFromDatabase(int id_produit) {
-        byte[] imageData = null;
+    private String loadImageFromDatabase(int id_produit) {
+        String imageData = null;
         imageData = serviceAuction.loadImageFromDatabase(id_produit);
         return imageData;
     }
 
-//    @FXML
-//    void AfficherEncher(MouseEvent event) throws IOException {
-//
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("EnchereDetail"));
-//            EncherDetailController cont = new EncherDetailController();
-//            loader.setController(cont);
-//            Parent root = loader.load();
-//            Scene scene = prix_initial.getScene();
-//            scene.setRoot(root);
-//
-//            try {
-//                Auction auc = serviceAuction.getById(id);
-//                System.out.println(auc);
-//                cont.initData(auc);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//        } catch (IOException e) {
-//            e.getMessage();
-//        }catch(NullPointerException j ){
-//            j.printStackTrace();
-//        }
-//
-//    }
 
     @FXML
     void AfficherEncher(MouseEvent event) throws IOException {
         int verif = serviceAuction.getSituation(auc);
         if(verif == 1){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("Cet enchère est Bien Terminé !");
-            alert.showAndWait();
+            System.out.println(getIdGagnant(auc));
+            if (id_user != getIdGagnant(auc)) {
+                try{
+                    Parent root = loadEnchere();
+                    imageEncher.getScene().setRoot(root);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Bravo VOUS AVEZ GAGNE !");
+                alert.setContentText("Bravo VOUS AVEZ GAGNE !!");
+
+                ButtonType detailsButton = new ButtonType("Commencer le payement.", ButtonBar.ButtonData.OK_DONE);
+                alert.getButtonTypes().add(detailsButton);
+
+                alert.showAndWait().ifPresent(buttonType -> {
+                    if (buttonType == detailsButton) {
+                        try {
+                            PayFlouci(event);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
         }else{
             try{
                 Parent root = loadEnchere();
@@ -193,5 +205,80 @@ public class UnEncherController {
     }
     public void setIdArtist(int idArtist) {
         this.id_user=idArtist;
+    }
+
+    void PayFlouci(MouseEvent event) throws JSONException {
+        Double montant = null;
+        try {
+            montant = serviceAuction.getPrixFinal(auc);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("app_token", "aebe6188-4587-4ff0-9b1c-a26c7898ee73");
+        jsonBody.put("app_secret", "83c2f9f3-0fdc-4dec-9bf2-e642c1cce53d");
+        jsonBody.put("accept_card", true); // Use boolean value, not string
+        jsonBody.put("amount", (long) (montant * 1000));
+        jsonBody.put("success_link", "https://ruperhat.com/wp-content/uploads/2020/06/Paymentsuccessful21.png");
+        jsonBody.put("fail_link", "https://hypixel.net/attachments/1690923493412-png.3230490/");
+        jsonBody.put("session_timeout_secs", 1200);
+        jsonBody.put("developer_tracking_id", "df9dd458-65ed-4d8b-b354-302077358ef2");
+
+
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, jsonBody.toString());
+        Request request = new Request.Builder()
+                .url("https://developers.flouci.com/api/generate_payment")
+                .method("POST", body)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                System.out.println("Payment generated successfully");
+                String responseBody = response.body().string();
+                handleResponse(responseBody);
+                delete(auc.getId());
+
+            } else {
+                System.out.println("Error generating payment: " + response.code());
+                System.out.println(response.body().string());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    void delete(int id_auction){
+        try {
+            serviceAuction.supprimer_auction(id_auction);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void handleResponse(String responseBody) throws JSONException {
+        JSONObject jsonResponse = new JSONObject(responseBody);
+        JSONObject result = jsonResponse.getJSONObject("result");
+        String linkString = result.getString("link");
+        URI link = null;
+        try {
+            link = new URI(linkString);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        //open browser
+        try {
+            Desktop.getDesktop().browse(link);
+            System.out.println("t7al");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int getIdGagnant(Auction auc){
+        return serviceParticipant.getIdGagnat(auc);
     }
 }
