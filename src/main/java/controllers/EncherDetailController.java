@@ -1,8 +1,9 @@
 package controllers;
 
 import Services.RatingService;
-import Services.ServiceAuction;
-import Services.ServiceParticipant;
+import entities.User;
+import services.ServiceAuction;
+import services.ServiceParticipant;
 import com.google.protobuf.StringValue;
 import entities.Auction;
 import entities.Auction_participant;
@@ -45,6 +46,7 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
+import services.ServiceUser;
 
 
 import javax.xml.crypto.Data;
@@ -61,6 +63,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 public class EncherDetailController{
     int id_user ;
@@ -324,7 +327,12 @@ public class EncherDetailController{
         }
 
 
+    Preferences preferences = Preferences.userNodeForPackage(EncherArtistController.class);
 
+    ServiceUser serviceUser = new ServiceUser();
+    String savedUsername = preferences.get("username", null);
+    String savedPassword = preferences.get("Password", null);
+    User userlogged = serviceUser.GetUser(savedUsername,savedPassword);
     private Parent loadEnchere() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
         EncherDetailController controller = new EncherDetailController();
@@ -375,30 +383,13 @@ public class EncherDetailController{
     }
 
     @FXML
-    void retouner(MouseEvent event) {
-        String artist = "artist";
-        String member = "member";
-        String admin = "admin";
-
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            String resourcePath = "/Enchers.fxml";
-
-            if (artist.equals(artist)) {
-                resourcePath = "/artistEnchers.fxml";
-            } else if (member.equals("id_user.role")) {
-                resourcePath = "/Enchers.fxml";
-            } else if (admin.equals("id_user.role")) {
-                resourcePath = "/ListeEncheres.fxml";
-            }
-            loader.setLocation(getClass().getResource(resourcePath));
-            Parent loginSuccessRoot = loader.load();
-            Scene scene = prixInitial.getScene();
-            scene.setRoot(loginSuccessRoot);
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+    void retouner(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Enchers.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = dateLancement.getScene();
+        scene.setRoot(loginSuccessRoot);
+        EnchersController enchersController = loader.getController();
+        enchersController.setuser(userlogged);
     }
 
     private List<Auction_participant> recentlyAddedParticipant(){

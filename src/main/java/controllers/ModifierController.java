@@ -1,6 +1,11 @@
 package controllers;
 
-import Services.ServiceAuction;
+import controllers.Member.AfficherForumMembreController;
+import entities.User;
+import javafx.event.ActionEvent;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import services.ServiceAuction;
 import entities.Auction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,10 +23,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 public class ModifierController{
+    public Button inscrire;
+    public Label nav_name;
+    public ImageView usericon;
+    public ImageView bell;
+    public ImageView logouticon;
     ServiceAuction serviceAuction = new ServiceAuction();
-
+    private User userlogged;
     @FXML
     private Label nomProduit;
 
@@ -36,6 +47,9 @@ public class ModifierController{
     private DatePicker tf_dateC;
     @FXML
     private TextField id_auction;
+    Preferences preferences = Preferences.userNodeForPackage(ModifierController.class);
+    String savedUsername = preferences.get("username", null);
+    String savedPassword = preferences.get("Password", null);
 
     @FXML
     void ModifierAuction() {
@@ -64,8 +78,10 @@ public class ModifierController{
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/artistEnchers.fxml"));
             Parent loginSuccessRoot = loader.load();
-            Scene scene = tf_nomAuction.getScene();
+            Scene scene = nav_name.getScene();
             scene.setRoot(loginSuccessRoot);
+            ArtistEnchersController artistEnchersController = loader.getController();
+            artistEnchersController.setuser(userlogged);
         } catch (SQLException | IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -89,5 +105,103 @@ public class ModifierController{
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void inituser(User user) {
+
+
+        nav_name.setText(user.getUsername());
+        inscrire.setVisible(false);
+        bell.setVisible(true);
+        usericon.setVisible(true);
+        logouticon.setVisible(true);
+
+
+        userlogged = new User();
+        userlogged.setGender(user.getGender());
+        userlogged.setDOB(user.getDOB());
+        userlogged.setPhone(user.getPhone());
+        userlogged.setAdress(user.getAdress());
+        userlogged.setUsername(user.getUsername());
+        userlogged.setEmail(user.getEmail());
+        userlogged.setFirstName(user.getFirstName());
+        userlogged.setPassword(user.getPassword());
+        userlogged.setLastName(user.getLastName());
+        userlogged.setId_User(user.getId_User());
+        userlogged.setRole(user.getRole());
+        userlogged.setImageURL(user.getImageURL());
+    }
+    public void Go_To_Home(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        System.out.println(userlogged);
+        HomeController homeController = loader.getController();
+        homeController.initData(userlogged);
+    }
+
+    public void Go_To_Product(ActionEvent actionEvent)  throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Product.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        ProductController productController = loader.getController();
+        productController.initUser(userlogged);
+    }
+
+    public void Go_To_Auction(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Forum(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Member/AfficherForumMembre.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        AfficherForumMembreController afficherForumMembreController = loader.getController();
+        afficherForumMembreController.initUser(userlogged);
+
+    }
+
+    public void Go_To_Event(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Message(ActionEvent actionEvent) {
+    }
+
+    public void ProfileVisit(MouseEvent mouseEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginSuccess.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+
+        LoginSuccess loginSuccess = loader.getController();
+        loginSuccess.initData(userlogged);
+    }
+
+    public void sinscrire(ActionEvent actionEvent) throws IOException {
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+    }
+
+    public void Logout(MouseEvent mouseEvent)throws IOException {
+        preferences.remove("username");
+        preferences.remove("Password");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Déconnexion");
+        alert.setHeaderText(null);
+        alert.show();
     }
 }

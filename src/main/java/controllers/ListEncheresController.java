@@ -1,6 +1,6 @@
 package controllers;
 
-import Services.ServiceAuction;
+import services.ServiceAuction;
 import entities.Auction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

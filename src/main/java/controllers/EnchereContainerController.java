@@ -1,7 +1,7 @@
 package controllers;
 
-import Services.ServiceAuction;
-import Services.ServiceParticipant;
+import services.ServiceAuction;
+import services.ServiceParticipant;
 import entities.Auction;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

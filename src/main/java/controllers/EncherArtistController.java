@@ -1,7 +1,8 @@
 package controllers;
 
-import Services.ServiceAuction;
-import Services.ServiceParticipant;
+import entities.User;
+import services.ServiceAuction;
+import services.ServiceParticipant;
 import entities.Auction;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,15 +22,17 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
-
+import services.ServiceUser;
 
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
+import java.util.prefs.Preferences;
 
 public class EncherArtistController {
+
     ServiceAuction serviceAuction = new ServiceAuction();
 
     ServiceParticipant serviceParticipant = new ServiceParticipant();
@@ -50,10 +53,15 @@ public class EncherArtistController {
 
     @FXML
     private Label titreEnchere;
-
+    Preferences preferences = Preferences.userNodeForPackage(EncherArtistController.class);
     Auction auc ;
-
+    ServiceUser serviceUser = new ServiceUser();
+    String savedUsername = preferences.get("username", null);
+    String savedPassword = preferences.get("Password", null);
+    User userlogged = serviceUser.GetUser(savedUsername,savedPassword);
     public void initData(Auction auction) {
+        System.out.println(auction);
+
         this.auc=auction;
         titreEnchere.setText(auction.getNom());
         prix_initial.setText("Estimé à Partir de : "+String.valueOf(auction.getPrix_initial()) + "DT");
@@ -118,6 +126,7 @@ public class EncherArtistController {
             ModifierController modifier = loader.getController();
 
             modifier.initData(auc);
+            modifier.inituser(userlogged);
 
             Scene scene = date.getScene();
 
@@ -127,6 +136,7 @@ public class EncherArtistController {
             throw new RuntimeException(e);
         }
     }
+
 
 
 }

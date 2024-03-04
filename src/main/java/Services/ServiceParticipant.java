@@ -1,7 +1,8 @@
-package Services;
+package services;
 
 import entities.Auction;
 import entities.Auction_participant;
+import services.IServiceF;
 import utils.MyDB;
 
 import java.io.InputStream;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ServiceParticipant implements IService<Auction_participant> {
+public class ServiceParticipant implements IServiceF<Auction_participant> {
 
 
     private Connection con;

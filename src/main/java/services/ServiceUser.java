@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ServiceUser implements IService<User> {
+public class ServiceUser implements IServiceU<User> {
 
     private Connection con;
 
@@ -20,45 +20,9 @@ public class ServiceUser implements IService<User> {
         con = MyDB.getInstance().getConnection();
     }
 
-    @Override
-    public void ajouter(User user) throws SQLException {
 
-    }
 
-    @Override
-    public void modifier(User user) throws SQLException {
 
-    }
-
-    @Override
-    public void supprimer(User user) throws SQLException {
-
-    }
-
-    @Override
-    public List<User> maList(int t) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public List<User> saleList() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public List<User> NosaleList() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public List<User> afficher() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public List<User> FilterShow(String t) throws SQLException {
-        return null;
-    }
 
     @Override
     public void ADD(User user) throws SQLException {

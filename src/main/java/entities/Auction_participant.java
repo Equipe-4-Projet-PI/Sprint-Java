@@ -1,6 +1,6 @@
 package entities;
 
-import Services.ServiceParticipant;
+import services.ServiceParticipant;
 
 import java.util.Date;
 

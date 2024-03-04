@@ -54,7 +54,35 @@ public class HomeController {
         productController.initUser(userlogged);
     }
 
-    public void Go_To_Auction(ActionEvent actionEvent) {
+    public void Go_To_Auction(ActionEvent actionEvent) throws IOException {
+        if (userlogged != null){
+        if (userlogged.getRole().equals("Member")){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Enchers.fxml"));
+            Parent loginSuccessRoot = loader.load();
+            Scene scene = nav_name.getScene();
+            scene.setRoot(loginSuccessRoot);
+            EnchersController enchersController = loader.getController();
+            enchersController.setuser(userlogged);
+        }
+        else if
+            (userlogged.getRole().equals("Artist")){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/artistEnchers.fxml"));
+                Parent loginSuccessRoot = loader.load();
+                Scene scene = nav_name.getScene();
+                scene.setRoot(loginSuccessRoot);
+                ArtistEnchersController artistEnchersController = loader.getController();
+                artistEnchersController.setuser(userlogged);
+
+
+        }}
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Enchers.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        EnchersController enchersController = loader.getController();
+        enchersController.setuser(userlogged);
+
     }
 
     public void Go_To_Forum(ActionEvent actionEvent)  throws IOException {

@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceProduct implements IService<Product>{
+public class ServiceProduct implements IServiceF<Product>{
     private Connection con;
     public ServiceProduct(){
         con = MyDB.getInstance().getConnection();
@@ -57,7 +57,7 @@ public class ServiceProduct implements IService<Product>{
         }
         return 0; // Return 0 if an error occurs
     }
-    @Override
+
     public List<Product> maList(int id) throws SQLException {
         List<Product> pro = new ArrayList<>();
         String req ="select * from product where Id_User=?";
@@ -79,7 +79,7 @@ public class ServiceProduct implements IService<Product>{
         return pro;
     }
 
-    @Override
+
     public List<Product> saleList() throws SQLException {
         List<Product> pro = new ArrayList<>();
         String req ="select * from product where ForSale=1";
@@ -100,7 +100,7 @@ public class ServiceProduct implements IService<Product>{
         return pro;
     }
 
-    @Override
+
     public List<Product> NosaleList() throws SQLException {
         List<Product> pro = new ArrayList<>();
         String req ="select * from product where ForSale=0";
@@ -121,7 +121,7 @@ public class ServiceProduct implements IService<Product>{
         return pro;
     }
 
-    @Override
+
     public List<Product> afficher() throws SQLException {
         List<Product> pro = new ArrayList<>();
 
@@ -145,7 +145,7 @@ public class ServiceProduct implements IService<Product>{
         return pro;
     }
 
-    @Override
+
     public List<Product> FilterShow(String title) throws SQLException {
         List<Product> pro = new ArrayList<>();
         String req ="select * from product where Title=?";
@@ -167,23 +167,5 @@ public class ServiceProduct implements IService<Product>{
         return pro;
     }
 
-    @Override
-    public void ADD(Product product) throws SQLException {
 
-    }
-
-    @Override
-    public void UPDATE(Product product) throws SQLException {
-
-    }
-
-    @Override
-    public void DELETE(Product product) throws SQLException {
-
-    }
-
-    @Override
-    public List<Product> DISPLAY() throws SQLException {
-        return null;
-    }
 }

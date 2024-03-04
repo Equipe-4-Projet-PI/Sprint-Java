@@ -1,7 +1,8 @@
 package controllers;
 
-import Services.ServiceAuction;
-import Services.ServiceParticipant;
+import entities.User;
+import services.ServiceAuction;
+import services.ServiceParticipant;
 import com.google.protobuf.StringValue;
 import entities.Auction;
 import entities.Auction_participant;
@@ -24,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONObject;
+import services.ServiceUser;
 
 
 import javax.xml.crypto.Data;
@@ -72,12 +74,40 @@ public class UnEncherController {
 
     private Auction auc;
     String imagePath1;
+    private User userlogged;
+     int iduser ;
 
-
+ServiceUser serviceUser = new ServiceUser();
 
     private boolean isFavorite = false;
 
+
+    public void setIdArtist(User user) {
+        System.out.println("hethi 1");
+        if (user!=null) {
+            id_user = user.getId_User();
+
+            userlogged = new User();
+            userlogged.setGender(user.getGender());
+            userlogged.setDOB(user.getDOB());
+            userlogged.setPhone(user.getPhone());
+            userlogged.setAdress(user.getAdress());
+            userlogged.setUsername(user.getUsername());
+            userlogged.setEmail(user.getEmail());
+            userlogged.setFirstName(user.getFirstName());
+            userlogged.setPassword(user.getPassword());
+            userlogged.setLastName(user.getLastName());
+            userlogged.setId_User(user.getId_User());
+            userlogged.setRole(user.getRole());
+            userlogged.setImageURL(user.getImageURL());
+        }
+
+
+    }
+
+
     public void initData(Auction auction) {
+        System.out.println(id_user);
         this.auc = auction;
         titreEncher.setText(auction.getNom());
         prix_initial.setText(String.valueOf(auction.getPrix_initial())+"DT");
@@ -133,12 +163,18 @@ public class UnEncherController {
         return imageData;
     }
 
-
     @FXML
     void AfficherEncher(MouseEvent event) throws IOException {
+
+
+
+
+
         int verif = serviceAuction.getSituation(auc);
         if(verif == 1){
             System.out.println(getIdGagnant(auc));
+
+
             if (id_user != getIdGagnant(auc)) {
                 try{
                     Parent root = loadEnchere();
@@ -176,17 +212,21 @@ public class UnEncherController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        }}
 
-    }
+
+
     private Parent loadEnchere() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
-        EncherDetailController controller = new EncherDetailController();
-        loader.setController(controller);
-        controller.setIDUser(id_user);
-        controller.initData(auc);
-        Parent root = loader.load();
-        return root;
+        System.out.println(userlogged);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncherDetail.fxml"));
+            EncherDetailController controller = new EncherDetailController();
+            loader.setController(controller);
+            controller.setIDUser(id_user);
+            controller.initData(auc);
+            Parent root = loader.load();
+            return root;
+
     }
 
     @FXML
@@ -203,9 +243,7 @@ public class UnEncherController {
             isFavorite = true;
         }
     }
-    public void setIdArtist(int idArtist) {
-        this.id_user=idArtist;
-    }
+
 
     void PayFlouci(MouseEvent event) throws JSONException {
         Double montant = null;
@@ -280,5 +318,8 @@ public class UnEncherController {
 
     public int getIdGagnant(Auction auc){
         return serviceParticipant.getIdGagnat(auc);
+    }
+
+    public void setID(int idUser) {
     }
 }

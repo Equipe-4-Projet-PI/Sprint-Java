@@ -662,22 +662,29 @@ clear();
         homeController.initData(userlogged);
     }
 
-    public void Go_To_Product(ActionEvent actionEvent) {
+    public void Go_To_Product(ActionEvent actionEvent)  throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Product.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        ProductController productController = loader.getController();
+        productController.initUser(userlogged);
     }
 
     public void Go_To_Auction(ActionEvent actionEvent) {
     }
 
-    public void Go_To_Forum(ActionEvent actionEvent)  throws IOException {
+    public void Go_To_Forum(ActionEvent actionEvent) throws IOException {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Member/AfficherForumMembre.fxml"));
-            Parent loginSuccessRoot = loader.load();
-            Scene scene = nav_name.getScene();
-            scene.setRoot(loginSuccessRoot);
-            AfficherForumMembreController afficherForumMembreController = loader.getController();
-            afficherForumMembreController.initUser(userlogged);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Member/AfficherForumMembre.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        AfficherForumMembreController afficherForumMembreController = loader.getController();
+        afficherForumMembreController.initUser(userlogged);
 
-        }
+    }
 
     public void Go_To_Event(ActionEvent actionEvent) {
     }
@@ -696,6 +703,15 @@ clear();
         loginSuccess.initData(userlogged);
     }
 
+    public void sinscrire(ActionEvent actionEvent) throws IOException {
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+    }
+
     public void Logout(MouseEvent mouseEvent)throws IOException {
         preferences.remove("username");
         preferences.remove("Password");
@@ -707,15 +723,6 @@ clear();
         alert.setTitle("Déconnexion");
         alert.setHeaderText(null);
         alert.show();
-    }
-
-    public void sinscrire(ActionEvent actionEvent) throws IOException {
-
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
-            Parent loginSuccessRoot = loader.load();
-            Scene scene = nav_name.getScene();
-            scene.setRoot(loginSuccessRoot);
     }
 
 

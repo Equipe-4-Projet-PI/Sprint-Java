@@ -1,8 +1,9 @@
-package Services;
+package services;
 
 import entities.Auction;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import services.IServiceF;
 import utils.MyDB;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ServiceAuction implements IService<Auction>{
+public class ServiceAuction implements IServiceF<Auction> {
 
     private Connection con;
 

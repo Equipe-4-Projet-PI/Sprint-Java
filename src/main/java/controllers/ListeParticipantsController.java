@@ -1,6 +1,6 @@
 package controllers;
 
-import Services.ServiceParticipant;
+import services.ServiceParticipant;
 import entities.Auction;
 import entities.Auction_participant;
 import javafx.collections.FXCollections;
