@@ -12,7 +12,7 @@ public class MainFX extends Application {
     public void start(Stage stage) throws Exception {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/artistEnchers.fxml"));
+            loader.setLocation(getClass().getResource("/ListeEncheres.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);

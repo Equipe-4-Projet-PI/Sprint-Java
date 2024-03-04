@@ -227,7 +227,7 @@
       <workItem from="1709407195457" duration="16469000" />
       <workItem from="1709451615629" duration="3141000" />
       <workItem from="1709484452392" duration="1795000" />
-      <workItem from="1709494711589" duration="9692000" />
+      <workItem from="1709494711589" duration="11147000" />
     </task>
     <task id="LOCAL-00001" summary="version 1">
       <option name="closed" value="true" />
@@ -287,7 +287,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
-          <line>339</line>
+          <line>337</line>
           <properties class="controllers.EncherDetailController" method="loadImageFromDatabase">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -296,7 +296,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
-          <line>346</line>
+          <line>344</line>
           <properties class="controllers.EncherDetailController" method="countPartcipant">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

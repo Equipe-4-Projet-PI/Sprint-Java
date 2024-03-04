@@ -88,28 +88,6 @@ public class ServiceParticipant implements IService<Auction_participant> {
     }
 
 
-    //get nom partcipant a partir de son ID
-//    public String getNom(int id) {
-//        String nom = null;
-//
-//        try {
-//            String req = "SELECT user.username FROM user " +
-//                    "JOIN auction_participant ON user.id_user = auction_participant.id_participant " +
-//                    "WHERE auction_participant.id_auction = ?";
-//
-//            PreparedStatement pre = con.prepareStatement(req);
-//            pre.setInt(1, id);
-//
-//            ResultSet resultSet = pre.executeQuery();
-//            if (resultSet.next()) {
-//                nom = resultSet.getString("Username");
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return nom;
-//    }
     public String getNom(int id) {
         String nom = null;
 
@@ -123,7 +101,7 @@ public class ServiceParticipant implements IService<Auction_participant> {
 
             ResultSet resultSet = pre.executeQuery();
             if (resultSet.next()) {
-                nom = resultSet.getString("username"); // Use lowercase "username"
+                nom = resultSet.getString("username");
             }
         } catch (SQLException e) {
             e.printStackTrace();
