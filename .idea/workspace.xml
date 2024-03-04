@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3d221d32-f33c-456f-9e39-957fb388d4d4" name="Changes" comment="version 1">
+      <change afterPath="$PROJECT_DIR$/.idea/cssdialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Services/RatingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ArtistEnchersController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/AuctionEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EncherArtistController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EnchereContainerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/EnchersController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ListEncheresController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ListeParticipantsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ModifierController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ParticipantController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/UnEncherController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/EncherArtist.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/EncherDetail.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/EnchereContainer.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Enchers.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ListeEncheres.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/ListeParticipant.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Modifier.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Participant.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/UnEncher.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/artistEnchers.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/Navbar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/annuler.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/art1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/art2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/bouton-modifier.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/bouton-supprimer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/cap14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/cap15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/cap16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/images.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/images.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/instagram-en-direct.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/loupe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/prefere.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/recher_icone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/retourner.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/time-and-calendar.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Services/ServiceParticipant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Services/ServiceParticipant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AfficherEncheresController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AjouterAuctionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AjouterAuctionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Auction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Auction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Auction_participant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Auction_participant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/test/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test/MainFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEncheres.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterAuction.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterAuction.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2bwMV8XQ0Ysvv1gVW1FTS3JLvCK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/DELL/IdeaProjects/workshop_jdbc&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/DELL/IdeaProjects/workshop_jdbc/src/main/java/org/example/Main.java&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="Services" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\DELL\IdeaProjects\workshop_jdbc\src\main\resources\images" />
+      <recent name="C:\Users\DELL\IdeaProjects\workshop_jdbc\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.MainFX">
+    <configuration name="MainFX" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="test.MainFX" />
+      <module name="workshop_jdbc" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;E:\Telechargement\openjfx-21.0.2_windows-x64_bin-sdk\javafx-sdk-21.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml " />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="workshop_jdbc [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="--module-path &quot;E:\Telechargement\openjfx-21.0.2_windows-x64_bin-sdk\javafx-sdk-21.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml " />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="javafx:run" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.MainFX" />
+      <item itemvalue="Maven.workshop_jdbc [javafx:run]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Maven.workshop_jdbc [javafx:run]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3d221d32-f33c-456f-9e39-957fb388d4d4" name="Changes" comment="" />
+      <created>1707121711016</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1707121711016</updated>
+      <workItem from="1707121712221" duration="4708000" />
+      <workItem from="1707329453872" duration="1223000" />
+      <workItem from="1707510455229" duration="17000" />
+      <workItem from="1707564702412" duration="12577000" />
+      <workItem from="1707608181819" duration="1018000" />
+      <workItem from="1707687608445" duration="8663000" />
+      <workItem from="1707728230481" duration="3623000" />
+      <workItem from="1707826786641" duration="7304000" />
+      <workItem from="1708184689294" duration="1944000" />
+      <workItem from="1708219275304" duration="1492000" />
+      <workItem from="1708244882230" duration="358000" />
+      <workItem from="1708245405149" duration="9374000" />
+      <workItem from="1708257573949" duration="12481000" />
+      <workItem from="1708279635854" duration="10442000" />
+      <workItem from="1708331038601" duration="9309000" />
+      <workItem from="1708374058611" duration="7565000" />
+      <workItem from="1708427365491" duration="2067000" />
+      <workItem from="1708443835580" duration="10834000" />
+      <workItem from="1708544476453" duration="5334000" />
+      <workItem from="1708590910707" duration="25575000" />
+      <workItem from="1708694685016" duration="12000" />
+      <workItem from="1708694709587" duration="19580000" />
+      <workItem from="1708759436782" duration="46000" />
+      <workItem from="1708814863700" duration="13531000" />
+      <workItem from="1708828631295" duration="210000" />
+      <workItem from="1708858528268" duration="27471000" />
+      <workItem from="1708932725115" duration="5407000" />
+      <workItem from="1708981552548" duration="5145000" />
+      <workItem from="1709032726601" duration="20666000" />
+      <workItem from="1709069023300" duration="6588000" />
+      <workItem from="1709075959946" duration="8426000" />
+      <workItem from="1709127502626" duration="13917000" />
+      <workItem from="1709156413330" duration="6577000" />
+      <workItem from="1709204358772" duration="35545000" />
+      <workItem from="1709293807363" duration="13817000" />
+      <workItem from="1709323670269" duration="367000" />
+      <workItem from="1709337033638" duration="1214000" />
+      <workItem from="1709370565865" duration="17363000" />
+      <workItem from="1709407195457" duration="16469000" />
+      <workItem from="1709451615629" duration="3141000" />
+      <workItem from="1709484452392" duration="1795000" />
+      <workItem from="1709494711589" duration="11147000" />
+    </task>
+    <task id="LOCAL-00001" summary="version 1">
+      <option name="closed" value="true" />
+      <created>1708551165914</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1708551165914</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="version 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
+          <line>55</line>
+          <properties class="Services.ServiceAuction" method="supprimer">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
+          <line>207</line>
+          <properties class="Services.ServiceAuction" method="loadImageFromDatabase">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
+          <line>337</line>
+          <properties class="controllers.EncherDetailController" method="loadImageFromDatabase">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
+          <line>344</line>
+          <properties class="controllers.EncherDetailController" method="countPartcipant">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceParticipant.java</url>
+          <line>36</line>
+          <properties class="Services.ServiceParticipant" method="modifier">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
+          <line>161</line>
+          <properties class="controllers.EncherDetailController" method="initData">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
+          <line>199</line>
+          <properties class="controllers.EncherDetailController" method="startTimer">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controllers/ArtistEnchersController.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XPathView.XPathProjectComponent">
+    <history />
+    <find-history />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

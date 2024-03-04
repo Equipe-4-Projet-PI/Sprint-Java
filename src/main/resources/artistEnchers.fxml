@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ArtistEnchersController">
+    <Accordion layoutX="-1.0" layoutY="1.0" prefHeight="96.0" prefWidth="1284.0" style="-fx-background-color: #ffff;" />
+    <Accordion layoutX="325.0" layoutY="97.0" prefHeight="58.0" prefWidth="630.0" style="-fx-background-color: #C9CACC;" />
+   <ImageView fitHeight="634.0" fitWidth="1277.0" layoutY="88.0" pickOnBounds="true">
+      <image>
+         <Image url="@images/cap6.png" />
+      </image>
+   </ImageView>
+   <HBox alignment="CENTER" layoutX="3.0" layoutY="86.0" prefHeight="72.0" prefWidth="1273.0" style="-fx-background-color: #ffff;">
+      <children>
+         <TextField fx:id="id_search" prefHeight="40.0" prefWidth="435.0" promptText="Search">
+            <font>
+               <Font name="Times New Roman Italic" size="12.0" />
+            </font>
+         </TextField>
+         <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#searchForAuction" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@images/loupe.png" />
+            </image>
+         </ImageView>
+      </children>
+   </HBox>
+    <HBox layoutX="280.0" layoutY="32.0" prefHeight="15.0" prefWidth="50.0">
+        <children>
+            <Label prefHeight="15.0" prefWidth="51.0" text="accueil">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox layoutX="389.0" layoutY="32.0" prefHeight="15.0" prefWidth="54.0">
+        <children>
+            <Label prefHeight="15.0" prefWidth="106.0" text="magasin">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox layoutX="500.0" layoutY="32.0" prefHeight="15.0" prefWidth="60.0">
+        <children>
+            <Label prefHeight="19.0" prefWidth="90.0" text="enchères" textFill="#0378a6">
+                <font>
+                    <Font name="Times New Roman Bold" size="16.0" />
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox layoutX="608.0" layoutY="32.0" prefHeight="15.0" prefWidth="44.0">
+        <children>
+            <Label prefHeight="15.0" prefWidth="58.0" text="forum">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+            </Label>
+        </children></HBox>
+    <HBox layoutX="698.0" layoutY="25.0" prefHeight="35.0" prefWidth="128.0">
+        <children>
+            <Label prefHeight="30.0" prefWidth="128.0" text="A propos de nous">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+                <HBox.margin>
+                    <Insets />
+                </HBox.margin>
+            </Label>
+        </children>
+    </HBox>
+    <HBox layoutX="850.0" layoutY="32.0" prefHeight="18.0" prefWidth="93.0">
+        <children>
+            <Label text="evenements">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox layoutX="980.0" layoutY="32.0" prefHeight="18.0" prefWidth="66.0">
+        <children>
+            <Label text="messagerie">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+            </Label>
+        </children></HBox>
+    <HBox prefHeight="71.0" prefWidth="155.0">
+        <children>
+            <ImageView fitHeight="77.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/artiventy.png" />
+                </image>
+            </ImageView>
+        </children>
+    </HBox>
+    <HBox layoutX="1159.0" layoutY="18.0" prefHeight="30.0" prefWidth="29.0">
+        <children>
+            <ImageView fitHeight="29.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/cap3.png" />
+                </image></ImageView>
+        </children>
+    </HBox>
+    <HBox layoutX="1200.0" layoutY="26.0" prefHeight="30.0" prefWidth="50.0">
+        <children>
+            <ImageView fitHeight="27.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/cap2.png" />
+                </image>
+            </ImageView>
+        </children>
+    </HBox>
+    <Label layoutX="1154.0" layoutY="67.0" prefHeight="18.0" prefWidth="104.0" text="Hello Kenza ! ">
+        <font>
+            <Font name="Agency FB Bold" size="14.0" />
+        </font>
+    </Label>
+   <ScrollPane layoutX="120.0" layoutY="229.0" prefHeight="487.0" prefWidth="1042.0" styleClass="transparent" stylesheets="@css/styles.css">
+      <content>
+         <VBox prefHeight="559.0" prefWidth="1023.0" styleClass="transparent" stylesheets="@css/styles.css">
+            <children>
+               <Label prefHeight="46.0" prefWidth="250.0" text="Mes Enchères" textFill="#0388a6">
+                  <font>
+                     <Font name="Times New Roman" size="24.0" />
+                  </font>
+                  <padding>
+                     <Insets left="15.0" />
+                  </padding>
+               </Label>
+               <ScrollPane maxHeight="207.0" maxWidth="1204.0" minHeight="177.0" minWidth="1026.0" prefHeight="186.0" prefWidth="1039.0">
+                  <content>
+                     <HBox fx:id="HboxA" alignment="CENTER_LEFT" maxHeight="187.0" maxWidth="1532.0" minHeight="159.0" minWidth="1037.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="159.0" prefWidth="1532.0" styleClass="transparent" stylesheets="@css/styles.css" />
+                  </content>
+               </ScrollPane>
+               <Label layoutX="10.0" layoutY="10.0" prefHeight="46.0" prefWidth="250.0" text="Autres Enchères" textFill="#0388a6">
+                  <font>
+                     <Font name="Times New Roman" size="24.0" />
+                  </font>
+                  <padding>
+                     <Insets left="15.0" />
+                  </padding>
+               </Label>
+               <GridPane fx:id="enchereContainer" prefHeight="1.0" prefWidth="1220.0">
+                 <rowConstraints>
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+               </GridPane>
+            </children>
+         </VBox>
+      </content>
+   </ScrollPane>
+   <Button layoutX="1039.0" layoutY="178.0" mnemonicParsing="false" onAction="#Ajouter" prefHeight="39.0" prefWidth="160.0" style="-fx-background-color: #C4E5F2;" text="Ajouter Enchère">
+      <font>
+         <Font name="System Bold Italic" size="13.0" />
+      </font></Button>
+</AnchorPane>

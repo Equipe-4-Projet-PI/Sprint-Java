@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierController">
+    <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/cap5.png" />
+        </image>
+    </ImageView>
+    <Accordion layoutX="-1.0" prefHeight="71.0" prefWidth="1283.0" style="-fx-background-color: #ffff;" />
+    <AnchorPane layoutX="490.0" layoutY="202.0" prefHeight="450.0" prefWidth="370.0" style="-fx-background-color: #ffffff;" AnchorPane.topAnchor="202.0">
+        <children>
+            <Button fx:id="tf_addAuction" layoutX="130.0" layoutY="395.0" mnemonicParsing="false" onAction="#ModifierAuction" prefHeight="22.0" prefWidth="109.0" text="Modifier" textFill="#0388a6">
+                <font>
+                    <Font name="Times New Roman" size="12.0" />
+                </font></Button>
+            <DatePicker fx:id="tf_date" layoutX="24.0" layoutY="334.0" prefHeight="26.0" prefWidth="110.0" />
+            <TextField fx:id="tf_nomAuction" layoutX="105.0" layoutY="90.0" promptText="Nom" />
+            <DatePicker fx:id="tf_dateC" layoutX="240.0" layoutY="334.0" prefHeight="26.0" prefWidth="110.0" />
+            <Label layoutX="106.0" layoutY="71.0" text="Entrer le nom" textFill="#a6a1a1">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <Label layoutX="108.0" layoutY="161.0" text="Produit" textFill="#a6a1a1">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <Label layoutX="106.0" layoutY="233.0" text="Fixer le prix de depart" textFill="#a6a1a1">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <Label layoutX="27.0" layoutY="316.0" prefHeight="15.0" prefWidth="80.0" text="Date lancement" textFill="#a6a1a1">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+            <Label layoutX="240.0" layoutY="316.0" prefHeight="15.0" prefWidth="66.0" text="Date cloture" textFill="#a6a1a1">
+                <font>
+                    <Font size="10.0" />
+                </font>
+            </Label>
+         <Label fx:id="nomProduit" layoutX="105.0" layoutY="177.0" prefHeight="18.0" prefWidth="150.0">
+            <font>
+               <Font name="Calibri Light Italic" size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="fxprix_inital" layoutX="105.0" layoutY="251.0" prefHeight="26.0" prefWidth="150.0" />
+         <ImageView fitHeight="132.0" fitWidth="87.0" layoutX="283.0" pickOnBounds="true" preserveRatio="true" rotate="28.3">
+            <image>
+               <Image url="@images/cap11.png" />
+            </image>
+         </ImageView>
+         <ImageView fitHeight="70.0" fitWidth="95.0" layoutX="7.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" rotate="-39.6">
+            <image>
+               <Image url="@images/cap9.png" />
+            </image>
+         </ImageView>
+
+        </children></AnchorPane>
+    <HBox layoutX="270.0" layoutY="27.0" prefHeight="15.0" prefWidth="50.0">
+        <children>
+            <Label prefHeight="15.0" prefWidth="51.0" text="accueil">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox layoutX="380.0" layoutY="27.0" prefHeight="27.0" prefWidth="60.0">
+        <children>
+            <Label text="magasin">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox layoutX="491.0" layoutY="27.0" prefHeight="19.0" prefWidth="79.0">
+        <children>
+            <Label prefHeight="19.0" prefWidth="81.0" text="enchères" textFill="#0378a6">
+                <font>
+                    <Font name="Times New Roman Bold" size="16.0" />
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox layoutX="600.0" layoutY="27.0" prefHeight="15.0" prefWidth="44.0">
+        <children>
+            <Label text="forum">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+            </Label>
+        </children></HBox>
+    <HBox layoutX="681.0" layoutY="20.0" prefHeight="35.0" prefWidth="121.0">
+        <children>
+            <Label prefHeight="30.0" prefWidth="126.0" text="A propos de nous">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+                <HBox.margin>
+                    <Insets />
+                </HBox.margin>
+            </Label>
+        </children>
+    </HBox>
+    <HBox layoutX="840.0" layoutY="27.0" prefHeight="27.0" prefWidth="79.0">
+        <children>
+            <Label text="evenements">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </HBox>
+    <HBox layoutX="950.0" layoutY="27.0" prefHeight="18.0" prefWidth="66.0">
+        <children>
+            <Label text="messagerie">
+                <font>
+                    <Font name="Times New Roman" size="15.0" />
+                </font>
+            </Label>
+        </children></HBox>
+    <HBox prefHeight="72.0" prefWidth="150.0">
+        <children>
+            <ImageView fitHeight="75.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/artiventy.png" />
+                </image>
+            </ImageView>
+        </children>
+    </HBox>
+    <HBox layoutX="1150.0" layoutY="8.0" prefHeight="30.0" prefWidth="29.0">
+        <children>
+            <ImageView fitHeight="29.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/cap3.png" />
+                </image></ImageView>
+        </children>
+    </HBox>
+    <HBox layoutX="1200.0" layoutY="14.0" prefHeight="30.0" prefWidth="50.0">
+        <children>
+            <ImageView fitHeight="27.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/cap2.png" />
+                </image>
+            </ImageView>
+        </children>
+    </HBox>
+    <HBox layoutX="1158.0" layoutY="45.0" prefHeight="18.0" prefWidth="96.0">
+        <children>
+            <Label fx:id="tf_idUser" prefHeight="18.0" prefWidth="95.0" text="Hello Kenza ! ">
+                <font>
+                    <Font name="Times New Roman" size="14.0" />
+                </font>
+            </Label>
+        </children>
+    </HBox>
+   <TextField fx:id="id_auction" layoutX="660.0" layoutY="190.0" prefHeight="2.0" prefWidth="0.0" visible="false" />
+
+
+</AnchorPane>
