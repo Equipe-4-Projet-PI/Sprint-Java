@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import kolchy.controller.AfficherEventView;
 import services.ServiceAuction;
 import entities.Auction;
 import javafx.collections.FXCollections;
@@ -327,7 +328,18 @@ public class EnchersController implements Initializable {
 
     }
 
-    public void Go_To_Event(ActionEvent actionEvent) {
+    public void Go_To_Event(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/kolchy/afficher-event-view.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        AfficherEventView afficherEventView = loader.getController();
+        afficherEventView.initData(userlogged);
+
+
+
+
     }
 
     public void Go_To_Message(ActionEvent actionEvent) {

@@ -12,15 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ServiceUser implements IServiceU<User> {
+public class ServiceUser implements IService<User> {
 
     private Connection con;
 
     public ServiceUser(){
         con = MyDB.getInstance().getConnection();
     }
-
-
 
 
 
@@ -451,4 +449,3 @@ public class ServiceUser implements IServiceU<User> {
 
 
 }
-

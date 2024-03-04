@@ -58,7 +58,7 @@ public class AfficherOneEventView {
         ldate.setText(String.valueOf(e.getE_Date()));
 
         File file=new File("C:\\Users\\Hei\\OneDrive\\Documents\\GitHub\\Sprint-Java\\src\\main\\java\\kolchy\\image\\"+e.getImage());
-        System.out.println("C:\\Users\\Hei\\OneDrive\\Documents\\GitHub\\Sprint-Java\\src\\main\\java\\kolchy\\image"+e.getImage());
+        System.out.println("C:\\Users\\Hei\\OneDrive\\Documents\\GitHub\\Sprint-Java\\src\\main\\java\\kolchy\\image\\"+e.getImage());
         Image image=new Image(file.toURI().toString());
 
         img.setImage(image);

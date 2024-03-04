@@ -20,7 +20,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
-import services.ServiceProduct;
 import services.ServiceUser;
 
 import java.awt.*;
@@ -175,8 +174,7 @@ public class AdminController {
 
 
 
-     ServiceUser serviceUser = new ServiceUser();
-     ServiceProduct p = new ServiceProduct();
+    ServiceUser serviceUser = new ServiceUser();
 
     public void initialize() throws SQLException {
         label1.setVisible(false);
@@ -230,7 +228,6 @@ public class AdminController {
         initializeComboBoxContent();
         initializeComboBoxContentEdit();
         Num_Users.setText(String.valueOf(serviceUser.CountUsers()));
-        Num_Arts.setText(String.valueOf(p.CountProduct()));
 
 
         id_Choice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -254,22 +251,22 @@ public class AdminController {
             }
         });
         try {
-           ObservableList<User> observableList = FXCollections.observableList(serviceUser.DISPLAY());
-           tv_users.setItems(observableList);
-           id_username.setCellValueFactory(new PropertyValueFactory<>("Username"));
-           id_email.setCellValueFactory(new PropertyValueFactory<>("Email"));
-           id_role.setCellValueFactory(new PropertyValueFactory<>("Role"));
-           id_firstname.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
-           id_lastname.setCellValueFactory(new PropertyValueFactory<>("LastName"));
-           id_adress.setCellValueFactory(new PropertyValueFactory<>("Adress"));
-           id_phone.setCellValueFactory(new PropertyValueFactory<>("Phone"));
-           id_gender.setCellValueFactory(new PropertyValueFactory<>("Gender"));
-           id_dob.setCellValueFactory(new PropertyValueFactory<>("DOB"));
-           id_image.setCellValueFactory(new PropertyValueFactory<>("ImageURL"));
-       }catch (SQLException e) {
-           System.out.println(e.getMessage());
-       }
-}
+            ObservableList<User> observableList = FXCollections.observableList(serviceUser.DISPLAY());
+            tv_users.setItems(observableList);
+            id_username.setCellValueFactory(new PropertyValueFactory<>("Username"));
+            id_email.setCellValueFactory(new PropertyValueFactory<>("Email"));
+            id_role.setCellValueFactory(new PropertyValueFactory<>("Role"));
+            id_firstname.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
+            id_lastname.setCellValueFactory(new PropertyValueFactory<>("LastName"));
+            id_adress.setCellValueFactory(new PropertyValueFactory<>("Adress"));
+            id_phone.setCellValueFactory(new PropertyValueFactory<>("Phone"));
+            id_gender.setCellValueFactory(new PropertyValueFactory<>("Gender"));
+            id_dob.setCellValueFactory(new PropertyValueFactory<>("DOB"));
+            id_image.setCellValueFactory(new PropertyValueFactory<>("ImageURL"));
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     private void initializeComboBoxContent() {
         // Initialize  choices
@@ -333,15 +330,15 @@ public class AdminController {
         User selectedItem = tv_users.getSelectionModel().getSelectedItem();
 
 
-            E_Prénon.setText(selectedItem.getLastName());
-            E_Nom.setText(selectedItem.getFirstName());
-            E_utilisateur.setText(selectedItem.getUsername());
-            E_Email.setText(selectedItem.getEmail());
-            E_Role.setValue(selectedItem.getRole());
-            E_Tel.setText(String.valueOf(selectedItem.getPhone()));
-            E_Adress.setText(selectedItem.getAdress());
-            E_Date.setValue(LocalDate.parse(selectedItem.getDOB()));
-            E_Sexe.setValue(selectedItem.getGender());
+        E_Prénon.setText(selectedItem.getLastName());
+        E_Nom.setText(selectedItem.getFirstName());
+        E_utilisateur.setText(selectedItem.getUsername());
+        E_Email.setText(selectedItem.getEmail());
+        E_Role.setValue(selectedItem.getRole());
+        E_Tel.setText(String.valueOf(selectedItem.getPhone()));
+        E_Adress.setText(selectedItem.getAdress());
+        E_Date.setValue(LocalDate.parse(selectedItem.getDOB()));
+        E_Sexe.setValue(selectedItem.getGender());
 
 
 
@@ -415,15 +412,15 @@ public class AdminController {
 
 
         User selectedItem = tv_users.getSelectionModel().getSelectedItem();
-         FirstLastname.setText(selectedItem.getFirstName() + " " + selectedItem.getLastName());
-         username1.setText(selectedItem.getUsername());
-         email1.setText(selectedItem.getEmail());
-         Role.setText(selectedItem.getRole());
-         iduser.setText(String.valueOf((selectedItem.getId_User())));
-         telephone.setText(String.valueOf(selectedItem.getPhone()));
-         Adress.setText(selectedItem.getAdress());
-         date.setText(selectedItem.getDOB());
-         sexe.setText(selectedItem.getGender());
+        FirstLastname.setText(selectedItem.getFirstName() + " " + selectedItem.getLastName());
+        username1.setText(selectedItem.getUsername());
+        email1.setText(selectedItem.getEmail());
+        Role.setText(selectedItem.getRole());
+        iduser.setText(String.valueOf((selectedItem.getId_User())));
+        telephone.setText(String.valueOf(selectedItem.getPhone()));
+        Adress.setText(selectedItem.getAdress());
+        date.setText(selectedItem.getDOB());
+        sexe.setText(selectedItem.getGender());
 
         String filePath = selectedItem.getImageURL();
         if (filePath != null){
@@ -618,8 +615,8 @@ public class AdminController {
         editedUser.setAdress(address);
         editedUser.setPhone(phone);
         editedUser.setDOB(dob.toString());
-         editedUser.setGender(gender);
-         editedUser.setImageURL(ImageURL);
+        editedUser.setGender(gender);
+        editedUser.setImageURL(ImageURL);
 
         // Initialize ServiceUser
         ServiceUser serviceUser = new ServiceUser();

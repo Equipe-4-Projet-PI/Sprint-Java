@@ -143,11 +143,7 @@
          <Font name="Comic Sans MS" size="15.0" />
       </font>
    </Button>
-   <ImageView fx:id="logout" fitHeight="38.0" fitWidth="44.0" layoutX="1175.0" layoutY="87.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" visible="false">
-      <image>
-         <Image url="@../images/arrow.png" />
-      </image>
-   </ImageView>
+
    <Label layoutX="1221.0" layoutY="95.0" text="Sortie" visible="false">
       <font>
          <Font name="Comic Sans MS" size="15.0" />

@@ -5,37 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d221d32-f33c-456f-9e39-957fb388d4d4" name="Changes" comment="version 1">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Services/IServiceU.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Services/IService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Services/IService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Services/ServiceAuction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Services/ServiceParticipant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Services/ServiceParticipant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AjouterAuctionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AjouterAuctionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ArtistEnchersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ArtistEnchersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/EncherArtistController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/EncherArtistController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/EnchereContainerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/EnchereContainerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Services/IServiceU.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/EnchersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/EnchersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ListEncheresController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ListEncheresController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ListeParticipantsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ListeParticipantsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LoginSuccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LoginSuccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/Member/AddPostMembreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/Member/AddPostMembreController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/Member/AfficherForumMembreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/Member/AfficherForumMembreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ModifierController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ModifierController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ParticipantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ParticipantController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ProfileGallerieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ProfileGallerieController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/UnEncherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/UnEncherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Auction_participant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Auction_participant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/ServiceProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ServiceProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherEventView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherEventView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherOneEventView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherOneEventView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherWorkshopView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherWorkshopView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/ServiceUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ServiceUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterAuction.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterAuction.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/EncherDetail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/EncherDetail.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Enchers.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Enchers.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Modifier.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Modifier.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/artistEnchers.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/artistEnchers.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Admin_Interface/AdminUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Admin_Interface/AdminUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Admin_Interface/Admin_Auction.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Admin_Interface/Admin_Auction.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ListeEncheres.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ListeEncheres.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +56,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "DEV",
-    "last_opened_file_path": "C:/Users/DELL/IdeaProjects/workshop_jdbc",
+    "last_opened_file_path": "C:/Users/Hei/OneDrive/Documents/GitHub/Sprint-Java",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -207,6 +190,8 @@
       <workItem from="1709484452392" duration="1795000" />
       <workItem from="1709494711589" duration="11147000" />
       <workItem from="1709513558647" duration="14818000" />
+      <workItem from="1709538346222" duration="480000" />
+      <workItem from="1709539455815" duration="674000" />
     </task>
     <task id="LOCAL-00001" summary="version 1">
       <option name="closed" value="true" />
@@ -249,7 +234,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/services/ServiceAuction.java</url>
           <line>56</line>
-          <properties class="Services.ServiceAuction" method="supprimer">
+          <properties class="services.ServiceAuction">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -258,7 +243,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/services/ServiceAuction.java</url>
           <line>208</line>
-          <properties class="Services.ServiceAuction" method="loadImageFromDatabase">
+          <properties class="services.ServiceAuction">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -267,7 +252,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
           <line>345</line>
-          <properties class="controllers.EncherDetailController" method="loadImageFromDatabase">
+          <properties class="controllers.EncherDetailController">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -285,7 +270,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/services/ServiceParticipant.java</url>
           <line>37</line>
-          <properties class="Services.ServiceParticipant" method="modifier">
+          <properties class="services.ServiceParticipant">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -294,7 +279,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java</url>
           <line>164</line>
-          <properties class="controllers.EncherDetailController" method="initData">
+          <properties class="controllers.EncherDetailController">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>

@@ -1,5 +1,6 @@
 package kolchy.controller;
 
+import controllers.EncherArtistController;
 import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,11 +20,19 @@ import kolchy.entities.Workshop;
 import kolchy.service.EventChangeListener;
 import kolchy.service.ServiceEvent;
 import kolchy.service.ServiceWorkshop;
+import services.ServiceUser;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 public class AfficherWorkshopView implements EventChangeListener<Workshop> {
+    Preferences preferences = Preferences.userNodeForPackage(AfficherWorkshopView.class);
+
+    ServiceUser serviceUser = new ServiceUser();
+    String savedUsername = preferences.get("username", null);
+    String savedPassword = preferences.get("Password", null);
+    User userlogged = serviceUser.GetUser(savedUsername,savedPassword);
 
     public ImageView usericon;
     public Button inscrire;
@@ -41,7 +50,7 @@ public class AfficherWorkshopView implements EventChangeListener<Workshop> {
 
     @FXML
     private TextField tfimage;
-    private User userlogged;
+
     @FXML
     private ComboBox<String> cbevenement;
     ServiceEvent serviceEvent=new ServiceEvent();
@@ -56,6 +65,7 @@ public class AfficherWorkshopView implements EventChangeListener<Workshop> {
     private int idEvent;
     public void initEventId(int idEvent,String username){
         this.idEvent=idEvent;
+        user = username;
         refresh();
         user = username;
         System.out.println(username);
@@ -63,12 +73,12 @@ public class AfficherWorkshopView implements EventChangeListener<Workshop> {
     }
     @FXML
     public void initialize(){
-      /*  cbevenement.getItems().setAll(serviceEvent.getEventIdsAndNames());
-        cbevenement.setDisable(true);*/
+        System.out.println(user);
 
         refresh();
     }
     public void refresh(){
+
         grid.getChildren().clear();
         List<Workshop> workshops=sw.afficherParIdEvent(idEvent);
         int column=0;
@@ -152,22 +162,14 @@ public class AfficherWorkshopView implements EventChangeListener<Workshop> {
 
     }
    @FXML
-    void gotoEvent(ActionEvent event) {
-        Stage stage=(Stage) grid.getScene().getWindow();
-        stage.close();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainFX.class.getResource("afficher-event-view.fxml"));
+    void gotoEvent(ActionEvent event) throws IOException {
 
-
-            Parent root = fxmlLoader.load();
-
-            Stage newStage=new Stage();
-            newStage.setTitle("event");
-            newStage.setScene(new Scene(root));
-            newStage.show();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/kolchy/afficher-event-view.fxml"));
+       Parent loginSuccessRoot = loader.load();
+       Scene scene = nav_name.getScene();
+       scene.setRoot(loginSuccessRoot);
+       AfficherEventView afficherEventView = loader.getController();
+       afficherEventView.initData(userlogged);
     }
 
     public void sinscrire(ActionEvent actionEvent) {

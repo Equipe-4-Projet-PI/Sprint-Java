@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import kolchy.controller.AfficherEventView;
 import services.ServiceForumF;
 
 import java.io.IOException;
@@ -269,7 +270,18 @@ public class AfficherForumMembreController {
 
     }
 
-    public void Go_To_Event(ActionEvent actionEvent) {
+    public void Go_To_Event(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/kolchy/afficher-event-view.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        AfficherEventView afficherEventView = loader.getController();
+        afficherEventView.initData(userlogged);
+
+
+
+
     }
 
     public void Go_To_Message(ActionEvent actionEvent) {
