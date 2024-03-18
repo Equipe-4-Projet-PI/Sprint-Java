@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomepageController">
+    <children>
+    <ImageView fitHeight="720" fitWidth="1367.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/Background.png" />
+        </image>
+    </ImageView>
+      <ToolBar layoutX="25.0" layoutY="56.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="88.0" prefWidth="1227.0" style="-fx-background-color: #FFFFFF;">
+         <items>
+            <ImageView fitHeight="47.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo.PNG" />
+               </image>
+            </ImageView>
+            <Button mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="Accueil">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="120.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="Magasin">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="213.0" layoutY="27.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="Enchére">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="213.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="Forum">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="318.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="Evènements">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="405.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="Messagerie" textFill="#0076a8">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Button>
+            <Button layoutX="642.0" layoutY="27.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="A propos de nous">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="notification" layoutX="803.0" layoutY="27.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="39.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/bell.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <ImageView fitHeight="37.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/pers.PNG" />
+               </image>
+            </ImageView>
+            <Button layoutX="773.0" layoutY="27.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" textFill="#0076a8">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/params.PNG" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </items>
+      </ToolBar>
+      <ScrollPane fx:id="discussions" layoutX="712.0" layoutY="181.0" prefHeight="497.0" prefWidth="440.0" style="-fx-background-color: transparent;">
+         <content>
+            <VBox fx:id="dis" prefHeight="89.0" prefWidth="430.0" style="-fx-background-color: #B4DBDC;" />
+         </content>
+      </ScrollPane>
+
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0077a6b0" height="348.0" layoutX="57.0" layoutY="257.0" stroke="BLACK" strokeType="INSIDE" width="531.0" />
+      <TextField fx:id="username" layoutX="84.0" layoutY="322.0" prefHeight="64.0" prefWidth="472.0" style="-fx-background-color: #B4DBDC;">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Button fx:id="chercher" layoutX="492.0" layoutY="331.0" mnemonicParsing="false" onAction="#chercherDiscussion" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Chercher.png" />
+               </image></ImageView>
+         </graphic>
+      </Button>
+      <ScrollPane fx:id="discussionstrouves" layoutX="100.0" layoutY="439.0" prefHeight="87.0" prefWidth="440.0" style="-fx-background-color: transparent;">
+         <content>
+            <VBox fx:id="discussionstrouvees" onMouseClicked="#afficherDiscussionstrouvees" prefHeight="70.0" prefWidth="440.0" style="-fx-background-color: #B4DBDC;" />
+         </content>
+      </ScrollPane>
+    </children>
+</AnchorPane>

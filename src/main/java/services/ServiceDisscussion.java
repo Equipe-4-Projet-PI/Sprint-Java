@@ -156,7 +156,9 @@ public class ServiceDisscussion implements IService<Disscussion> {
         pre.executeQuery();
         pre.close();
 
-        return res != null;
+        if (res != null) return true ;
+        else return false ;
+//        return res != null;
     }
 
     public void signal (Disscussion disscussion  , String sig) throws SQLException{
@@ -194,5 +196,23 @@ public class ServiceDisscussion implements IService<Disscussion> {
 
     }
 
+
+    public List<Disscussion> getByReceiver(int IdReceiver) throws SQLException {
+
+        List<Disscussion> dis = new ArrayList<>();
+
+        String req = "SELECT * FROM discussion WHERE idReciever= ?";
+        PreparedStatement pre = conn.prepareStatement(req);
+
+        pre.setInt(1, IdReceiver);
+
+        ResultSet res = pre.executeQuery();
+
+        pre.executeQuery();
+        pre.close();
+
+        return dis ;
+
+    }
 
 }

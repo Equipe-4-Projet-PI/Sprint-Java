@@ -9,36 +9,37 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="box" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="360.0" style="-fx-background-color: #B4DBDC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DiscussionController">
+<HBox fx:id="box" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="430.0" style="-fx-background-color: #B4DBDC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DiscussionController">
    <children>
-      <ImageView fx:id="img" fitHeight="77.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
-      <VBox fx:id="vbox" prefHeight="48.0" prefWidth="132.0">
+      <HBox fx:id="box1" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="430.0" style="-fx-background-color: #B4DBDC;">
          <children>
-            <Label fx:id="receiver" prefHeight="42.0" prefWidth="100.0" text="Receiver">
-               <font>
-                  <Font name="System Bold Italic" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="content" layoutX="10.0" layoutY="10.0" text="Content" />
+            <ImageView fx:id="img" fitHeight="89.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox fx:id="vbox" prefHeight="89.0" prefWidth="439.0">
+               <children>
+                  <Label fx:id="receiver" prefHeight="51.0" prefWidth="136.0" text="Receiver">
+                     <font>
+                        <Font name="System Bold Italic" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="content" layoutX="10.0" layoutY="10.0" text="Content" />
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </VBox>
+            <Button fx:id="Afficherdis" mnemonicParsing="false" prefHeight="95.0" prefWidth="109.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="58.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/grp.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
          </children>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </VBox>
-      <Button fx:id="Afficherdis" mnemonicParsing="false" onAction="#setMethod" prefHeight="95.0" prefWidth="109.0" style="-fx-background-color: transparent;">
-<!--              onAction="#AfficherDis" -->
-
-         <graphic>
-            <ImageView fitHeight="58.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/grp.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <HBox.margin>
-            <Insets />
-         </HBox.margin>
-      </Button>
-
+      </HBox>
    </children>
 </HBox>
