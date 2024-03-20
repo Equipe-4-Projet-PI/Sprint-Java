@@ -5,6 +5,7 @@ module ArtyVenci3{
     requires javafx.fxml;
     requires java.sql;
 
+    opens controllers;
     exports test ;
     exports controllers ;
 

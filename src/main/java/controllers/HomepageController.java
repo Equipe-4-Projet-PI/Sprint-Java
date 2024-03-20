@@ -66,7 +66,7 @@ public class HomepageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         afficherDiscussions();
-        discussionstrouvees = new VBox();
+//        afficherDiscussionstrouvees() ;
     }
 
     // Afficher les discussions
@@ -105,13 +105,10 @@ public class HomepageController implements Initializable {
         }
     }
 
-    // Autres méthodes comme afficherDiscussionstrouvees, chercherDiscussion, showAlert, etc.
 
     @FXML
     public void afficherDiscussionstrouvees() {
-        discussionstrouvees.getChildren().clear();
         try {
-//            ObservableList<Disscussion> discussions = FXCollections.observableList(serviceDisscussion.afficher());
             ObservableList<Disscussion> discussions = FXCollections.observableList(chercherDiscussion());
             for (Disscussion discussion : discussions) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/discussion.fxml"));
@@ -119,46 +116,69 @@ public class HomepageController implements Initializable {
                 DiscussionController discController = fxmlLoader.getController();
                 discController.setData(discussion);
                 discussionstrouvees.getChildren().add(cardBox);
+                // Ajoutez un gestionnaire d'événements pour chaque HBox
+                cardBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        try {
+                            // Chargez la page messages.fxml avec les données de discussion appropriées
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/messages.fxml"));
+                            Parent root = loader.load();
+                            MessagesController messagesController = loader.getController();
+                            messagesController.setData(discussion); // Définissez les données de discussion dans MessagesController
+                            messagesController.afficherMessages();
+                            // Affichez la nouvelle page
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(root));
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         } catch (SQLException | IOException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger les discussions: " + e.getMessage());
         }
     }
 
-        // el recherche jawha fesfes
-        @FXML
-        public List<Disscussion> chercherDiscussion () throws SQLException {
-            List<Disscussion> disTrouvees = new ArrayList<>();
-            String userName = username.getText().trim();
-            if (!userName.isEmpty()) {
-                receiver = serviceUser.getbyUsername(userName);
-                if (receiver != null) {
-                    try {
-                        Disscussion d = serviceDisscussion.getDiscussionByReceiverId(receiver.getId_User());
-                        if (d != null) {
-                            showAlert(Alert.AlertType.INFORMATION, "Discussion trouvée", "Discussion trouvée avec : " + userName);
-                            disTrouvees.add(d);
-                            return disTrouvees;
-                        } else {
-                            showAlert(Alert.AlertType.ERROR, "Erreur", "Discussion non trouvée");
-                        }
-                    } catch (SQLException e) {
-                        showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue: " + e.getMessage());
+    // el recherche jawha fesfes
+    @FXML
+    public List<Disscussion> chercherDiscussion () throws SQLException {
+        discussionstrouvees.getChildren().clear();
+        List<Disscussion> disTrouvees = new ArrayList<>();
+        String userName = username.getText().trim();
+        if (!userName.isEmpty()) {
+            receiver = serviceUser.getbyUsername(userName);
+            if (receiver != null) {
+                try {
+                    Disscussion d = serviceDisscussion.getDiscussionByReceiverId(receiver.getId_User());
+                    if (d != null) {
+                        showAlert(Alert.AlertType.INFORMATION, "Discussion trouvée", "Discussion trouvée avec : " + userName);
+                        disTrouvees.add(d);
+//                        System.out.println(disTrouvees);
+                        return disTrouvees;
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Erreur", "Discussion non trouvée");
                     }
-                } else {
-                    showAlert(Alert.AlertType.ERROR, "Erreur", "Utilisateur non trouvé");
+                } catch (SQLException e) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue: " + e.getMessage());
                 }
             } else {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez saisir le username");
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Utilisateur non trouvé");
             }
-            return null;
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez saisir le username");
         }
-
-        //Afficher les alertes
-        private void showAlert (Alert.AlertType alertType, String title, String content){
-            Alert alert = new Alert(alertType);
-            alert.setTitle(title);
-            alert.setContentText(content);
-            alert.showAndWait();
-        }
+        System.out.println(disTrouvees);
+        return disTrouvees;
     }
+
+    //Afficher les alertes
+    private void showAlert (Alert.AlertType alertType, String title, String content){
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+}

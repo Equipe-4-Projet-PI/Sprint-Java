@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -91,10 +92,30 @@
     </ToolBar>
 
     <!--> hedha l tebe3ha <-->
-        <ScrollPane fx:id="messages" layoutX="206.0" layoutY="199.0" prefHeight="497.0" prefWidth="880.0" style="-fx-background-color: transparent;">
+        <ScrollPane fx:id="messages" layoutX="206.0" layoutY="199.0" prefHeight="463.0" prefWidth="880.0" style="-fx-background-color: transparent;">
             <content>
-                <VBox fx:id="Msg" prefHeight="89.0" prefWidth="880.0" style="-fx-background-color: #B4DBDC;" />
+                <VBox fx:id="Msg" prefHeight="89.0" prefWidth="880.0" style="-fx-background-color: #0076a8;" />
             </content>
         </ScrollPane>
+
+        <TextField fx:id="msg" layoutX="518.0" layoutY="650.0" prefHeight="44.0" prefWidth="566.0" style="-fx-background-color: #B4DBDC;">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </TextField>
+        <Button fx:id="Envoi" layoutX="1094.0" layoutY="642.0" mnemonicParsing="false" onAction="#EnvoyerMsg" prefHeight="54.0" prefWidth="117.0" style="-fx-background-color: #B4DBDC;" text="Envoyer">
+            <font>
+                <Font name="System Bold Italic" size="20.0" />
+            </font>
+        </Button>
+      <Button fx:id="retour" layoutX="43.0" layoutY="174.0" mnemonicParsing="false" onAction="#retour" prefHeight="36.0" prefWidth="21.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="43.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/retour.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
     </children>
 </AnchorPane>

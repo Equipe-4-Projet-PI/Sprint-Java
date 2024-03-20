@@ -12,12 +12,12 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomepageController">
-    <children>
-    <ImageView fitHeight="720" fitWidth="1367.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-        <image>
+   <children>
+      <ImageView fitHeight="720" fitWidth="1367.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
             <Image url="@images/Background.png" />
-        </image>
-    </ImageView>
+         </image>
+      </ImageView>
       <ToolBar layoutX="25.0" layoutY="56.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="88.0" prefWidth="1227.0" style="-fx-background-color: #FFFFFF;">
          <items>
             <ImageView fitHeight="47.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
@@ -113,8 +113,8 @@
       </Button>
       <ScrollPane fx:id="discussionstrouves" layoutX="100.0" layoutY="439.0" prefHeight="87.0" prefWidth="440.0" style="-fx-background-color: transparent;">
          <content>
-            <VBox fx:id="discussionstrouvees" onMouseClicked="#afficherDiscussionstrouvees" prefHeight="70.0" prefWidth="440.0" style="-fx-background-color: #B4DBDC;" />
+            <VBox fx:id="discussionstrouvees"  onMouseClicked="#afficherDiscussionstrouvees" prefHeight="70.0" prefWidth="440.0" style="-fx-background-color: #B4DBDC;" />
          </content>
       </ScrollPane>
-    </children>
+   </children>
 </AnchorPane>
