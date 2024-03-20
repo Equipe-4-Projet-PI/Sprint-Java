@@ -205,17 +205,22 @@
             <Font name="Times New Roman Bold" size="16.0" />
          </font>
       </Label>
-      <ImageView fx:id="photoTimer" fitHeight="40.0" fitWidth="40.0" layoutX="1183.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="photoTimer" fitHeight="40.0" fitWidth="40.0" layoutX="1183.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/time-and-calendar.png" />
          </image>
       </ImageView>
       <VBox fx:id="ratingBox" layoutX="527.0" layoutY="271.0" prefHeight="200.0" prefWidth="276.0" />
-      <Button layoutX="604.0" layoutY="560.0" mnemonicParsing="false" onAction="#getVBox" prefHeight="36.0" prefWidth="147.0" style="-fx-background-color: #C4E5F2;" text="Donner un Raing">
+      <ImageView fitHeight="30.0" fitWidth="40.0" layoutX="153.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/favori.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="star" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="68.0" layoutY="172.0" prefHeight="18.0" prefWidth="83.0" text="Label">
          <font>
-            <Font name="Times New Roman Bold Italic" size="13.0" />
+            <Font name="Times New Roman Bold Italic" size="15.0" />
          </font>
-      </Button>
+      </Label>
 
 
 

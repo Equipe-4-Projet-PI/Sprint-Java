@@ -42,7 +42,7 @@ public class EnchersController implements Initializable {
 
     private List<Auction> tousEncheres;
 
-    int idUser = 6 ;
+    int idUser = 5 ;
     @FXML
     void searchForAuction(MouseEvent event) {
         try {

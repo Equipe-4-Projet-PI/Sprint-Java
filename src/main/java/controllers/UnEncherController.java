@@ -107,8 +107,6 @@ public class UnEncherController {
 
         javafx.scene.image.Image image1 = new Image(new File(imagePath1).toURI().toString());
         statu.setImage(image1);
-        //hbox.setStyle("-fx-background-color: #ACAFB6;"+
-                //" -fx-border-radius: 15; ");
         if(serviceAuction.getSituation(auc) == -1 || serviceAuction.getSituation(auc) == 0){
             //image favori
             byte[] imageFavori = new byte[0];
@@ -192,12 +190,10 @@ public class UnEncherController {
     @FXML
     void changerFavori(MouseEvent event) {
         if (isFavorite) {
-            // L'utilisateur a déjà marqué l'enchère comme favorite, changez à l'image non favorite
             loveFX.setImage(new Image(new File("E:\\\\ESPRIT\\\\pi\\\\favori.png").toURI().toString()));
             serviceParticipant.deleteFavori(auc.getId(),id_user);
             isFavorite = false;
         } else {
-            // L'utilisateur n'a pas encore marqué l'enchère comme favorite, changez à l'image favorite
             loveFX.setImage(new Image(new File("E:\\\\ESPRIT\\\\pi\\\\prefere.png").toURI().toString()));
             serviceParticipant.addFavori(auc.getId(),id_user);
             isFavorite = true;
@@ -208,7 +204,7 @@ public class UnEncherController {
     }
 
     void PayFlouci(MouseEvent event) throws JSONException {
-        Double montant = null;
+        double montant = 0;
         try {
             montant = serviceAuction.getPrixFinal(auc);
         } catch (SQLException e) {
@@ -269,7 +265,6 @@ public class UnEncherController {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        //open browser
         try {
             Desktop.getDesktop().browse(link);
             System.out.println("t7al");

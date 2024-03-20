@@ -84,7 +84,7 @@ public class AjouterAuctionController implements Initializable {
                 int productId = serviceAuction.getProductID(selectedProductName);
 
                 if (verifierDate(tf_date, tf_dateC)) {
-                    serviceAuction.ajouter(new Auction(tf_nomAuction.getText(), dateCloture, dateLancement, Integer.parseInt(tf_prix_initial.getValue().toString()), productId));
+                    serviceAuction.ajouter_by_artist(new Auction(tf_nomAuction.getText(), dateCloture, dateLancement, Integer.parseInt(tf_prix_initial.getValue().toString()), productId), id_Artist);
 
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");
@@ -116,22 +116,16 @@ public class AjouterAuctionController implements Initializable {
 
 
     public boolean verifierDate(DatePicker tfDate, DatePicker tfDateC) {
-        // Récupérer les valeurs des DatePicker en tant que LocalDate
         LocalDate dateDebut = tfDate.getValue();
         LocalDate dateFin = tfDateC.getValue();
 
-        // Obtenir la date actuelle
         LocalDate dateActuelle = LocalDate.now();
 
-        // Vérifier si tfDate est supérieur à la date actuelle
         if (dateDebut != null && (dateDebut.isAfter(dateActuelle) ||dateActuelle.isEqual(dateDebut))) {
-            // Vérifier si tfDateC est supérieur à tfDate
             if (dateFin != null && dateFin.isAfter(dateDebut)) {
-                return true;  // Les dates sont valides
+                return true;
             }
         }
-
-        // Les dates ne satisfont pas aux conditions
         return false;
     }
 

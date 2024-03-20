@@ -36,6 +36,20 @@ public class ServiceAuction implements IService<Auction>{
         }
     }
 
+    public void ajouter_by_artist(Auction auction, int id_user) throws SQLException {
+
+        String query = "INSERT INTO auction (nom, date_cloture, date_lancement, prix_initial, id_produit, id_artist) VALUES (?, ?, ?, ?, ? ,?)";
+        try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+            preparedStatement.setString(1, auction.getNom());
+            preparedStatement.setDate(2, Date.valueOf(auction.getDate_cloture()));
+            preparedStatement.setDate(3, Date.valueOf(auction.getDate_lancement()));
+            preparedStatement.setInt(4, auction.getPrix_initial());
+            preparedStatement.setInt(5, auction.getId_produit());
+            preparedStatement.setInt(6,id_user);
+            preparedStatement.executeUpdate();
+        }
+    }
+
 
     //hedhy tbadali auction lkol kif yheb l artiste yaaml modification aala auction mte3ou
     @Override
@@ -331,4 +345,15 @@ public class ServiceAuction implements IService<Auction>{
             return count;
     }
 
+    public String getRole(int idUser) throws SQLException {
+        String role ="";
+        String req = "select Role from user where id_User=?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1,idUser);
+        ResultSet res = pre.executeQuery();
+        while(res.next()){
+            role = res.getString("Role");
+        }
+        return role;
+    }
 }

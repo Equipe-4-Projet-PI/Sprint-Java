@@ -1,6 +1,7 @@
 package controllers;
 
 import Services.RatingService;
+import javafx.concurrent.Task;
 import Services.ServiceAuction;
 import Services.ServiceParticipant;
 import com.google.protobuf.StringValue;
@@ -14,39 +15,29 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.*;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
-
-
-
-
-
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
-
-
 import javax.xml.crypto.Data;
 import java.awt.*;
 import java.io.ByteArrayInputStream;
@@ -63,6 +54,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class EncherDetailController{
+
+    private ScheduledExecutorService scheduler;
     int id_user ;
 
     @FXML
@@ -93,8 +86,6 @@ public class EncherDetailController{
 
     @FXML
     private TextField montant;
-
-
     @FXML
     private Button effectuerButton;
     @FXML
@@ -104,18 +95,17 @@ public class EncherDetailController{
     private Label remainingTimeLabel;
     @FXML
     private ImageView photoTimer;
-    private ScheduledExecutorService scheduler;
-
     @FXML
     private VBox ratingBox;
+    @FXML
+    private Label star;
 
 
 
     List<Auction_participant> recentlyAdded;
     private Auction auc ;
 
-    public void SetDataAgain()
-    {
+    public void SetDataAgain() {
         photoTimer.setVisible(false);
         if(serviceAuction.getSituation(auc) == -1){
             ParticiperButton.setVisible(false);
@@ -128,7 +118,9 @@ public class EncherDetailController{
             photoTimer.setVisible(false);
         }else{
             startTimer();
+            updateRemainingTime();
             photoTimer.setVisible(true);
+
         }
         montant.setVisible(false);
 
@@ -138,7 +130,7 @@ public class EncherDetailController{
             j.printStackTrace();
         }
 
-        String nomProduit = null; // Initialize to null or any default value
+        String nomProduit = null;
         try {
             nomProduit = serviceAuction.getNomProduit(auc.getId());
         } catch (SQLException e) {
@@ -147,7 +139,7 @@ public class EncherDetailController{
 
         tfNomProduit.setText(nomProduit);
         nomEnchere.setText(auc.getNom());
-        prixInitial.setText("Commencez A Partir De : "+String.valueOf(auc.getPrix_initial())+ "DT Jusqu'à : "+String.valueOf(auc.getPrix_final())+"DT");
+        prixInitial.setText("Commencez A Partir De : "+String.valueOf(auc.getPrix_initial()));
         dateLancement.setText(String.valueOf(auc.getDate_lancement()));
         dateCloture.setText(String.valueOf(auc.getDate_cloture()));
         try{
@@ -160,13 +152,18 @@ public class EncherDetailController{
         nbreParticipant.setText(String.valueOf(countPartcipant(auc.getId())));
     }
     public void initData(Auction auction) {
+        if (auction == null) {
+            throw new IllegalArgumentException("Auction cannot be null.");
+        }
         this.auc = auction;
         System.out.println("Controle From Detail Controller  :");
         System.out.println(auction);
     }
 
     public void initialize() {
-
+        double averageRating = calculateAverageRatingPerAuction(auc.getId());
+        long roundedRating = Math.round(averageRating);
+        star.setText(String.valueOf(roundedRating));
         SetDataAgain();
         recentlyAdded =new ArrayList<>(recentlyAddedParticipant());
         System.out.println("the number of Participant "+recentlyAdded.size());
@@ -194,6 +191,13 @@ public class EncherDetailController{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+
+    }
+    // Method to update the star rating based on the current average rating
+    private void updateStarRating() {
+        double averageRating = calculateAverageRatingPerAuction(auc.getId());
+        long roundedRating = Math.round(averageRating);
+        star.setText(String.valueOf(roundedRating));
     }
 
 
@@ -203,29 +207,42 @@ public class EncherDetailController{
     }
 
     private void updateRemainingTime() {
-        LocalDateTime endDateTime = auc.getDate_cloture().atStartOfDay();
-        Timestamp endTimeStamp = Timestamp.valueOf(endDateTime);
-        long currentTime = System.currentTimeMillis();
-        long endTime = endTimeStamp.getTime();
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() {
+                LocalDateTime endDateTime = auc.getDate_cloture().atStartOfDay();
+                Timestamp endTimeStamp = Timestamp.valueOf(endDateTime);
+                long currentTime = System.currentTimeMillis();
+                long endTime = endTimeStamp.getTime();
 
-        long remainingTimeMillis = endTime - currentTime;
+                long remainingTimeMillis = endTime - currentTime;
 
-        if (remainingTimeMillis > 0) {
-            long remainingSeconds = remainingTimeMillis / 1000;
-            long days = remainingSeconds / (24 * 3600);
-            long hours = (remainingSeconds % (24 * 3600)) / 3600;
-            long minutes = ((remainingSeconds % (24 * 3600)) % 3600) / 60;
-            long seconds = ((remainingSeconds % (24 * 3600)) % 3600) % 60;
+                if (remainingTimeMillis > 0) {
+                    long remainingSeconds = remainingTimeMillis / 1000;
+                    long days = remainingSeconds / (24 * 3600);
+                    long hours = (remainingSeconds % (24 * 3600)) / 3600;
+                    long minutes = ((remainingSeconds % (24 * 3600)) % 3600) / 60;
+                    long seconds = ((remainingSeconds % (24 * 3600)) % 3600) % 60;
 
-            String remainingTime = String.format("%d days, %02d:%02d:%02d", days, hours, minutes, seconds);
+                    String remainingTime = String.format("%d days, %02d:%02d:%02d", days, hours, minutes, seconds);
 
-            // Update the JavaFX UI on the JavaFX Application Thread
-            Platform.runLater(() -> remainingTimeLabel.setText("Remaining Time: " + remainingTime));
-        } else {
-            // Auction has ended, display a message or take appropriate action
-            Platform.runLater(() -> remainingTimeLabel.setText("Auction has ended"));
-            scheduler.shutdown(); // Optionally, you can stop the timer if needed
-        }
+                    // Update the JavaFX UI on the JavaFX Application Thread
+                    Platform.runLater(() -> remainingTimeLabel.setText("Remaining Time: " + remainingTime));
+                } else {
+                    // Auction has ended, display a message or take appropriate action
+                    Platform.runLater(() -> remainingTimeLabel.setText("Auction has ended"));
+                    scheduler.shutdown(); // Optionally, you can stop the timer if needed
+                }
+                return null;
+            }
+        };
+
+        task.setOnFailed(event -> {
+            task.getException().printStackTrace();
+            // Handle failure gracefully...
+        });
+
+        Executors.newSingleThreadExecutor().execute(task);
     }
 
 
@@ -242,17 +259,15 @@ public class EncherDetailController{
             if (serviceParticipant.search(id_user, auc.getId())) {
                 // User exists, modify
                 if (isMontantValide(auctionParticipant)) {
-                    serviceParticipant.modifier(auctionParticipant);
+                    serviceParticipant.modifierByAuction(auctionParticipant, auc.getId());
                     System.out.println("hedhaa l auction li yra fih  : "+serviceAuction.getById(auctionParticipant.getId_auction()) );
                     serviceAuction.modifierPrixFinal(serviceAuction.getById(auctionParticipant.getId_auction()));
-
                     showSuccessAlert("L'enchère a été modifiée avec succès !");
                     refreshData();
                 } else {
                     showErrorAlert("Le montant doit être supérieur au prix initial et au dernier montant proposé.");
                 }
             } else {
-                // User doesn't exist, add new participant
                 if (isMontantValide(auctionParticipant)) {
                     serviceParticipant.ajouter(auctionParticipant);
                     serviceAuction.modifierPrixFinal(serviceAuction.getById(auctionParticipant.getId_auction()));
@@ -270,7 +285,8 @@ public class EncherDetailController{
             throw new RuntimeException(e);
         }
 
-
+     getVBox(event);
+        updateStarRating();
     }
 
     private VBox createRatingInterface() {
@@ -279,23 +295,29 @@ public class EncherDetailController{
 
         Label ratingLabel = new Label("Rating: 0");
         Slider ratingSlider = new Slider(0, 5, 0);
+        ratingSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            ratingLabel.setText("Rating: " + newValue.intValue());
+        });
 
         Button submitButton = new Button("Submit Rating");
         submitButton.setOnAction(event -> {
             int rating = (int) ratingSlider.getValue();
-            ratingLabel.setText("Rating: " + rating);
-            RatingService.submitRating(rating);
+            ratingLabel.setText("Rating: 0");
+            serviceParticipant.submitRating(rating, id_user, auc.getId());
 
-            // Optionally, you can remove the ratingBox after submitting the rating
-            hboxFX.getChildren().remove(ratingBox);
+            // Close the window containing the rating interface
+            Stage stage = (Stage) ratingBox.getScene().getWindow();
+            stage.close();
         });
+
+
 
         ratingBox.getChildren().addAll(ratingLabel, ratingSlider, submitButton);
 
         return ratingBox;
     }
 
-    @FXML
+
     private void getVBox(ActionEvent event) {
         VBox ratingBox = createRatingInterface();
         Stage ratingStage = new Stage();
@@ -315,8 +337,7 @@ public class EncherDetailController{
             alert.setContentText(message);
             alert.showAndWait();
         }
-
-        private void showErrorAlert(String message) {
+    private void showErrorAlert(String message) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText(message);
@@ -333,8 +354,6 @@ public class EncherDetailController{
         Parent root = loader.load();
         return root;
     }
-
-    //hedhy traja3 taswiret l produit mtaa auction
     private String loadImageFromDatabase(int id_produit) {
         String imageData = "";
         imageData = serviceAuction.loadImageFromDatabase(id_produit);
@@ -357,7 +376,6 @@ public class EncherDetailController{
     public void participerClicked(ActionEvent actionEvent) {
         montant.setVisible(true);
         effectuerButton.setVisible(true);
-
     }
 
 
@@ -376,20 +394,22 @@ public class EncherDetailController{
 
     @FXML
     void retouner(MouseEvent event) {
-        String artist = "artist";
-        String member = "member";
+        String artist = "Artist";
+        String member = "Member";
         String admin = "admin";
 
         try {
             FXMLLoader loader = new FXMLLoader();
             String resourcePath = "/Enchers.fxml";
+            String role = getRole(id_user);
 
-            if (artist.equals(artist)) {
+            if (role.equals(artist)) {
                 resourcePath = "/artistEnchers.fxml";
-            } else if (member.equals("id_user.role")) {
+            } else if (role.equals(member)) {
                 resourcePath = "/Enchers.fxml";
-            } else if (admin.equals("id_user.role")) {
+            } else if (role.equals(admin)) {
                 resourcePath = "/ListeEncheres.fxml";
+                ParticiperButton.setVisible(false);
             }
             loader.setLocation(getClass().getResource(resourcePath));
             Parent loginSuccessRoot = loader.load();
@@ -398,6 +418,13 @@ public class EncherDetailController{
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+    public String getRole(int id_user){
+        try {
+            return serviceAuction.getRole(id_user);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -409,10 +436,31 @@ public class EncherDetailController{
         }
     }
     public void refreshData() {
+        star.setText("");
+        updateStarRating();
         hboxFX.getChildren().clear();
         initialize();
     }
     public void setIDUser(int idUser) {
         this.id_user=idUser;
+    }
+
+    public double calculateAverageRatingPerAuction(int auctionId) {
+        try {
+            List<Integer> ratings = serviceParticipant.getRatingsForAuction(auctionId);
+
+            if (!ratings.isEmpty()) {
+                double sum = 0;
+                for (int rating : ratings) {
+                    sum += rating;
+                }
+                return sum / ratings.size();
+            } else {
+                return 0.0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0.0;
+        }
     }
 }

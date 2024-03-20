@@ -14,6 +14,8 @@ import java.util.List;
 public class ServiceParticipant implements IService<Auction_participant> {
 
 
+    private Auction_participant  auctionParticipant;
+
     private Connection con;
 
     public ServiceParticipant() {
@@ -34,12 +36,22 @@ public class ServiceParticipant implements IService<Auction_participant> {
 
     //la methode participer
     @Override
-    public void modifier(Auction_participant auctionParticipant) throws SQLException {
-        String req = "update auction_participant set prix=? , date=? where id_Participant=?";
+    public void modifier(Auction_participant auctionParticipant ) throws SQLException {
+        String req = "update auction_participant set prix=? , date=? where id_Participant=? and id_auction=?";
         PreparedStatement pre = con.prepareStatement(req);
         pre.setFloat(1, auctionParticipant.getPrix());
         pre.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
         pre.setInt(3, auctionParticipant.getId_participant());
+        pre.executeUpdate();
+    }
+
+    public void modifierByAuction(Auction_participant auctionParticipant , int id_auction ) throws SQLException {
+        String req = "update auction_participant set prix=? , date=? where id_Participant=? and id_auction=?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setFloat(1, auctionParticipant.getPrix());
+        pre.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+        pre.setInt(3, auctionParticipant.getId_participant());
+        pre.setInt(4, id_auction);
         pre.executeUpdate();
     }
 
@@ -359,4 +371,44 @@ public class ServiceParticipant implements IService<Auction_participant> {
     }
 
 
+    public void submitRating(int rating , int userId , int auctionId) {
+        try {
+            updateRating(userId, auctionId, rating);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateRating(int userId, int auctionId, int rating) throws SQLException {
+        String query = "UPDATE auction_participant SET rating = ? WHERE id_participant = ? AND id_auction = ?";
+
+        try (PreparedStatement statement = con.prepareStatement(query)) {
+            statement.setInt(1, rating);
+            statement.setInt(2, userId);
+            statement.setInt(3, auctionId);
+
+            statement.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public List<Integer> getRatingsForAuction(int auctionId) throws SQLException {
+        List<Integer> ratings = new ArrayList<>();
+        String query = "SELECT rating FROM auction_participant WHERE id_auction = ?";
+
+        try (PreparedStatement statement = con.prepareStatement(query)) {
+            statement.setInt(1, auctionId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int rating = resultSet.getInt("rating");
+                    ratings.add(rating);
+                }
+            }
+        }
+
+        return ratings;
+    }
 }
