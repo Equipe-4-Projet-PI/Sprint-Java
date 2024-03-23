@@ -1,15 +1,22 @@
 package controllers.Member;
 
+import controllers.HomeController;
+import controllers.LoginSuccess;
+import controllers.ProductController;
 import entities.ForumEntity;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import services.ServiceForumF;
@@ -21,13 +28,18 @@ import java.util.stream.Collectors;
 
 public class AfficherForumMembreController {
 
+    public ImageView bell;
+    public ImageView usericon;
+    public Label nav_name;
+    public Button inscrire;
+    public ImageView logouticon;
     ServiceForumF SF = new ServiceForumF();
     @FXML
     private Button searchButt_id;
 
     @FXML
     private TextField searchbar_id;
-
+    private User userlogged;
     @FXML
     void SearchForForum(ActionEvent event) {
             try {
@@ -47,7 +59,7 @@ public class AfficherForumMembreController {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ForumPages/Member/ForumTemplateMembre.fxml"));
                     HBox cardBox = fxmlLoader.load();
                     ForumTemplateMembreController cardController = fxmlLoader.getController();
-                    cardController.setData(f);
+                    cardController.setData(f,userlogged);
                     idVbox.getChildren().add(cardBox);
                 }
             } catch (IOException e) {
@@ -60,24 +72,73 @@ public class AfficherForumMembreController {
         @FXML
     private VBox idVbox;
 
-    @FXML
-    void initialize()
-    {
-        try{
-            ObservableList<ForumEntity> observableList = FXCollections.observableList(SF.afficher());
-            for (int i = 0; i < observableList.size(); i++) {
-                FXMLLoader fxmlLoader= new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ForumPages/Member/ForumTemplateMembre.fxml"));
-                HBox cardBox = fxmlLoader.load();
-                ForumTemplateMembreController cardController = fxmlLoader.getController();
-                cardController.setData(observableList.get(i));
-                idVbox.getChildren().add(cardBox);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+
+
+    public void initUser(User user) {
+
+        System.out.println(user);
+        if(user == null){
+            inscrire.setVisible(true);
+            bell.setVisible(false);
+            usericon.setVisible(false);
+            logouticon.setVisible(false);
+            System.out.println("el user mafamech");
+            userlogged = null ;
         }
-        searchButt_id.setGraphic(Lojo);
+
+
+
+        else {
+
+
+            nav_name.setText(user.getUsername());
+            inscrire.setVisible(false);
+            bell.setVisible(true);
+            usericon.setVisible(true);
+            logouticon.setVisible(true);
+
+            userlogged = new User();
+            userlogged.setGender(user.getGender());
+            userlogged.setDOB(user.getDOB());
+            userlogged.setPhone(user.getPhone());
+            userlogged.setAdress(user.getAdress());
+            userlogged.setUsername(user.getUsername());
+            userlogged.setEmail(user.getEmail());
+            userlogged.setFirstName(user.getFirstName());
+            userlogged.setPassword(user.getPassword());
+            userlogged.setLastName(user.getLastName());
+            userlogged.setId_User(user.getId_User());
+            userlogged.setRole(user.getRole());
+            userlogged.setImageURL(user.getImageURL());
+
+            try{
+                ObservableList<ForumEntity> observableList = FXCollections.observableList(SF.afficher());
+                for (int i = 0; i < observableList.size(); i++) {
+                    FXMLLoader fxmlLoader= new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/ForumPages/Member/ForumTemplateMembre.fxml"));
+                    HBox cardBox = fxmlLoader.load();
+                    ForumTemplateMembreController cardController = fxmlLoader.getController();
+                    cardController.setData(observableList.get(i),userlogged);
+                    //   cardController.initData(userlogged);
+                    idVbox.getChildren().add(cardBox);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            searchButt_id.setGraphic(Lojo);
+
+        }
+
+
+
     }
+//    @FXML
+//   public void initialize()
+//
+//    {
+
+
+//    }
     @FXML
     private ImageView Lojo;
 
@@ -98,15 +159,14 @@ public class AfficherForumMembreController {
     private Button Create_forum_butt_id;
 
     @FXML
-    void CreateForum(ActionEvent event) {
-        try{
-            Parent root = loadRootLayoutForForum();
-            Create_forum_butt_id.getScene().setRoot(root);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    void CreateForum(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForumPages/Member/AddForumMembre.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        System.out.println(userlogged);
+        AddForumMembreController addForumMembreController = loader.getController();
+        addForumMembreController.initData(userlogged);
     }
 
     private Parent loadRootLayoutForForum() throws Exception {
@@ -114,6 +174,63 @@ public class AfficherForumMembreController {
 
         Parent root = loader.load();
         return root;
+    }
+
+
+    public void Go_To_Home(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        System.out.println(userlogged);
+        HomeController homeController = loader.getController();
+        homeController.initData(userlogged);
+    }
+
+    public void Go_To_Product(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Product.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+        ProductController productController = loader.getController();
+        productController.initUser(userlogged);
+    }
+
+    public void Go_To_Auction(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Forum(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Event(ActionEvent actionEvent) {
+    }
+
+    public void Go_To_Message(ActionEvent actionEvent) {
+    }
+
+    public void ProfileVisit(MouseEvent mouseEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginSuccess.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+
+        LoginSuccess loginSuccess = loader.getController();
+        loginSuccess.initData(userlogged);
+
+    }
+
+    public void sinscrire(ActionEvent actionEvent)  throws IOException {
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login_User.fxml"));
+        Parent loginSuccessRoot = loader.load();
+        Scene scene = nav_name.getScene();
+        scene.setRoot(loginSuccessRoot);
+    }
+
+    public void Logout(MouseEvent mouseEvent) {
     }
 
 

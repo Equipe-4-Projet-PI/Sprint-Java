@@ -90,4 +90,11 @@ public class ServiceForumF implements IServiceF<ForumEntity> {
         }
         return f;
     }
+
+    public int CountForums() throws SQLException {
+        int number=0;
+        List<ForumEntity> flist = new ArrayList<>(this.afficher());
+        number = (int) flist.stream().count();
+        return number;
+    };
 }

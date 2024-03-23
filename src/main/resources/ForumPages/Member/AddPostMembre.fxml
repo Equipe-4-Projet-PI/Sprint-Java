@@ -157,8 +157,12 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="OrderButt" layoutX="1160.0" layoutY="261.0" mnemonicParsing="false" onAction="#OrderByLikeNumber" text="OrderByLikes" />
-      <ChoiceBox fx:id="box" layoutX="1127.0" layoutY="310.0" prefWidth="150.0" />
-      <Button fx:id="PrintPDF_butt" layoutX="1176.0" layoutY="412.0" mnemonicParsing="false" onAction="#PrintPDF" text="Button" />
+      <Button fx:id="OrderButt" layoutX="1171.0" layoutY="261.0" mnemonicParsing="false" onAction="#OrderByLikeNumber" style="-fx-background-color: #0076a8; -fx-border-color: Black;" text="Order By" textFill="WHITE" />
+      <ChoiceBox fx:id="box" layoutX="1126.0" layoutY="301.0" prefWidth="150.0" />
+      <Button fx:id="PrintPDF_butt" layoutX="1155.0" layoutY="416.0" mnemonicParsing="false" onAction="#PrintPDF" style="-fx-background-color: #0076a8; -fx-border-color: Black;" text="Export To PDF" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <ImageView fx:id="Qr_id" fitHeight="150.0" fitWidth="150.0" layoutX="1116.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

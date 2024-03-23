@@ -2,7 +2,6 @@ package test.Forum;
 import java.sql.*;
 
 import services.ServicePostF;
-import services.ServiceUserF;
 import utils.MyDBF;
 import entities.ForumEntity;
 //import services.ServicePost;
@@ -93,11 +92,11 @@ public class main {
 //        }
 
         /*================USER SERVICE====================*/
-        ServiceUserF SU = new ServiceUserF();
-        try {
-            System.out.println(SU.getbyid(2));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+//        ServiceUserF SU = new ServiceUserF();
+//        try {
+//            System.out.println(SU.getbyid(2));
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }

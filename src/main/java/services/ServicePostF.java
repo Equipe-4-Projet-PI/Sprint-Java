@@ -1,5 +1,6 @@
 package services;
 
+import entities.ForumEntity;
 import entities.PostEntity;
 import utils.MyDBF;
 
@@ -58,7 +59,7 @@ public class ServicePostF implements IServiceF<PostEntity> {
 
         pre.setInt(1,postEntity.getId_forum());
         pre.setInt(2,postEntity.getId_user());
-        pre.setString(3,postEntity.getText());
+        pre.setString(3,postEntity.getTitle());
         pre.setString(4,postEntity.getText());
         pre.setInt(5,postEntity.getLike_num());
         pre.setTimestamp(6,postEntity.getTime());
@@ -121,4 +122,11 @@ public class ServicePostF implements IServiceF<PostEntity> {
         }
         return f;
     }
+
+    public int CountPosts() throws SQLException {
+        int number=0;
+        List<PostEntity> flist = new ArrayList<>(this.afficher());
+        number = (int) flist.stream().count();
+        return number;
+    };
 }

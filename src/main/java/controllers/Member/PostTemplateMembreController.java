@@ -1,6 +1,7 @@
 package controllers.Member;
 
 import entities.PostEntity;
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import services.ServiceForumF;
 import services.ServicePostF;
-import services.ServiceUserF;
+import services.ServiceUser;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -33,21 +34,37 @@ public class PostTemplateMembreController {
     private Label user_label_id;
     private  int likes;
 
+    private User userlogged;
     private PostEntity post;
-    ServiceUserF SU = new ServiceUserF();
+    ServiceUser serviceUser = new ServiceUser();
+
+
     ServiceForumF SF = new ServiceForumF();
-    public void setData(PostEntity postEntity)
+    public void setData(PostEntity postEntity , User user)
     {
+
+
+        userlogged = new User();
+        userlogged.setGender(user.getGender());
+        userlogged.setDOB(user.getDOB());
+        userlogged.setPhone(user.getPhone());
+        userlogged.setAdress(user.getAdress());
+        userlogged.setUsername(user.getUsername());
+        userlogged.setEmail(user.getEmail());
+        userlogged.setFirstName(user.getFirstName());
+        userlogged.setPassword(user.getPassword());
+        userlogged.setLastName(user.getLastName());
+        userlogged.setId_User(user.getId_User());
+        userlogged.setRole(user.getRole());
+        userlogged.setImageURL(user.getImageURL());
+
+
         title_label_id.setText(postEntity.getTitle());
         post_label_id.setText(postEntity.getText());
         Like_num_id.setText(""+postEntity.getLike_num());
         timestamp_label_id.setText(""+postEntity.getTime());
         this.post = postEntity;
-        try {
-            user_label_id.setText(SU.getbyid(post.getId_user()).getUsername());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        user_label_id.setText(serviceUser.GetUserById(post.getId_user()).getUsername());
     }
     @FXML
     private Button like_butt_id;
@@ -107,7 +124,7 @@ public class PostTemplateMembreController {
         loader.setController(controller);
         Parent root = loader.load();
         RefreshController initedCont = loader.getController();
-        initedCont.setForumData(SF.getbyid(post.getId_forum()),post_label_id.getScene()); // Add data to the controller
+        initedCont.setForumData(SF.getbyid(post.getId_forum()),post_label_id.getScene(),userlogged); // Add data to the controller
 
         return root;
     }
