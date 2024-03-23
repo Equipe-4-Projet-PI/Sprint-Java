@@ -6,9 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
-import java.sql.SQLException;
-
 public class MainFX extends Application {
     @Override
     public void start(Stage stage) throws Exception {
@@ -16,7 +13,7 @@ public class MainFX extends Application {
 
            
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Home.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Interfaces/UserPages/Home.fxml"));
 
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
