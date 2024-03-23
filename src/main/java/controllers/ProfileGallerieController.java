@@ -362,7 +362,6 @@ public class ProfileGallerieController {
 
     @FXML
     void MagPage(MouseEvent event) {
-
         Affichage_panel.setVisible(true);
         afficher_panier.setVisible(false);
         afficher_ma_list.setVisible(false);
@@ -413,7 +412,6 @@ public class ProfileGallerieController {
 
     @FXML
     private Label statue_name;
-
 
     @FXML
     void Details(ActionEvent event) throws IOException {

@@ -1,6 +1,9 @@
 package controllers.Member;
 
 import controllers.*;
+import controllers.HomeController;
+import controllers.LoginSuccess;
+import controllers.ProductController;
 import entities.ForumEntity;
 import entities.User;
 import javafx.collections.FXCollections;
@@ -109,7 +112,6 @@ public class AfficherForumMembreController {
 
 
 
-
         else {
 
 
@@ -207,9 +209,7 @@ public class AfficherForumMembreController {
     }
 
 
-
     public void Go_To_Home(ActionEvent actionEvent) throws IOException {
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
         Parent loginSuccessRoot = loader.load();
         Scene scene = nav_name.getScene();
@@ -219,7 +219,7 @@ public class AfficherForumMembreController {
         homeController.initData(userlogged);
     }
 
-    public void Go_To_Product(ActionEvent actionEvent)  throws IOException {
+    public void Go_To_Product(ActionEvent actionEvent) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Product.fxml"));
         Parent loginSuccessRoot = loader.load();

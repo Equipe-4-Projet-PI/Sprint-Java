@@ -79,7 +79,6 @@ public class ServiceProduct implements IServiceF<Product>{
         return pro;
     }
 
-
     public List<Product> saleList() throws SQLException {
         List<Product> pro = new ArrayList<>();
         String req ="select * from product where ForSale=1";
@@ -100,7 +99,6 @@ public class ServiceProduct implements IServiceF<Product>{
         return pro;
     }
 
-
     public List<Product> NosaleList() throws SQLException {
         List<Product> pro = new ArrayList<>();
         String req ="select * from product where ForSale=0";
@@ -120,7 +118,6 @@ public class ServiceProduct implements IServiceF<Product>{
         }
         return pro;
     }
-
 
     public List<Product> afficher() throws SQLException {
         List<Product> pro = new ArrayList<>();
@@ -145,7 +142,6 @@ public class ServiceProduct implements IServiceF<Product>{
         return pro;
     }
 
-
     public List<Product> FilterShow(String title) throws SQLException {
         List<Product> pro = new ArrayList<>();
         String req ="select * from product where Title=?";
@@ -166,6 +162,5 @@ public class ServiceProduct implements IServiceF<Product>{
         }
         return pro;
     }
-
 
 }

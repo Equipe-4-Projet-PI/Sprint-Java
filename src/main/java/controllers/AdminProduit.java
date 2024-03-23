@@ -1,22 +1,14 @@
 package controllers;
 
-import com.stripe.service.ProductService;
-import entities.Product;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import services.ServiceProduct;
+import services.ServiceForumF;
 import services.ServiceUser;
 
 import java.io.IOException;
@@ -138,6 +130,14 @@ public void initialize() throws SQLException {
 
 
 
+
+    ServiceUser serviceUser = new ServiceUser();
+    ServiceForumF serviceForum = new ServiceForumF();
+    public void initialize() throws SQLException {
+        Num_Users.setText(String.valueOf(serviceUser.CountUsers()));
+        Num_Forum.setText(""+serviceForum.CountForums());
+        System.out.println("Welcome Produit");
+    }
     @FXML
     void Go_To_Auction(MouseEvent event) throws IOException {
 

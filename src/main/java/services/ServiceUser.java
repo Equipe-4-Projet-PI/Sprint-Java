@@ -21,7 +21,6 @@ public class ServiceUser implements IService<User> {
     }
 
 
-
     @Override
     public void ADD(User user) throws SQLException {
 

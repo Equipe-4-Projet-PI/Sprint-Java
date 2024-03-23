@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import services.ServiceForumF;
 import services.ServiceUser;
 
 import java.io.IOException;
@@ -34,9 +35,11 @@ public class AdminMessages {
     private ImageView logout;
 
     ServiceUser serviceUser = new ServiceUser();
+    ServiceForumF serviceForum = new ServiceForumF();
 
     public void initialize() throws SQLException {
         Num_Users.setText(String.valueOf(serviceUser.CountUsers()));
+        Num_Forum.setText(""+serviceForum.CountForums());
         System.out.println("Welcome Messsages");
     }
 

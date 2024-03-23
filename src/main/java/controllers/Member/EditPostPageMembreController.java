@@ -10,20 +10,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import org.jetbrains.annotations.NotNull;
 import services.ServicePostF;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class NewPostPageMembreController {
+public class EditPostPageMembreController {
     @FXML
     private TextField post_desc;
 
     @FXML
     private TextField post_title;
-     int user_id;
+
+    int user_id;
     private ForumEntity forum;
     private User userlogged;
+    private PostEntity post;
     @FXML
     void AfficherPostes(ActionEvent event)  throws IOException {
 
@@ -39,10 +42,10 @@ public class NewPostPageMembreController {
     void AjouterPoste(ActionEvent event) {
         try {
             ServicePostF sp=new ServicePostF();
-            sp.ajouter(new PostEntity(forum.getId_forum(),user_id,post_title.getText(),post_desc.getText()));
+            sp.modifier(new PostEntity(post.getId_post(),forum.getId_forum(),user_id,post_desc.getText(),post_title.getText(),post.getLike_num(),post.getTime(),post.getDate()));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
-            alert.setContentText("Forum Ajouté");
+            alert.setContentText("Forum Modifier");
             alert.showAndWait();
 
 
@@ -75,8 +78,18 @@ public class NewPostPageMembreController {
         }
     }
 
-    public void setData(ForumEntity currentForum , User user) {
-
+    @FXML
+    public void initialize()
+    {
+        PutData();
+    }
+    private void PutData()
+    {
+        post_title.setText(post.getTitle());
+        post_desc.setText(post.getText());
+    }
+    public void setData(ForumEntity currentForum , @NotNull User user, @NotNull PostEntity p) {
+        post = p;
         this.forum = currentForum;
         user_id=user.getId_User();
         userlogged = new User();

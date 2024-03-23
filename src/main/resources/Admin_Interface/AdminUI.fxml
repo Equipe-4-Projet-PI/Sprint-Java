@@ -143,7 +143,11 @@
          <Font name="Comic Sans MS" size="15.0" />
       </font>
    </Button>
-
+   <ImageView fx:id="logout" fitHeight="38.0" fitWidth="44.0" layoutX="1175.0" layoutY="87.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@../images/arrow.png" />
+      </image>
+   </ImageView>
    <Label layoutX="1221.0" layoutY="95.0" text="Sortie" visible="false">
       <font>
          <Font name="Comic Sans MS" size="15.0" />
@@ -170,7 +174,7 @@
          <Font name="Comic Sans MS Bold" size="22.0" />
       </font>
    </Label>
-   <Label fx:id="Num_Events" layoutX="758.0" layoutY="255.0" prefHeight="25.0" prefWidth="38.0" text="10">
+   <Label fx:id="Num_Forum" layoutX="758.0" layoutY="255.0" prefHeight="25.0" prefWidth="38.0" text="10">
       <font>
          <Font name="Comic Sans MS Bold" size="22.0" />
       </font>
@@ -190,7 +194,7 @@
          <Font name="Comic Sans MS" size="15.0" />
       </font>
    </Label>
-   <Label fx:id="Num_Events1" layoutX="933.0" layoutY="254.0" prefHeight="25.0" prefWidth="38.0" text="10">
+   <Label fx:id="Num_Events" layoutX="933.0" layoutY="254.0" prefHeight="25.0" prefWidth="38.0" text="10">
       <font>
          <Font name="Comic Sans MS Bold" size="22.0" />
       </font>
@@ -488,7 +492,7 @@
          <Font name="Comic Sans MS" size="15.0" />
       </font>
    </Label>
-   <Label fx:id="Num_Events11" layoutX="1107.0" layoutY="254.0" prefHeight="25.0" prefWidth="38.0" text="10">
+   <Label fx:id="Num_Messages" layoutX="1107.0" layoutY="254.0" prefHeight="25.0" prefWidth="38.0" text="10">
       <font>
          <Font name="Comic Sans MS Bold" size="22.0" />
       </font>

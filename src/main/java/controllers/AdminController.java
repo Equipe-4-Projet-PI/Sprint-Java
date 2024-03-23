@@ -1,6 +1,5 @@
 package controllers;
 
-import com.google.protobuf.StringValue;
 import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,9 +19,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import services.ServiceForumF;
 import services.ServiceUser;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -109,6 +108,8 @@ public class AdminController {
     @FXML
     private Label FirstLastname;
 
+
+
     @FXML
     private Label Num_Arts;
 
@@ -119,11 +120,16 @@ public class AdminController {
     private Label Num_Events;
 
     @FXML
+    private Label Num_Messages;
+
+    @FXML
+    private Label Num_Forum;
+
+    @FXML
     private Label Num_Users;
 
     @FXML
     private Label Role;
-
 
 
 
@@ -174,9 +180,12 @@ public class AdminController {
 
 
 
-    ServiceUser serviceUser = new ServiceUser();
+     ServiceUser serviceUser = new ServiceUser();
+     ServiceForumF serviceForum = new ServiceForumF();
 
     public void initialize() throws SQLException {
+
+        Num_Forum.setText(""+serviceForum.CountForums());
         label1.setVisible(false);
         label2.setVisible(false);
         label3.setVisible(false);
@@ -330,15 +339,15 @@ public class AdminController {
         User selectedItem = tv_users.getSelectionModel().getSelectedItem();
 
 
-        E_Prénon.setText(selectedItem.getLastName());
-        E_Nom.setText(selectedItem.getFirstName());
-        E_utilisateur.setText(selectedItem.getUsername());
-        E_Email.setText(selectedItem.getEmail());
-        E_Role.setValue(selectedItem.getRole());
-        E_Tel.setText(String.valueOf(selectedItem.getPhone()));
-        E_Adress.setText(selectedItem.getAdress());
-        E_Date.setValue(LocalDate.parse(selectedItem.getDOB()));
-        E_Sexe.setValue(selectedItem.getGender());
+            E_Prénon.setText(selectedItem.getLastName());
+            E_Nom.setText(selectedItem.getFirstName());
+            E_utilisateur.setText(selectedItem.getUsername());
+            E_Email.setText(selectedItem.getEmail());
+            E_Role.setValue(selectedItem.getRole());
+            E_Tel.setText(String.valueOf(selectedItem.getPhone()));
+            E_Adress.setText(selectedItem.getAdress());
+            E_Date.setValue(LocalDate.parse(selectedItem.getDOB()));
+            E_Sexe.setValue(selectedItem.getGender());
 
 
 
@@ -412,15 +421,15 @@ public class AdminController {
 
 
         User selectedItem = tv_users.getSelectionModel().getSelectedItem();
-        FirstLastname.setText(selectedItem.getFirstName() + " " + selectedItem.getLastName());
-        username1.setText(selectedItem.getUsername());
-        email1.setText(selectedItem.getEmail());
-        Role.setText(selectedItem.getRole());
-        iduser.setText(String.valueOf((selectedItem.getId_User())));
-        telephone.setText(String.valueOf(selectedItem.getPhone()));
-        Adress.setText(selectedItem.getAdress());
-        date.setText(selectedItem.getDOB());
-        sexe.setText(selectedItem.getGender());
+         FirstLastname.setText(selectedItem.getFirstName() + " " + selectedItem.getLastName());
+         username1.setText(selectedItem.getUsername());
+         email1.setText(selectedItem.getEmail());
+         Role.setText(selectedItem.getRole());
+         iduser.setText(String.valueOf((selectedItem.getId_User())));
+         telephone.setText(String.valueOf(selectedItem.getPhone()));
+         Adress.setText(selectedItem.getAdress());
+         date.setText(selectedItem.getDOB());
+         sexe.setText(selectedItem.getGender());
 
         String filePath = selectedItem.getImageURL();
         if (filePath != null){
@@ -615,8 +624,8 @@ public class AdminController {
         editedUser.setAdress(address);
         editedUser.setPhone(phone);
         editedUser.setDOB(dob.toString());
-        editedUser.setGender(gender);
-        editedUser.setImageURL(ImageURL);
+         editedUser.setGender(gender);
+         editedUser.setImageURL(ImageURL);
 
         // Initialize ServiceUser
         ServiceUser serviceUser = new ServiceUser();
