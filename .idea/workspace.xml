@@ -5,20 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d221d32-f33c-456f-9e39-957fb388d4d4" name="Changes" comment="version 1">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Services/IService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Services/IServiceU.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/output.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AdminAuction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AdminAuction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/EnchersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/EnchersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/Member/AfficherForumMembreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/Member/AfficherForumMembreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/EncherDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/PanierCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/PanierCardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherEventView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherEventView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherOneEventView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherOneEventView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherWorkshopView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kolchy/controller/AfficherWorkshopView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/ServiceUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ServiceUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Admin_Interface/AdminUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Admin_Interface/AdminUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Admin_Interface/Admin_Auction.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Admin_Interface/Admin_Auction.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ListeEncheres.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ListeEncheres.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ResetAccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ResetAccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/SignUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/SignUpController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/UnEncherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/UnEncherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qrcode/Event_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qrcode/Event_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/kolchy/afficher-event-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/kolchy/afficher-event-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +54,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "DEV",
-    "last_opened_file_path": "C:/Users/Hei/OneDrive/Documents/GitHub/Sprint-Java",
+    "last_opened_file_path": "D:/Heikun/ESPRIT 2023-2024/JAVA/Yasser finale/Sprint-Java-Equipe-4 - Final Backup v2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -191,7 +189,8 @@
       <workItem from="1709494711589" duration="11147000" />
       <workItem from="1709513558647" duration="14818000" />
       <workItem from="1709538346222" duration="480000" />
-      <workItem from="1709539455815" duration="674000" />
+      <workItem from="1709539455815" duration="6973000" />
+      <workItem from="1711196811357" duration="1997000" />
     </task>
     <task id="LOCAL-00001" summary="version 1">
       <option name="closed" value="true" />

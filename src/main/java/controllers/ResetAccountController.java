@@ -373,7 +373,7 @@ ServiceUser serviceUser = new ServiceUser();
             return;
         }
         String phonereciver = id_phone.getText();
-        if (phonereciver.length() != 6) {
+        if (phonereciver.length() != 8) {
             showAlert("Error", "Enter a 6-digit phone number");
             return;
         }
@@ -383,13 +383,13 @@ ServiceUser serviceUser = new ServiceUser();
             user.setPassword(password);
             serviceUser.UPDATE(user);
 
-            Twilio.init(System.getenv("Twilio_Username"), System.getenv("Twilio_Password"));
+     Twilio.init("","");
 
 
 
             Message message = Message.creator(
-                            new com.twilio.type.PhoneNumber("+21654189162"),
-                            new com.twilio.type.PhoneNumber(System.getenv("Twilio_number")),
+                            new com.twilio.type.PhoneNumber("+21629082229"),
+                            new com.twilio.type.PhoneNumber("+16506367355"),
                             "Bonjour,\n\n" +
                                     "Voici les informations de récupération de votre compte :\n\n" +
                                     "Nom d'utilisateur : " + user.getUsername() + "\n" +

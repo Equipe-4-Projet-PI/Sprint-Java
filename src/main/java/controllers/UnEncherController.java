@@ -114,7 +114,8 @@ ServiceUser serviceUser = new ServiceUser();
         dateL.setText(String.valueOf(auction.getDate_lancement()));
         dateC.setText(String.valueOf(auction.getDate_cloture()));
         try{
-            Image image = new Image("file:" + loadImageFromDatabase(auc.getId_produit()));
+            Image image = new Image(loadImageFromDatabase(auc.getId_produit()));
+
             imageEncher.setImage(image);
         }catch(Exception e ){
             e.printStackTrace();

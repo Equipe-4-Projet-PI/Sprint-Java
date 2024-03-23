@@ -765,52 +765,52 @@ clear();
     }
 
 
-    public void ai_generate(ActionEvent actionEvent) {
-        String apiKey = "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";
-        String prompt = ai_desc.getText(); // Modify this to your small phrase
-
-        OkHttpClient client = new OkHttpClient();
-        MediaType mediaType = MediaType.parse("application/json");
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("prompt", prompt+"get avery small artistic description it can be a few words seperated with , ");
-        jsonObject.put("max_tokens", 20);
-        jsonObject.put("model", "gpt-3.5-turbo-instruct"); // Specify the model identifier
-
-
-        RequestBody body = RequestBody.create(mediaType, jsonObject.toString());
-        Request request = new Request.Builder()
-                .url("https://api.openai.com/v1/completions")
-                .post(body)
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Bearer " + apiKey)
-                .build();
-
-        try {
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                String responseBody = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responseBody);
-                String description = jsonResponse.getJSONArray("choices").getJSONObject(0).getString("text");
-                String[] words = description.split("\\s+");
-                StringBuilder formattedDescription = new StringBuilder();
-                int wordCount = 0;
-                for (String word : words) {
-                    formattedDescription.append(word).append(" ");
-                    wordCount++;
-                    if (wordCount == 5) {
-                        formattedDescription.append("\n");
-                        wordCount = 0;
-                    }
-                }
-                System.out.println("Generated Description: " + formattedDescription.toString());
-                pr_desc.setText(formattedDescription.toString());
-            } else {
-                System.out.println("Request failed with code: " + response.code());
-                System.out.println("Response body: " + response.body().string());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void ai_generate(ActionEvent actionEvent) {
+////        String apiKey = "";
+//        String prompt = ai_desc.getText(); // Modify this to your small phrase
+//
+//        OkHttpClient client = new OkHttpClient();
+//        MediaType mediaType = MediaType.parse("application/json");
+//
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("prompt", prompt+"get avery small artistic description it can be a few words seperated with , ");
+//        jsonObject.put("max_tokens", 20);
+//        jsonObject.put("model", "gpt-3.5-turbo-instruct"); // Specify the model identifier
+//
+//
+//        RequestBody body = RequestBody.create(mediaType, jsonObject.toString());
+//        Request request = new Request.Builder()
+//                .url("https://api.openai.com/v1/completions")
+//                .post(body)
+//                .addHeader("Content-Type", "application/json")
+//                .addHeader("Authorization", "Bearer " + apiKey)
+//                .build();
+//
+//        try {
+//            Response response = client.newCall(request).execute();
+//            if (response.isSuccessful()) {
+//                String responseBody = response.body().string();
+//                JSONObject jsonResponse = new JSONObject(responseBody);
+//                String description = jsonResponse.getJSONArray("choices").getJSONObject(0).getString("text");
+//                String[] words = description.split("\\s+");
+//                StringBuilder formattedDescription = new StringBuilder();
+//                int wordCount = 0;
+//                for (String word : words) {
+//                    formattedDescription.append(word).append(" ");
+//                    wordCount++;
+//                    if (wordCount == 5) {
+//                        formattedDescription.append("\n");
+//                        wordCount = 0;
+//                    }
+//                }
+//                System.out.println("Generated Description: " + formattedDescription.toString());
+//                pr_desc.setText(formattedDescription.toString());
+//            } else {
+//                System.out.println("Request failed with code: " + response.code());
+//                System.out.println("Response body: " + response.body().string());
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

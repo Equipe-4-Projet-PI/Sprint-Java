@@ -211,7 +211,7 @@ public class PanierCardController {
         // Initialisation de la bibliothèque Twilio avec les informations de votre compte
 
 
-        Twilio.init(System.getenv("sid_sms"), System.getenv("key_sms"));
+        Twilio.init("AC6b55aa03993aa22f83c1263358f19836","8c5c2515c88910309d2dc8e1a747849f");
 
         String recipientNumber = "+21629082229";
         String message = "Bonjour ,\n"

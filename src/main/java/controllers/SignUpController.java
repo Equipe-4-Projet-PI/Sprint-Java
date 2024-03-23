@@ -250,7 +250,7 @@ public class SignUpController  {
             return;
         }
         String text = id_Phone.getText();
-        if (text.length() != 6) {
+        if (text.length() != 8) {
             showAlert("Error", "Enter a 6-digit phone number");
             return;
         }

@@ -745,7 +745,7 @@ public class AdminController {
     @FXML
     void Go_To_Event(MouseEvent event)throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin_Interface/Admin_Event.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/kolchy/ajouter-event-view.fxml"));
         Parent loginSuccessRoot = loader.load();
         Scene scene = Num_Arts.getScene();
         scene.setRoot(loginSuccessRoot);
