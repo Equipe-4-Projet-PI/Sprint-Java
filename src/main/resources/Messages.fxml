@@ -92,7 +92,20 @@
     </ToolBar>
 
     <!--> hedha l tebe3ha <-->
-        <ScrollPane fx:id="messages" layoutX="206.0" layoutY="199.0" prefHeight="463.0" prefWidth="880.0" style="-fx-background-color: transparent;">
+
+        <Button fx:id="signal" layoutX="1009.0" layoutY="180.0" mnemonicParsing="false" onAction="#signalerMessage" style="-fx-background-color: #B4DBDC;" text="Signaler Un Message" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold Italic" size="20.0" />
+            </font>
+        </Button>
+
+        <ImageView fitHeight="53.0" fitWidth="55.0" layoutX="968.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/signaler.png" />
+            </image>
+        </ImageView>
+
+        <ScrollPane fx:id="messages" layoutX="206.0" layoutY="241.0" prefHeight="421.0" prefWidth="880.0" style="-fx-background-color: transparent;">
             <content>
                 <VBox fx:id="Msg" prefHeight="89.0" prefWidth="880.0" style="-fx-background-color: #0076a8;" />
             </content>

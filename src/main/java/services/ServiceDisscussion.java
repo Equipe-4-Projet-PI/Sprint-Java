@@ -124,7 +124,7 @@ public class ServiceDisscussion implements IService<Disscussion> {
 
 
 
-    public Disscussion getDisByIdContacts (String sender , String receiver) throws SQLException {
+    public Disscussion getDisByContacts (String sender , String receiver) throws SQLException {
         Disscussion d = new Disscussion() ;
         String req = "SELECT * FROM discussion WHERE idReciever=? AND idSender=?";
 

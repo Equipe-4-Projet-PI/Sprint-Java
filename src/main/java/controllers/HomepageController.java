@@ -4,6 +4,7 @@ import entities.Disscussion;
 import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +61,10 @@ public class HomepageController implements Initializable {
     // Déclarations des autres variables
     private User receiver = new User();
 
+
+    //bech tetbaddel fel integration
+     public User current_user = new User() ;
+
     public HomepageController() {
     }
 
@@ -110,6 +115,7 @@ public class HomepageController implements Initializable {
     public void afficherDiscussionstrouvees() {
         try {
             ObservableList<Disscussion> discussions = FXCollections.observableList(chercherDiscussion());
+            if (chercherDiscussion() ==null)  showAlert(Alert.AlertType.INFORMATION, "Discussion non trouvée", "Discussion non trouvée " );
             for (Disscussion discussion : discussions) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/discussion.fxml"));
                 HBox cardBox = fxmlLoader.load();
@@ -142,6 +148,8 @@ public class HomepageController implements Initializable {
         }
     }
 
+
+
     // el recherche jawha fesfes
     @FXML
     public List<Disscussion> chercherDiscussion () throws SQLException {
@@ -154,7 +162,6 @@ public class HomepageController implements Initializable {
                 try {
                     Disscussion d = serviceDisscussion.getDiscussionByReceiverId(receiver.getId_User());
                     if (d != null) {
-                        showAlert(Alert.AlertType.INFORMATION, "Discussion trouvée", "Discussion trouvée avec : " + userName);
                         disTrouvees.add(d);
 //                        System.out.println(disTrouvees);
                         return disTrouvees;
@@ -180,5 +187,43 @@ public class HomepageController implements Initializable {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public void SupprimerDisc() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/delDiscussion.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Supprimer Discussion");
+            DelDiscussionController delController = loader.getController();
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la fenêtre de cretion de discussion");
+        }
+    }
+
+    public void AjouterDisc() throws SQLException {
+//        String userName = username.getText().trim();
+//        User receiver = serviceUser.getbyUsername(userName);
+//        Disscussion d = new Disscussion( current_user.getId_User() , receiver.getId_User()) ;
+//                if(serviceDisscussion.getDisByContacts(current_user.getUsername() , userName) != null ){
+//            showAlert(Alert.AlertType.INFORMATION, "Déjà disponible", "Discussion déjà existante");
+//        }
+//        else {
+//            showAlert(Alert.AlertType.CONFIRMATION, "Discussion Créee", "Discussion Créee avec : " +userName);
+//            serviceDisscussion.ajouter(d);
+//        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/addDiscussion.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Creer Discussion");
+            AddDiscussionController addController = loader.getController();
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la fenêtre de supression de discussion");
+        }
     }
 }

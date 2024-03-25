@@ -116,5 +116,26 @@
             <VBox fx:id="discussionstrouvees"  onMouseClicked="#afficherDiscussionstrouvees" prefHeight="70.0" prefWidth="440.0" style="-fx-background-color: #B4DBDC;" />
          </content>
       </ScrollPane>
+
+      <Button fx:id="addDis" layoutX="14.0" layoutY="185.0" mnemonicParsing="false" onAction="#AjouterDisc" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="42.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/plus.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+
+      <Button fx:id="deleteDis" layoutX="69.0" layoutY="192.0" mnemonicParsing="false" onAction="#SupprimerDisc" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/moins.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+
    </children>
 </AnchorPane>

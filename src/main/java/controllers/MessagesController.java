@@ -1,5 +1,6 @@
 package controllers;
 
+import Model.SceneSwitch;
 import entities.Disscussion;
 import entities.Message;
 import entities.User;
@@ -15,8 +16,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import services.ServiceDisscussion;
 import services.ServiceMessage;
 import services.ServiceUser;
@@ -27,6 +30,9 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class MessagesController implements Initializable {
+
+    @FXML
+    public Button signal;
 
     @FXML
     public Button retour;
@@ -51,10 +57,14 @@ public class MessagesController implements Initializable {
 
     //autres variables
     public Disscussion discussion;
+    public AnchorPane sceneAnchorPane ;
+    public SceneSwitch sceneSwitcher;
 
 
     //Constructeur
-    public MessagesController() {}
+    public MessagesController() {
+        this.sceneAnchorPane = new AnchorPane();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,8 +74,6 @@ public class MessagesController implements Initializable {
     //Afficher les Messages
     public void setData(Disscussion discussion) {
         this.discussion = discussion;
-        System.out.println("test f west el setData west MessagesController : " + discussion.getIdDis());
-        System.out.println("test f west el setData west MessagesController 3la el discussion : " + discussion);
     }
 
     public void afficherMessages() {
@@ -113,9 +121,26 @@ public class MessagesController implements Initializable {
     }
 
     @FXML
-    void retour(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Homepage.fxml"));
-        Parent root = fxmlLoader.load();
+    public void retour() throws IOException {
+        sceneSwitcher = new SceneSwitch(sceneAnchorPane , "/Homepage.fxml") ;
+    }
+
+    @FXML
+    public void signalerMessage(ActionEvent event) throws SQLException {
+        // Lancement de la fenêtre de signalement du message
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SignalerMessage.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Signaler un message");
+            SignalerMessageController sigController = loader.getController();
+            sigController.setData(discussion); // Définissez les données de discussion dans MessagesController
+            sigController.Signaler();
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la fenêtre de signalement du message.");
+        }
     }
 
 }
